@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(classifier_srv_definitions)
+project(perception_srv_definitions)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS sensor_msgs std_msgs geometry_msgs object_perception_msgs message_generation)
+find_package(catkin REQUIRED COMPONENTS sensor_msgs std_msgs diagnostic_msgs geometry_msgs perception_msgs message_generation)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -51,7 +51,8 @@ find_package(catkin REQUIRED COMPONENTS sensor_msgs std_msgs geometry_msgs objec
    FILES
   segment_and_classify.srv
   classify.srv
-  mv_classify.srv
+#  mv_classify.srv
+  segment.srv
  )
 
 ## Generate actions in the 'action' folder
@@ -67,7 +68,7 @@ generate_messages(
   sensor_msgs
   std_msgs
   geometry_msgs
-  object_perception_msgs
+  perception_msgs
 )
 
 ###################################
@@ -81,7 +82,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES classifier_srv_definitions
+#  LIBRARIES perception_srv_definitions
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -95,19 +96,19 @@ catkin_package(
 # include_directories(include)
 
 ## Declare a cpp library
-# add_library(classifier_srv_definitions
-#   src/${PROJECT_NAME}/classifier_srv_definitions.cpp
+# add_library(perception_srv_definitions
+#   src/${PROJECT_NAME}/perception_srv_definitions.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(classifier_srv_definitions_node src/classifier_srv_definitions_node.cpp)
+# add_executable(perception_srv_definitions_node src/perception_srv_definitions_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(classifier_srv_definitions_node classifier_srv_definitions_generate_messages_cpp)
+# add_dependencies(perception_srv_definitions_node perception_srv_definitions_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(classifier_srv_definitions_node
+# target_link_libraries(perception_srv_definitions_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -126,7 +127,7 @@ catkin_package(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS classifier_srv_definitions classifier_srv_definitions_node
+# install(TARGETS perception_srv_definitions perception_srv_definitions_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -151,7 +152,7 @@ catkin_package(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_classifier_srv_definitions.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_perception_srv_definitions.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
