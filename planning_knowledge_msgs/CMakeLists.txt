@@ -5,6 +5,7 @@ project(planning_knowledge_msgs)
 find_package(catkin REQUIRED COMPONENTS
   message_generation
   diagnostic_msgs
+  sensor_msgs
   roscpp
   rospy
   std_msgs
@@ -24,12 +25,14 @@ add_service_files(
   FILES
   AttributeService.srv
   InstanceService.srv
+  PointCloudService.srv
 )
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
    DEPENDENCIES
    diagnostic_msgs
+   sensor_msgs
    std_msgs
 )
 
