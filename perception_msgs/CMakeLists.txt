@@ -22,6 +22,8 @@ add_message_files(
   indices.msg
   RecognizedObject.msg
   RecognizedObjects.msg
+  SegmentedObject.msg
+  ObjectPosition.msg
 #  SegmentedScene.msg
 )
 

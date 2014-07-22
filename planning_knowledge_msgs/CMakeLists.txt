@@ -26,6 +26,7 @@ add_service_files(
   AttributeService.srv
   InstanceService.srv
   PointCloudService.srv
+  PositionService.srv
 )
 
 ## Generate added messages and services with any dependencies listed here
