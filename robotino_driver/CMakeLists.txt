@@ -193,6 +193,9 @@ target_link_libraries(
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(robotino_node_node robotino_node_generate_messages_cpp)
 add_dependencies(robotino_driver robotino_msgs_gencpp)
+add_dependencies(robotino_odometry_node robotino_msgs_gencpp)
+add_dependencies(robotino_mapping_node robotino_msgs_gencpp)
+add_dependencies(robotino_camera_node robotino_msgs_gencpp)
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(robotino_node_node
 #   ${catkin_LIBRARIES}
