@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="robot" default="robotino1"/>
+
+	<include file="$(find robotino_bringup)/launch/$(arg robot).xml" >
+	</include>
+
+</launch>
