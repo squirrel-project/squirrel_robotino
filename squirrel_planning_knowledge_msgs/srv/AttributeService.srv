@@ -4,4 +4,4 @@ string type_name
 string instance_name
 string predicate_name
 ---
-planning_knowledge_msgs/KnowledgeItem[] attributes
+squirrel_planning_knowledge_msgs/KnowledgeItem[] attributes

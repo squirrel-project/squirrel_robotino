@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(planning_knowledge_msgs)
+project(squirrel_planning_dispatch_msgs)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   message_generation
   diagnostic_msgs
-  sensor_msgs
   roscpp
   rospy
   std_msgs
@@ -15,24 +14,14 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
    FILES
-   Filter.msg
-   KnowledgeItem.msg
-   Notification.msg
-)
-
-## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  AttributeService.srv
-  InstanceService.srv
-  PointCloudService.srv
+   ActionDispatch.msg
+   ActionFeedback.msg
 )
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
    DEPENDENCIES
    diagnostic_msgs
-   sensor_msgs
    std_msgs
 )
 

@@ -23,6 +23,7 @@ add_message_files(
   RecognizedObject.msg
   RecognizedObjects.msg
 #  SegmentedScene.msg
+  SegmentedObject.msg
 )
 
 ## Generate added messages and services with any dependencies listed here
