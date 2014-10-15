@@ -1,8 +1,9 @@
-# Manipulation action messages: PICKUP
+# Manipulation action messages: BLINDGRASP
 
 # goal definition
-string object_id
-string next_manipulation
+geometry_msgs/Pose heap_center_pose
+geometry_msgs/Point heap_bounding_box
+sensor_msgs/PointCloud heap_point_cloud
 ---
 # result definition
 string result_status
