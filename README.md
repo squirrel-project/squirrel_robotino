@@ -8,6 +8,6 @@ Compiling the Repository
 
 Compiling the Robotino driver requires the addition of a Debian repository.
 Please add the following line to the file /etc/apt/sources.list:
-...bash
+```bash
 deb http://doc.openrobotino.org/download/packages/amd64 ./
-...
+```
