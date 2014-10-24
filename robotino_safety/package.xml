@@ -41,17 +41,17 @@
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
-  <build_depend>std_mgsg</build_depend>
+  <build_depend>std_msgs</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>laser_geometry</build_depend>
-  <build_depend>visualization_megs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
   <run_depend>roscpp</run_depend>
-  <run_depend>std_mgsg</run_depend>
+  <run_depend>std_msgs</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>tf</run_depend>
   <run_depend>laser_geometry</run_depend>
-  <run_depend>visualization_megs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
