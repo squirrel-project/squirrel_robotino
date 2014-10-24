@@ -102,9 +102,9 @@ include_directories(
 )
 
 ## Declare a cpp library
-add_library(robotino_safety
-  src/RobotinoSafety.cpp
-)
+# add_library(robotino_safety
+#   src/RobotinoSafety.cpp
+# )
 
 ## Declare a cpp executable
 add_executable(robotino_safety_node 
