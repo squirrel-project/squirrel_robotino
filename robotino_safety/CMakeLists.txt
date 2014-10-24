@@ -107,7 +107,10 @@ add_library(robotino_safety
 )
 
 ## Declare a cpp executable
-add_executable(robotino_safety_node src/robotino_safety_node.cpp )
+add_executable(robotino_safety_node 
+  src/robotino_safety_node.cpp   
+  src/RobotinoSafety.cpp
+)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -115,7 +118,6 @@ add_executable(robotino_safety_node src/robotino_safety_node.cpp )
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(robotino_safety_node
-  robotino_safety
   ${catkin_LIBRARIES}
 )
 
