@@ -56,7 +56,7 @@ find_package(catkin REQUIRED)
 ## Generate actions in the 'action' folder
 add_action_files(
   FILES
-  Look.action
+  LookForObject.action
 #   Action1.action
 #   Action2.action
 )
