@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <name>squirrel_object_perception_msgs</name>
+  <version>0.0.1</version>
+  <description>The squirrel_object_perception_msgs package</description>
+  <maintainer email="markus.bajones@acin.tuwien.ac.at">Markus Bajones</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>rospy</build_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>rospy</run_depend>
+
+</package>
