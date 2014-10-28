@@ -1,7 +1,7 @@
 # Object perception action definition
 
 # goal definition
-int32 look
+int32 look_for_object
 ---
 # result definition
 string result_status
