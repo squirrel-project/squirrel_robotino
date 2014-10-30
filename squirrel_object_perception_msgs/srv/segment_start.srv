@@ -1,0 +1,7 @@
+# Start a new incremental segmentation cycle
+# author: Michael Zillich, zillich@acin.tuwien.ac.at
+
+# the full view organized point cloud
+sensor_msgs/PointCloud2 cloud
+
+---

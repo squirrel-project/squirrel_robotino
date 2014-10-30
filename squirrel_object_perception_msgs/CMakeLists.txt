@@ -40,25 +40,28 @@ find_package(catkin REQUIRED)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  BBox.msg
+  Classification.msg
+  Saliency.msg
+)
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  classify.srv
+  recognize.srv
+  segment.srv
+  segment_start.srv
+  segment_once.srv
+  set_saliency.srv
+)
 
 ## Generate actions in the 'action' folder
 add_action_files(
   FILES
-  Look.action
-#   Action1.action
-#   Action2.action
+  LookForObjects.action
 )
 
 ## Generate added messages and services with any dependencies listed here
