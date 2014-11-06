@@ -42,6 +42,10 @@ RobotinoSafety::RobotinoSafety():
   nh_.param( "alpha_x", alpha_x_, 1.0 );
   nh_.param( "alpha_y", alpha_y_, 1.0 );
   nh_.param( "alpha_th", alpha_th_, 1.0 );
+
+  cmd_vel_msg_.linear.x = 0;
+  cmd_vel_msg_.linear.y = 0;
+  cmd_vel_msg_.angular.z = 0;
   
   calcScale();
   buildEllipseVizMsgs();
@@ -121,12 +125,16 @@ void RobotinoSafety::robotinoCmdVelCallback(const geometry_msgs::TwistConstPtr& 
   if ( msg->linear.x == 0 &&
        msg->linear.y == 0 &&
        msg->angular.z == 0 ) {
-    geometry_msgs::Twist stop_cmd_msg;
-    cmd_vel_pub_.publish(stop_cmd_msg);
+    geometry_msgs::Twist stop_cmd_vel_msg;
+    stop_cmd_vel_msg.linear.x = 0;
+    stop_cmd_vel_msg.linear.y = 0;
+    stop_cmd_vel_msg.angular.z = 0;
+    cmd_vel_pub_.publish(stop_cmd_vel_msg);
   } else {
-    cmd_vel_msg_.linear.x += alpha_x_ * (( dist_ / scale_ ) * msg->linear.x - cmd_vel_msg_.linear.x);
-    cmd_vel_msg_.linear.y += alpha_y_ * (( dist_ / scale_ ) *msg->linear.y - cmd_vel_msg_.linear.y);
-    cmd_vel_msg_.angular.z += alpha_th_ * (( dist_ / scale_ ) *msg->angular.z - cmd_vel_msg_.angular.z);
+    // Eventually add scale parameter ( dist_ / scale_ )
+    cmd_vel_msg_.linear.x += alpha_x_ * ( msg->linear.x - cmd_vel_msg_.linear.x);
+    cmd_vel_msg_.linear.y += alpha_y_ * ( msg->linear.y - cmd_vel_msg_.linear.y);
+    cmd_vel_msg_.angular.z += alpha_th_ * (msg->angular.z - cmd_vel_msg_.angular.z);
     cmd_vel_pub_.publish(cmd_vel_msg_);
   }
 }
