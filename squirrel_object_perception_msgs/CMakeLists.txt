@@ -4,10 +4,11 @@ project(squirrel_object_perception_msgs)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED genmsg actionlib_msgs actionlib std_msgs sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS message_generation actionlib rospy genmsg actionlib_msgs std_msgs sensor_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -39,26 +40,28 @@ find_package(catkin REQUIRED genmsg actionlib_msgs actionlib std_msgs sensor_msg
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  BBox.msg
+  Classification.msg
+  Saliency.msg
+)
 
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  ObjectRecognizer.srv
-#   Service1.srv
-#   Service2.srv
+  classify.srv
+  recognize.srv
+  segment.srv
+  segment_start.srv
+  segment_once.srv
+  set_saliency.srv
 )
 
 ## Generate actions in the 'action' folder
 add_action_files(
   FILES
-  LookForObject.action
-#   Action1.action
-#   Action2.action
+  LookForObjects.action
 )
 
 ## Generate added messages and services with any dependencies listed here
@@ -67,7 +70,6 @@ generate_messages(
   actionlib_msgs
   std_msgs
   sensor_msgs
-  # Or other packages containing msgs
 )
 
 ###################################
@@ -82,7 +84,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES squirrel_object_perception_msgs
-#  CATKIN_DEPENDS other_catkin_pkg
+  CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
