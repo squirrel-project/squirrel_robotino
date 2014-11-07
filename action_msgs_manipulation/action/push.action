@@ -1,0 +1,13 @@
+# Manipulation action messages: PICKUP
+
+# goal definition
+string object_id
+geometry_msgs/Pose pose
+---
+# result definition
+string result_status
+---
+#feedback
+string current_phase
+string current_status
+int32 percent_completed
