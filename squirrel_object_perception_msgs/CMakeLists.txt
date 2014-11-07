@@ -56,6 +56,7 @@ add_service_files(
   segment_start.srv
   segment_once.srv
   set_saliency.srv
+  get_saliency.srv
 )
 
 ## Generate actions in the 'action' folder
