@@ -1,0 +1,12 @@
+# Manipulation action messages: DROP
+
+# goal definition
+string destination_id
+---
+# result definition
+string result_status
+---
+#feedback
+string current_phase
+string current_status
+int32 percent_completed
