@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>action_msgs_manipulation</name>
+  <name>squirrel_manipulation_msgs</name>
   <version>0.0.0</version>
   <description>The action_msgs_manipulation package</description>
   <maintainer email="simon.hangl@uibk.ac.at">michael</maintainer>
