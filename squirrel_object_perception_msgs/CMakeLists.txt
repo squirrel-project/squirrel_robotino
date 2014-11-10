@@ -53,7 +53,7 @@ add_service_files(
   classify.srv
   recognize.srv
   segment.srv
-  segment_start.srv
+  segment_init.srv
   segment_once.srv
   set_saliency.srv
   get_saliency.srv
