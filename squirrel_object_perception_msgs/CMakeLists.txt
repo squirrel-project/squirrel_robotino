@@ -4,7 +4,7 @@ project(squirrel_object_perception_msgs)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS message_generation actionlib rospy genmsg actionlib_msgs std_msgs sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS message_generation actionlib rospy genmsg actionlib_msgs std_msgs sensor_msgs geometry_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -57,6 +57,7 @@ add_service_files(
   segment_once.srv
   set_saliency.srv
   get_saliency.srv
+  get_saliency_location.srv
 )
 
 ## Generate actions in the 'action' folder
