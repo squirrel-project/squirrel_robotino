@@ -6,10 +6,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   diagnostic_msgs
   sensor_msgs
-  roscpp
-  rospy
   std_msgs
-  genmsg
 )
 
 ## Generate messages in the 'msg' folder
@@ -38,7 +35,13 @@ generate_messages(
 )
 
 ## Declare a catkin package
-catkin_package()
+catkin_package(
+   CATKIN_DEPENDS 
+	message_runtime 
+	std_msgs 
+	sensor_msgs
+	diagnostic_msgs
+)
 
 ###########
 ## Build ##
