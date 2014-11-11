@@ -25,6 +25,7 @@ add_message_files(
   SegmentedObject.msg
   ObjectPosition.msg
 #  SegmentedScene.msg
+  SegmentedObject.msg
 )
 
 ## Generate added messages and services with any dependencies listed here
