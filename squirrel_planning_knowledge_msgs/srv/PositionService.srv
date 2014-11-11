@@ -1,0 +1,4 @@
+# position service (temporary)
+string name
+---
+geometry_msgs/Point position
