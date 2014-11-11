@@ -1,0 +1,12 @@
+# Define the goal with a bool
+bool start_tracking
+---
+# Define result
+float64[] joint_angles
+float64[] joint_efforts
+string status
+---
+# Define feedback
+float64[] joint_angles
+float64[] joint_efforts
+string status
