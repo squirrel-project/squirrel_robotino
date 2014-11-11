@@ -1,0 +1,10 @@
+string joint_name
+float64 joint_angle
+float64 joint_angle_setpoint_tracked
+float64 joint_angle_setpoint_next
+float64 joint_effort
+float64 joint_effort_setpoint_tracked
+float64 joint_effort_setpoint_next
+float64 joint_velocity
+bool joint_effort_control_enabled
+string joint_status

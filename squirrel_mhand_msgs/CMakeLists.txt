@@ -1,17 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(squirrel_object_perception_msgs)
+project(squirrel_mhand_msgs)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS 
-  message_generation 
-  actionlib 
-  actionlib_msgs 
-  std_msgs 
-  sensor_msgs
-  geometry_msgs
-)
+find_package(catkin REQUIRED COMPONENTS message_generation actionlib_msgs actionlib std_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -49,36 +42,31 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  BBox.msg
-  Classification.msg
-  Saliency.msg
+  Joint.msg
+  Joints.msg
 )
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  Classify.srv
-  Recognize.srv
-  Segment.srv
-  SegmentInit.srv
-  SegmentOnce.srv
-  SetSaliency.srv
-  GetSaliency.srv
-)
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
 
 ## Generate actions in the 'action' folder
 add_action_files(
+  DIRECTORY
+    action
   FILES
-  LookForObjects.action
+    SetJointTarget.action
+    TrackNewSetpoints.action
 )
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  actionlib_msgs
   std_msgs
-  sensor_msgs
-  actionlib_msgs
+  actionlib_msgs  # Or other packages containing msgs
 )
 
 ###################################
@@ -92,12 +80,12 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES squirrel_object_perception_msgs
+#  LIBRARIES squirrel_mhand_msgs
   CATKIN_DEPENDS 
-    message_runtime
-    std_msgs 
-    sensor_msgs
-    actionlib_msgs
+	message_runtime 
+	std_msgs 
+	actionlib_msgs
+	#other_catkin_pkg
 #  DEPENDS system_lib
 )
 
@@ -110,19 +98,19 @@ catkin_package(
 # include_directories(include)
 
 ## Declare a cpp library
-# add_library(squirrel_object_perception_msgs
-#   src/${PROJECT_NAME}/squirrel_object_perception_msgs.cpp
+# add_library(kcl_mhand_msgs
+#   src/${PROJECT_NAME}/kcl_mhand_msgs.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(squirrel_object_perception_msgs_node src/squirrel_object_perception_msgs_node.cpp)
+# add_executable(kcl_mhand_msgs_node src/kcl_mhand_msgs_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(squirrel_object_perception_msgs_node squirrel_object_perception_msgs_generate_messages_cpp)
+# add_dependencies(kcl_mhand_msgs_node kcl_mhand_msgs_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(squirrel_object_perception_msgs_node
+# target_link_libraries(kcl_mhand_msgs_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -141,7 +129,7 @@ catkin_package(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS squirrel_object_perception_msgs squirrel_object_perception_msgs_node
+# install(TARGETS kcl_mhand_msgs kcl_mhand_msgs_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -166,7 +154,7 @@ catkin_package(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_squirrel_object_perception_msgs.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_kcl_mhand_msgs.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
