@@ -14,10 +14,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
 
-set(
-  CMAKE_MODULE_PATH
-  /usr/local/robotino/api2/cmake
-)
+list(APPEND CMAKE_MODULE_PATH "/usr/local/robotino/api2/cmake")
+#set(
+#  CMAKE_MODULE_PATH
+#  /usr/local/robotino/api2/cmake
+#)
 find_package(RobotinoAPI2 REQUIRED)
 
 ## System dependencies are found with CMake's conventions
@@ -92,7 +93,7 @@ find_package(RobotinoAPI2 REQUIRED)
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES robotino_node
-#  CATKIN_DEPENDS image_transport nav_msgs pcl_conversions pcl_ros robotino_msgs tf
+  CATKIN_DEPENDS nav_msgs robotino_msgs
 #  DEPENDS system_lib
 )
 
