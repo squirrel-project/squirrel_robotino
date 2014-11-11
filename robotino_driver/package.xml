@@ -2,7 +2,7 @@
 <package>
   <name>robotino_driver</name>
   <version>0.0.0</version>
-  <description>The robotino_driver package</description>
+  <description>ROS drivers for the Festo Robotino robot</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->

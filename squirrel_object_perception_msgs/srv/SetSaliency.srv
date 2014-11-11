@@ -1,0 +1,7 @@
+# Set saliency map
+# author: Michael Zillich, zillich@acin.tuwien.ac.at
+
+int32 saliency_type
+sensor_msgs/Image saliency_map
+
+---
