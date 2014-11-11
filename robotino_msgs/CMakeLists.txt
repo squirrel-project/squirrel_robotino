@@ -1,15 +1,14 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(squirrel_object_perception_msgs)
+project(robotino_msgs)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS 
-  message_generation 
-  actionlib 
-  actionlib_msgs 
-  std_msgs 
-  sensor_msgs
+find_package(catkin REQUIRED COMPONENTS
+  geometry_msgs
+  roscpp
+  std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -45,40 +44,44 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
-## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  BBox.msg
-  Classification.msg
-  Saliency.msg
-)
+# Generate messages in the 'msg' folder
+ add_message_files(
+   FILES
+   AnalogReadings.msg
+   EncoderReadings.msg
+   MotorReadings.msg
+   SetBHAPressures.msg
+   BHAReadings.msg
+   GrapplerReadings.msg
+   NorthStarReadings.msg
+   SetGrapplerAxes.msg
+   DigitalReadings.msg
+   GripperState.msg
+   PowerReadings.msg
+   SetGrapplerAxis.msg
+ )
 
-## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  Classify.srv
-  Recognize.srv
-  Segment.srv
-  SegmentInit.srv
-  SegmentOnce.srv
-  SetSaliency.srv
-  GetSaliency.srv
+# Generate services in the 'srv' folder
+ add_service_files(
+   FILES
+   ResetOdometry.srv
+   SetEncoderPosition.srv
+   SetGripperState.srv 
 )
 
 ## Generate actions in the 'action' folder
-add_action_files(
-  FILES
-  LookForObjects.action
-)
+# add_action_files(
+#   FILES
+#   Action1.action
+#   Action2.action
+# )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  actionlib_msgs
-  std_msgs
-  sensor_msgs
-  actionlib_msgs
-)
+ generate_messages(
+   DEPENDENCIES
+   geometry_msgs
+   std_msgs
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -91,12 +94,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES squirrel_object_perception_msgs
-  CATKIN_DEPENDS 
-    message_runtime
-    std_msgs 
-    sensor_msgs
-    actionlib_msgs
+#  LIBRARIES robotino_msgs
+  CATKIN_DEPENDS geometry_msgs roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -107,21 +106,24 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
 
 ## Declare a cpp library
-# add_library(squirrel_object_perception_msgs
-#   src/${PROJECT_NAME}/squirrel_object_perception_msgs.cpp
+# add_library(robotino_msgs
+#   src/${PROJECT_NAME}/robotino_msgs.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(squirrel_object_perception_msgs_node src/squirrel_object_perception_msgs_node.cpp)
+# add_executable(robotino_msgs_node src/robotino_msgs_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(squirrel_object_perception_msgs_node squirrel_object_perception_msgs_generate_messages_cpp)
+# add_dependencies(robotino_msgs_node robotino_msgs_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(squirrel_object_perception_msgs_node
+# target_link_libraries(robotino_msgs_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -140,7 +142,7 @@ catkin_package(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS squirrel_object_perception_msgs squirrel_object_perception_msgs_node
+# install(TARGETS robotino_msgs robotino_msgs_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -165,7 +167,7 @@ catkin_package(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_squirrel_object_perception_msgs.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_robotino_msgs.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
