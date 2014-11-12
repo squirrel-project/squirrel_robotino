@@ -1,25 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(robotino_driver)
+project(squirrel_kclhand_msgs)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
-  image_transport
-  nav_msgs
-  pcl_conversions
-  pcl_ros
-  robotino_msgs
-  tf
-  roscpp
-)
-
-list(APPEND CMAKE_MODULE_PATH "/usr/local/robotino/api2/cmake")
-#set(
-#  CMAKE_MODULE_PATH
-#  /usr/local/robotino/api2/cmake
-#)
-find_package(RobotinoAPI2 REQUIRED)
+find_package(catkin REQUIRED COMPONENTS message_generation actionlib_msgs actionlib std_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -55,11 +40,11 @@ find_package(RobotinoAPI2 REQUIRED)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  Joint.msg
+  Joints.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -69,17 +54,23 @@ find_package(RobotinoAPI2 REQUIRED)
 # )
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+add_action_files(
+  DIRECTORY
+    action
+  FILES
+    SetJointTarget.action
+    SetMaxJointVelocity.action
+    TrackNewSetpoints.action
+    
+    
+)
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   nav_msgs#   robotino_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  actionlib_msgs  # Or other packages containing msgs
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -92,8 +83,12 @@ find_package(RobotinoAPI2 REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES robotino_node
-  CATKIN_DEPENDS nav_msgs robotino_msgs
+#  LIBRARIES kcl_mhand_msgs
+  CATKIN_DEPENDS 
+	message_runtime 
+	std_msgs
+	actionlib_msgs 
+	#other_catkin_pkg
 #  DEPENDS system_lib
 )
 
@@ -104,101 +99,21 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(
-  include/robotino_driver
-  ${catkin_INCLUDE_DIRS}
-)
 
 ## Declare a cpp library
-# add_library(robotino_node
-#   src/${PROJECT_NAME}/robotino_node.cpp
+# add_library(kcl_mhand_msgs
+#   src/${PROJECT_NAME}/kcl_mhand_msgs.cpp
 # )
 
-
-
 ## Declare a cpp executable
-# add_executable(robotino_node_node src/robotino_node_node.cpp)
-add_executable(
-  robotino_driver
-  src/robotino_node.cpp
-  src/AnalogInputArrayROS.cpp
-  src/BumperROS.cpp
-  src/CameraROS.cpp
-  src/CompactBHAROS.cpp
-  src/ComROS.cpp
-  src/DigitalInputArrayROS.cpp
-  src/DigitalOutputArrayROS.cpp
-  src/DistanceSensorArrayROS.cpp
-  src/ElectricalGripperROS.cpp
-  src/EncoderInputROS.cpp
-  src/MotorArrayROS.cpp
-  src/NorthStarROS.cpp
-  src/OdometryROS.cpp
-  src/OmniDriveROS.cpp
-  src/PowerManagementROS.cpp
-  src/RobotinoNode.cpp
-)
-
-target_link_libraries(
-  robotino_driver
-  ${REC_ROBOTINO_API2_LIBRARY}
-  ${catkin_LIBRARIES}
-)
-
-add_executable(
-  robotino_odometry_node
-  src/robotino_odometry_node.cpp
-  src/ComROS.cpp
-  src/OdometryROS.cpp
-  src/RobotinoOdometryNode.cpp
-)
-
-target_link_libraries(
-  robotino_odometry_node
-  ${REC_ROBOTINO_API2_LIBRARY}
-  ${catkin_LIBRARIES}
-)
-
-add_executable(
-  robotino_camera_node
-  src/robotino_camera_node.cpp
-  src/ComROS.cpp
-  src/CameraROS.cpp
-  src/RobotinoCameraNode.cpp
-)
-
-target_link_libraries(
-  robotino_camera_node
-  ${REC_ROBOTINO_API2_LIBRARY}
-  ${catkin_LIBRARIES}
-)
-
-add_executable(
-  robotino_mapping_node
-  src/robotino_mapping_node.cpp
-  src/MappingROS.cpp
-  src/RobotinoMappingNode.cpp
-  src/InitialPoseROS.cpp
-  src/NavGoalROS.cpp
-  src/ComROS.cpp
-)
-
-target_link_libraries(
-  robotino_mapping_node
-  ${REC_ROBOTINO_API2_LIBRARY}
-  ${catkin_LIBRARIES}
-)
-
+# add_executable(kcl_mhand_msgs_node src/kcl_mhand_msgs_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(robotino_node_node robotino_node_generate_messages_cpp)
-add_dependencies(robotino_driver robotino_msgs_gencpp)
-add_dependencies(robotino_odometry_node robotino_msgs_gencpp)
-add_dependencies(robotino_mapping_node robotino_msgs_gencpp)
-add_dependencies(robotino_camera_node robotino_msgs_gencpp)
+# add_dependencies(kcl_mhand_msgs_node kcl_mhand_msgs_generate_messages_cpp)
+
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(robotino_node_node
+# target_link_libraries(kcl_mhand_msgs_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -217,7 +132,7 @@ add_dependencies(robotino_camera_node robotino_msgs_gencpp)
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS robotino_node robotino_node_node
+# install(TARGETS kcl_mhand_msgs kcl_mhand_msgs_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -242,7 +157,7 @@ add_dependencies(robotino_camera_node robotino_msgs_gencpp)
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_robotino_node.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_kcl_mhand_msgs.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
