@@ -1,11 +1,8 @@
 # Segment the whole scene in one go.
-# author: Michael Zillich, zillich@acin.tuwien.ac.at
+# author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
 
 # the full view organized point cloud
 sensor_msgs/PointCloud2 cloud
-
-# 2D saliency map image of same size as organized point cloud
-sensor_msgs/Image saliency_map
 
 ---
 
