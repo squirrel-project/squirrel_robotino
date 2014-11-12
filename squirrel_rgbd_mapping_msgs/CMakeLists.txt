@@ -7,13 +7,11 @@ project(squirrel_rgbd_mapping_msgs)
 find_package(catkin 
   REQUIRED COMPONENTS
   roscpp
-  genmsg 
   geometry_msgs 
   sensor_msgs 
   actionlib_msgs 
   actionlib
   std_msgs
-  message_runtime
   message_generation
 )
 
