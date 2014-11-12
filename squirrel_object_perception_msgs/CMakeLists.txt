@@ -62,6 +62,8 @@ add_service_files(
   Segment.srv
   SegmentInit.srv
   SegmentOnce.srv
+  SegmentVisualizationInit.srv
+  SegmentVisualizationOnce.srv
   GetSaliencyLocation.srv
   GetSaliencyColor.srv
   GetSaliencyItti.srv
