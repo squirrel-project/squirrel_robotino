@@ -3,4 +3,4 @@
 
 ---
 
-std_msgs/Int32MultiArray cluster_indices
+std_msgs/Int32MultiArray[] clusters_indices
