@@ -17,7 +17,7 @@
 
 
   <!-- camera mount positions | handeye calibration | relative to base_link -->
-  <property name="camera_x" value="0.044"/>
+  <property name="camera_x" value="0.0"/>
   <property name="camera_y" value="0.0"/>
   <property name="camera_z" value="0.2"/>
   <property name="camera_roll" value="0.0"/>
