@@ -1,8 +1,31 @@
 <?xml version="1.0"?>
-<robot name="robotino">
-  <!-- Include files -->
-  <include filename="$(find robotino_description)/urdf/robotino_body.xacro"/>
-  <include filename="$(find robotino_description)/urdf/robotino_hardware.xacro"/>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="robotino">
+  
+  <xacro:include filename="$(find robotino_description)/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/camera.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/angle_bracket.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
+  
+  <xacro:body name="base"/>
+
+  <camera name="camera" parent="base_link">
+    <origin xyz="${camera_x} ${camera_y} ${camera_z}" rpy="${camera_roll} ${camera_pitch} ${camera_yaw}"/>
+  </camera>
     
-  <robotino_body />
+  <hokuyo name="hokuyo" parent="base_link">
+    <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
+  </hokuyo>
+    
+  <kinect name="kinect" parent="base_link">
+    <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
+  </kinect>
+
+  <!--anglebracketusb name="anglebracketusb" parent="base_link">
+    <origin xyz="${anglebracketusb_x} ${anglebracketusb_y} ${anglebracketusb_z}" rpy="${anglebracketusb_roll} ${anglebracketusb_pitch} ${anglebracketusb_yaw}"/>
+  </anglebracketusb-->
+  
+  
 </robot>

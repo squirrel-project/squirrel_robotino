@@ -1,13 +1,49 @@
 <?xml version="1.0"?>
 <root xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <property name="M_PI" value="3.14159"/>
-  <property name="M_SCALE" value="0.01"/>
-  <property name="HOKUYO_RADIUS" value="0.02"/>
-  <property name="HOKUYO_LENGTH" value="0.07"/>
-  <property name="KINECT_LENGTH" value="0.064"/>
-  <property name="KINECT_WIDTH" value="0.121"/>
-  <property name="KINECT_HEIGHT" value="0.0381"/>
-  
+
+  <xacro:macro name="body" params="name">
+   <link name="${name}_link">
+      <inertial>
+        <mass value="${BASE_MASS}" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+          iyy="1.0" iyz="0.0"
+          izz="1.0" />
+      </inertial>
+      <visual>
+        <origin xyz="0.01 0 0" rpy="0 0 ${M_PI/2}"/>
+        <geometry>
+          <mesh filename="package://robotino_description/meshes/RobotinoBody.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${BASE_HEIGHT/2}" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="${BASE_RADIUS}" length="${BASE_HEIGHT}"/>
+        </geometry>
+      </collision>
+    </link>
+    
+    <wheel name="wheel0" parent="base_link">
+      <origin xyz="0.065 0.11 0.04" rpy="0 0 ${M_PI/3}"/>
+      <axis xyz="-1 0 0"/>
+    </wheel>
+    <wheel name="wheel1" parent="base_link">
+      <origin xyz="-0.13 0 0.04" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+    </wheel>
+    <wheel name="wheel2" parent="base_link">
+      <origin xyz="0.065 -0.11 0.04" rpy="0 0 -${M_PI/3}"/>
+      <axis xyz="-1 0 0"/>
+    </wheel>
+    
+    <command_bridge name="command_bridge" parent="base_link">
+      <origin xyz="-0.05 0 0.13" rpy="0 0 ${M_PI/2}"/>
+    </command_bridge>
+     
+  </xacro:macro>
+
+
   <!-- WHEEL -->
   <xacro:macro name="wheel" params="parent name *origin *axis">
     <joint name="${name}_joint" type="continuous">
@@ -61,34 +97,6 @@
     </link>
   </xacro:macro>
   
-  
-  <!-- Camera -->
-  <xacro:macro name="camera" params="parent name *origin">
-    <joint name="${name}_joint" type="fixed">
-      <insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${name}_link" />
-    </joint>
-    
-    <link name="${name}_link">
-      <inertial>
-        <mass value="0.00001" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
-          iyy="1.0" iyz="0.0"
-          izz="1.0" />
-      </inertial>
-
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://robotino_description/meshes/RobotinoCamera.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
-        </geometry>
-      </visual>
-    </link>
-  </xacro:macro>
-  
-  <!-- AngleBracket With USB Hub -->
   <xacro:macro name="anglebracketusb" params="parent name *origin">
     <joint name="${name}_joint" type="fixed">
       <insert_block name="origin" />
@@ -114,5 +122,5 @@
     </link>
   </xacro:macro>
   
-
 </root>
+
