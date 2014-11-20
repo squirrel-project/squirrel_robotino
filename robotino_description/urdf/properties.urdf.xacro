@@ -11,9 +11,9 @@
   <property name="BASE_MASS" value="20"/>
   <property name="HOKUYO_RADIUS" value="0.02"/>
   <property name="HOKUYO_LENGTH" value="0.07"/>
-  <property name="KINECT_LENGTH" value="0.05"/>
-  <property name="KINECT_WIDTH" value="0.035"/>
-  <property name="KINECT_HEIGHT" value="0.18"/>
+  <property name="KINECT_LENGTH" value="0.035"/>
+  <property name="KINECT_WIDTH" value="0.18"/>
+  <property name="KINECT_HEIGHT" value="0.05"/>
 
 
   <!-- camera mount positions | handeye calibration | relative to base_link -->
@@ -36,8 +36,8 @@
   <property name="kinect_x" value="-0.022"/>
   <property name="kinect_y" value="0.0"/>
   <property name="kinect_z" value="0.6"/>
-  <property name="kinect_roll" value="-${M_PI/2}"/>
-  <property name="kinect_pitch" value="0.0"/>
+  <property name="kinect_roll" value="0"/>
+  <property name="kinect_pitch" value="${M_PI/2}"/>
   <property name="kinect_yaw" value="0"/>
 	
   <!-- anglebracketusb mount positions | handeye calibration | relative to base_link -->
