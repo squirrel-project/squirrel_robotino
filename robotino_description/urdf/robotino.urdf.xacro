@@ -11,9 +11,9 @@
   
   <xacro:body name="base"/>
 
-  <camera name="camera" parent="base_link">
+  <webcam name="camera" parent="base_link">
     <origin xyz="${camera_x} ${camera_y} ${camera_z}" rpy="${camera_roll} ${camera_pitch} ${camera_yaw}"/>
-  </camera>
+  </webcam>
     
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
