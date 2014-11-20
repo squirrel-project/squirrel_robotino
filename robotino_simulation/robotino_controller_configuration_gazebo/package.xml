@@ -1,0 +1,30 @@
+<package>
+  <name>robotino_controller_configuration_gazebo</name>
+  <version>0.0.0</version>
+  <description>This packages provides the controller configuration for simulating robotino in the gazebo simulator.</description>
+  
+  <license>LGPL</license>
+
+
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roslaunch</build_depend>
+
+  <run_depend>rostopic</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>ros_controllers</run_depend>
+  <run_depend>joint_state_controller</run_depend>
+  <run_depend>velocity_controllers</run_depend>
+  <run_depend>effort_controllers</run_depend>
+  <run_depend>robotino_bringup</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>topic_tools</run_depend>
+
+  <export>
+
+  </export>
+</package>

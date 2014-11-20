@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>squirrel_robotino</name>
+  <version>0.0.0</version>
+  <description>This repository holds packages for hardware launch files and configuration, as well as the simulation model for starting up the basic layer for operating Robotino</description>
+  <maintainer email="michael.cashmore@kcl.ac.uk">michael</maintainer>  
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>robotino_simulation</run_depend>
+
+
+
+  <export>
+	<metapackage/>
+  </export>
+</package>

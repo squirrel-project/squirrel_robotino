@@ -1,0 +1,23 @@
+<package>
+  <name>robotino_simulation</name>
+  <version>0.0.0</version>
+  <description>This stack holds packages for robotino simulation</description>
+
+  <license>LGPL</license>
+
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>robotino_controller_configuration_gazebo</run_depend>
+  <run_depend>robotino_gazebo_wolrds</run_depend>
+  <run_depend>robotino_bringup_sim</run_depend>
+
+
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
+

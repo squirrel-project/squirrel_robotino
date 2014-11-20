@@ -1,0 +1,25 @@
+<package>
+  <name>robotino_gazebo_worlds</name>
+  <version>0.0.0</version>
+  <description>This package provides some worlds for gazebo simulation.</description>
+
+  <license>LGPL</license>
+
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>gazebo_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>xacro</run_depend>
+  <run_depend>kdl_parser</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+
+  <export>
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+  </export>
+</package>
