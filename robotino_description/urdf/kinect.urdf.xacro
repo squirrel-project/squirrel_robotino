@@ -1,10 +1,15 @@
 <?xml version="1.0"?>
 <root xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="kinect" params="parent name *origin">
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${name}_joint" type="revolute">
       <insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_link" />
+      <child link="${name}_link" />      
+      <axis xyz="0 1 0" />
+      <dynamics damping="0.1" />
+      <calibration rising="0"/>
+      <limit effort="100" lower="-1.57" upper="1.57" velocity="1.4"/>
+
     </joint>
     
     <link name="${name}_link">
