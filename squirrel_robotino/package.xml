@@ -9,6 +9,10 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>robotino_bringup</run_depend>
+  <run_depend>robotino_description</run_depend>
+  <run_depend>robotino_driver</run_depend>
+  <run_depend>robotino_msgs</run_depend>
   <run_depend>robotino_simulation</run_depend>
 
 
