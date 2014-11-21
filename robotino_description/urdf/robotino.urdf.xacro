@@ -3,6 +3,7 @@
   name="robotino">
   
   <xacro:include filename="$(find robotino_description)/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/camera.urdf.xacro" />
