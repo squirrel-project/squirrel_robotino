@@ -93,7 +93,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   # INCLUDE_DIRS include
-  LIBRARIES squirrel_rgbd_mapping_msgs
+  # LIBRARIES squirrel_rgbd_mapping_msgs
   CATKIN_DEPENDS actionlib_msgs std_msgs geometry_msgs sensor_msgs message_runtime
   #  DEPENDS system_lib
 )
