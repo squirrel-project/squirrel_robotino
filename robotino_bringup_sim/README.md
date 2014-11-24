@@ -34,3 +34,4 @@ or
 ```
   rosrun robotino_bringup_sim remove_object.py all
 ```
+
