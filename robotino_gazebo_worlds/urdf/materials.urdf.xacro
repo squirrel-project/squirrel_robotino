@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot>
+
+  <material name="ROBOTINO/Wall">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+
+</robot>
