@@ -42,12 +42,12 @@ Create new objects
 
 In general: avoid zero thickness for planes, this will cause rendering problems 
 
-1. Model the object using urdf 
+_Model the object using urdf_
 see: http://wiki.ros.org/urdf/Tutorials/Building%20a%20Visual%20Robot%20Model%20with%20URDF%20from%20Scratch. 
     
 The currently available colors are the following: http://wiki.ros.org/simulator_gazebo/Tutorials/ListOfMaterials if you need a new one, you have to define it in the custom.material file: robotino_gazebo_worlds/Media/materials/scripts/custom.material .
 
- 2. Model the object using a mesh model(Collada for example):
+_Model the object using a mesh model(Collada for example)_
 Put the resulting mesh file into the package robotino_gazebo_worlds into the folder Media/models/. The folder with the textures should also be added to this folder.
 
 Create a new object file in the package robotino_gazebo_objects in the folder objects named "MY_OBJECT.urdf". You can use the following template and replace the filenames in line tags <mesh filename.../>. Note the scaling in order to reduce the model to metric values.
