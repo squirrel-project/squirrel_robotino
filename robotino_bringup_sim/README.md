@@ -38,16 +38,16 @@ or
 Create new objects
 ==================
 
-#### Modelling ####
+### Modelling ###
 
 In general: avoid zero thickness for planes, this will cause rendering problems 
 
-_Model the object using urdf_
+#### Model the object using urdf ####
 see: http://wiki.ros.org/urdf/Tutorials/Building%20a%20Visual%20Robot%20Model%20with%20URDF%20from%20Scratch. 
     
 The currently available colors are the following: http://wiki.ros.org/simulator_gazebo/Tutorials/ListOfMaterials if you need a new one, you have to define it in the custom.material file: robotino_gazebo_worlds/Media/materials/scripts/custom.material .
 
-_Model the object using a mesh model(Collada for example)_
+#### Model the object using a mesh model(Collada for example) ####
 Put the resulting mesh file into the package robotino_gazebo_worlds into the folder Media/models/. The folder with the textures should also be added to this folder.
 
 Create a new object file in the package robotino_gazebo_objects in the folder objects named "MY_OBJECT.urdf". You can use the following template and replace the filenames in line tags <mesh filename.../>. Note the scaling in order to reduce the model to metric values.
@@ -81,7 +81,7 @@ Create a new object file in the package robotino_gazebo_objects in the folder ob
     </robot>
 
 ```
-#### Define a object position####
+### Define a object position ###
 
  You have to define a position for this object in the package cob_gazebo_objects, for each world there a configuration file in: robotino_gazebo_objects/config/[environment_name]/object_locations.yaml. The format for this file is: 
 
@@ -92,7 +92,7 @@ Create a new object file in the package robotino_gazebo_objects in the folder ob
   position: [X,Y,Z]
   orientation: [0, 0, 0]
   ```
-#### Spawn the new object  ####
+### Spawn the new object  ###
 
 Spawn your object using the node spawn object: 
 
