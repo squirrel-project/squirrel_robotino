@@ -1,0 +1,12 @@
+# Get saliency map 3DSYM
+# author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
+
+# the full view organized point cloud
+sensor_msgs/PointCloud2 cloud
+# AM_VERTICAL-- 0 AM_HORIZONTAL -- 1
+std_msgs/Char orientation_type
+
+---
+
+# 2D saliency map image of same size as organized point cloud
+sensor_msgs/Image saliency_map

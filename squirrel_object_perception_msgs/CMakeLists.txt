@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs 
   std_msgs 
   sensor_msgs
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -61,8 +62,15 @@ add_service_files(
   Segment.srv
   SegmentInit.srv
   SegmentOnce.srv
-  SetSaliency.srv
-  GetSaliency.srv
+  SegmentVisualizationInit.srv
+  SegmentVisualizationOnce.srv
+  GetSaliencyLocation.srv
+  GetSaliencyColor.srv
+  GetSaliencyItti.srv
+  GetSaliencySymmetry.srv
+  GetSaliency3DSymmetry.srv
+  GetSaliencyHeight.srv
+  GetSaliencySurfaceOrientation.srv
 )
 
 ## Generate actions in the 'action' folder

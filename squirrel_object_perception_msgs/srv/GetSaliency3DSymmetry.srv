@@ -1,5 +1,5 @@
-# Set saliency map
-# author: Michael Zillich, zillich@acin.tuwien.ac.at
+# Get saliency map 3DSYM
+# author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
 
 # the full view organized point cloud
 sensor_msgs/PointCloud2 cloud
