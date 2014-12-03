@@ -1,0 +1,12 @@
+# Get saliency map 3DSYM
+# author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
+
+# the full view organized point cloud
+sensor_msgs/PointCloud2 cloud
+# AM_TALL -- 0 AM_SHORT -- 1 AM_DISTANCE -- 2
+std_msgs/Char height_type
+
+---
+
+# 2D saliency map image of same size as organized point cloud
+sensor_msgs/Image saliency_map

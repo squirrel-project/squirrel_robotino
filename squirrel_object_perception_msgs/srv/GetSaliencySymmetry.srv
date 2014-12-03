@@ -1,4 +1,4 @@
-# Segment the whole scene in one go.
+# Get saliency map SYM
 # author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
 
 # the full view organized point cloud
@@ -6,4 +6,5 @@ sensor_msgs/PointCloud2 cloud
 
 ---
 
-std_msgs/Int32MultiArray[] clusters_indices
+# 2D saliency map image of same size as organized point cloud
+sensor_msgs/Image saliency_map
