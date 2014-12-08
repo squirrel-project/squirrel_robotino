@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- start tilt controller -->
+	<include file="$(find robotino_controller_configuration_gazebo)/launch/tilt_controller.launch" />
+	
+</launch>

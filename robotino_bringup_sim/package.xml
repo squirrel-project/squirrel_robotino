@@ -1,0 +1,20 @@
+<package>
+  <name>robotino_bringup_sim</name>
+  <version>0.5.2</version>
+  <description>This package provides launch files for starting a simulated Robotino.</description>
+
+  <license>LGPL</license>
+
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>robotino_gazebo_worlds</run_depend>
+
+  <export>
+
+  </export>
+</package>
