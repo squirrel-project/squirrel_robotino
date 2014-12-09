@@ -1,0 +1,12 @@
+robotino:
+  # Velocity Controllers ---------------------------------------
+  wheel0_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: wheel0_joint
+  wheel1_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: wheel1_joint
+  wheel2_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: wheel2_joint
+

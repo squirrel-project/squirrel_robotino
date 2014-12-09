@@ -1,7 +1,16 @@
 <?xml version="1.0"?>
 <launch>
 
-	<!-- start tilt controller -->
-	<include file="$(find robotino_controller_configuration_gazebo)/launch/tilt_controller.launch" />
-	
+    <!-- Joint Control -->
+    <rosparam file="$(find robotino_controller_configuration_gazebo)/config/joint_controller.yaml" command="load" />
+    <node name="joint_state_controller_spawner" ns="/robotino" pkg="controller_manager" type="spawner" respawn="true" args="joint_state_controller"  />
+    
+    <!-- Base Control -->
+    <rosparam file="$(find robotino_controller_configuration_gazebo)/config/base_controller.yaml" command="load" />
+    <node name="base_controller_spawner" ns="/robotino" pkg="controller_manager" type="spawner" args="wheel0_controller wheel1_controller wheel2_controller"/>
+
+    <!-- Tilt Control -->
+    <rosparam file="$(find robotino_controller_configuration_gazebo)/config/tilt_controller.yaml" command="load"/>
+    <node name="tilt_controller_spawner" ns="/robotino" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="tilt_joint_position_controller"/>
+    
 </launch>
