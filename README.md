@@ -1,5 +1,6 @@
 common
 ======
+[![Build Status](https://travis-ci.org/squirrel-project/common.svg?branch=hydro_dev)](https://travis-ci.org/squirrel-project/common)
 
 Repository for message, service and action related SQUIRREL packages.
 
