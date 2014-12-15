@@ -62,6 +62,7 @@ add_service_files(
   RgbdSlamRosUiB.srv
   RgbdSlamRosUiF.srv
   RgbdSlamRosUiS.srv
+  GetPushingPlan.srv
 )
 
 ## Generate actions in the 'action' folder
