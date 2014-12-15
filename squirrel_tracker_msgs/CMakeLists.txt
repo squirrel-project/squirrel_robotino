@@ -22,7 +22,6 @@ find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 
 
 catkin_package(
-  INCLUDE_DIRS include
   CATKIN_DEPENDS message_runtime std_msgs 
 #  DEPENDS system_lib
 )
