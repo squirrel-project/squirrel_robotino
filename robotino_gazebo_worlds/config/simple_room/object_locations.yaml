@@ -13,7 +13,7 @@ bookcase:
 chair:
   model: chair
   model_type: urdf
-  position: [0.7, 1.2, 0.1]
+  position: [0.7, 1.2, 0.0]
   orientation: [0, 0, 1.5708]
 
 
