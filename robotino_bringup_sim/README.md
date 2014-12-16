@@ -97,5 +97,5 @@ Create a new object file in the package robotino_gazebo_objects in the folder ob
 Spawn your object using the node spawn object: 
 
 ```
-  rosrun robotino_bringup_sim remove_object.py  MY_OBJECT
+  rosrun robotino_bringup_sim spawn_object.py  MY_OBJECT
 ```
