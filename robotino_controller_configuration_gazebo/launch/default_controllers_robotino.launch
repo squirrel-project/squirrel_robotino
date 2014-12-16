@@ -16,9 +16,9 @@
 
 
     <node pkg="robotino_controller_configuration_gazebo" name="robotino_controller" type="robotino_controller_configuration_gazebo_node" output="screen">
-      <remap from="wheel0" to="robotino/wheel0_controller/command" />
-      <remap from="wheel1" to="robotino/wheel1_controller/command" />
-      <remap from="wheel2" to="robotino/wheel2_controller/command" />
+      <remap from="wheel0" to="base_controller/wheel0_joint_velocity_controller/command" />
+      <remap from="wheel1" to="base_controller/wheel1_joint_velocity_controller/command" />
+      <remap from="wheel2" to="base_controller/wheel2_joint_velocity_controller/command" />
     </node>
 
     <!-- Tilt Control -->
