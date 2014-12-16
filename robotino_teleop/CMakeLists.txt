@@ -9,10 +9,13 @@ find_package(catkin REQUIRED COMPONENTS
         robotino_driver 
 	sensor_msgs
 	geometry_msgs
+	dynamic_reconfigure
+	actionlib
 )
 
 catkin_package(
-    CATKIN_DEPENDS roscpp robotino_driver sensor_msgs geometry_msgs
+    CATKIN_DEPENDS roscpp robotino_driver sensor_msgs geometry_msgs dynamic_reconfigure actionlib
+
     DEPENDS # TODO
     INCLUDE_DIRS #include
     LIBRARIES # TODO
