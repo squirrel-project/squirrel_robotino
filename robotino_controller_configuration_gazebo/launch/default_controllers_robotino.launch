@@ -14,10 +14,16 @@
     <node ns="base_controller" name="base_controller_vel_spawner" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="wheel0_joint_velocity_controller wheel1_joint_velocity_controller wheel2_joint_velocity_controller"/>
     <node ns="base_controller" name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /robotino_joint_states" cwd="node" respawn="true" output="screen"/>   
 
+
+    <node pkg="robotino_controller_configuration_gazebo" name="robotino_controller" type="robotino_controller_configuration_gazebo_node" output="screen">
+      <remap from="wheel0" to="robotino/wheel0_controller/command" />
+      <remap from="wheel1" to="robotino/wheel1_controller/command" />
+      <remap from="wheel2" to="robotino/wheel2_controller/command" />
+    </node>
+
     <!-- Tilt Control -->
     <rosparam ns="tilt_controller" file="$(find robotino_controller_configuration_gazebo)/controller/tilt_controller.yaml" command="load"/>
     <node ns="tilt_controller" name="joint_state_tilt_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true" />
     <node ns="tilt_controller" name="tilt_controller_spawner" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="tilt_joint_position_controller"/>
     <node ns="tilt_controller" name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>   
 </launch>
-
