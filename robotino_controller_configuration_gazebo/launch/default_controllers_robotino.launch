@@ -12,5 +12,11 @@
     <!-- Tilt Control -->
     <rosparam file="$(find robotino_controller_configuration_gazebo)/config/tilt_controller.yaml" command="load"/>
     <node name="tilt_controller_spawner" ns="/robotino" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="tilt_joint_position_controller"/>
+
+    <node pkg="robotino_controller_configuration_gazebo" name="robotino_controller" type="robotino_controller_configuration_gazebo_node" output="screen">
+      <remap from="wheel0" to="robotino/wheel0_controller/command" />
+      <remap from="wheel1" to="robotino/wheel1_controller/command" />
+      <remap from="wheel2" to="robotino/wheel2_controller/command" />
+    </node>
     
 </launch>
