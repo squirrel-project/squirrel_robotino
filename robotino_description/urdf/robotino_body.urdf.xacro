@@ -3,13 +3,13 @@
 
   <xacro:macro name="body" params="name">
   
-    <link name="${name}_footprint"/>
+    <!-- <link name="${name}_footprint"/> -->
 
-    <joint name="${name}_footprint_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <child link="${name}_link" />
-      <parent link="${name}_footprint"/>
-    </joint>
+    <!-- <joint name="${name}_footprint_joint" type="fixed"> -->
+    <!--   <origin xyz="0 0 0" rpy="0 0 0" /> -->
+    <!--   <child link="${name}_link" /> -->
+    <!--   <parent link="${name}_footprint"/> -->
+    <!-- </joint> -->
 
    <link name="${name}_link">
       <inertial>
