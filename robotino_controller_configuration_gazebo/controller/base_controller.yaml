@@ -1,12 +1,43 @@
-robotino:
-  # Velocity Controllers ---------------------------------------
-  wheel0_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: wheel0_joint
-  wheel1_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: wheel1_joint
-  wheel2_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: wheel2_joint
+#robotino:
+#  # Velocity Controllers ---------------------------------------
+#  wheel0_controller:
+#    type: velocity_controllers/JointVelocityController
+#    joint: wheel0_joint
+#  wheel1_controller:
+#    type: velocity_controllers/JointVelocityController
+#    joint: wheel1_joint
+#  wheel2_controller:
+#    type: velocity_controllers/JointVelocityController
+#    joint: wheel2_joint
+#all
+joint_names: [wheel0_joint, wheel1_joint, wheel2_joint]
 
+## control_mode_adapter
+max_command_silence: 0.5
+
+## joint_state_controller
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+## velocity controller
+#joint_group_velocity_controller:
+#  type: velocity_controllers/JointGroupVelocityController
+#  joints:
+#     - wheel0_joint
+#     - wheel1_joint
+#     - wheel2_joint
+#  required_drive_mode: 2
+
+wheel0_joint_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: wheel0_joint
+  required_drive_mode: 2
+wheel1_joint_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: wheel1_joint
+  required_drive_mode: 2
+wheel2_joint_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: wheel2_joint
+  required_drive_mode: 2
