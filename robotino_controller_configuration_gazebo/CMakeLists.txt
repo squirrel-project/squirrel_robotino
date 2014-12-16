@@ -2,14 +2,37 @@ cmake_minimum_required(VERSION 2.8.3)
 project(robotino_controller_configuration_gazebo)
 
 find_package(catkin REQUIRED COMPONENTS
-  roslaunch
-  roscpp
-  geometry_msgs
-  std_msgs
+	roslaunch
+	roscpp
+	geometry_msgs
+	std_msgs
+	velocity_controllers
+	controller_manager
+	robot_state_publisher
+	topic_tools
+	gazebo_ros_control
+	rostopic
+	joint_state_controller
+	robotino_bringup
+	effort_controllers
 )
 
 catkin_package(
-  CATKIN_DEPENDS roslaunch roscpp geometry_msgs std_msgs
+  CATKIN_DEPENDS 
+	roslaunch
+	roscpp
+	geometry_msgs
+	std_msgs
+	velocity_controllers
+	controller_manager
+	robot_state_publisher
+	topic_tools
+	gazebo_ros_control
+	rostopic
+	joint_state_controller
+	robotino_bringup
+	effort_controllers
+
 )
 
 ## Building the executables
