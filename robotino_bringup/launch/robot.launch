@@ -2,6 +2,7 @@
 <launch>
 
   <arg name="hostname" default="172.21.6.208" />
+  <param name="use_sim_time" value="false" />
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
