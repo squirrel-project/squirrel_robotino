@@ -3,13 +3,13 @@
 
   <xacro:macro name="body" params="name">
   
-    <link name="${name}_footprint"/>
+    <!-- <link name="${name}_footprint"/> -->
 
-    <joint name="${name}_footprint_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <child link="${name}_link" />
-      <parent link="${name}_footprint"/>
-    </joint>
+    <!-- <joint name="${name}_footprint_joint" type="fixed"> -->
+    <!--   <origin xyz="0 0 0" rpy="0 0 0" /> -->
+    <!--   <child link="${name}_link" /> -->
+    <!--   <parent link="${name}_footprint"/> -->
+    <!-- </joint> -->
 
    <link name="${name}_link">
       <inertial>
@@ -86,9 +86,10 @@
       </visual>
     
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
         <geometry>
-          <mesh filename="package://robotino_description/meshes/RobotinoWheel.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <!--mesh filename="package://robotino_description/meshes/RobotinoWheel.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/-->
+          <cylinder length="0.04" radius="0.04"/>
         </geometry>
       </collision>
       
