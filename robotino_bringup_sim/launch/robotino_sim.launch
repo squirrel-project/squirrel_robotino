@@ -10,11 +10,11 @@
 	<node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
 
 	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
-		<param name="publish_frequency" type="double" value="50.0" />
-    <param name="tf_prefix" type="string" value="" />
+	  <param name="publish_frequency" type="double" value="50.0" />
+	  <param name="tf_prefix" type="string" value="" />
 	</node>
-
+	
 	<!-- start gazebo controllers -->
-	<!--include file="$(find robotino_controller_configuration_gazebo)/launch/default_controllers_robotino.launch" /-->
+	<include file="$(find robotino_controller_configuration_gazebo)/launch/default_controllers_robotino.launch"/>
 	
 </launch>
