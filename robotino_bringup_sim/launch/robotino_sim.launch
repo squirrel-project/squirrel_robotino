@@ -5,7 +5,8 @@
 
 	<!-- send cob urdf to param server -->
 	<param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_description)/urdf/robotino.urdf.xacro'" />
-
+	<include file="$(find robotino_description)/launch/kinect_static_transform.launch"/>
+	
 	<!-- push robot_description to factory and spawn robot in gazebo -->
 	<node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
 
