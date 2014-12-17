@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(squirrel_rgbd_mapping_msgs)
+project(squirrel_3d_mapping_msgs)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -59,19 +59,7 @@ find_package(catkin
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  RgbdSlamRosUi.srv
-  RgbdSlamRosUiB.srv
-  RgbdSlamRosUiF.srv
-  RgbdSlamRosUiS.srv
-  GetPushingPlan.srv
-)
-
-## Generate actions in the 'action' folder
-add_action_files(
-   DIRECTORY
-   action
-   FILES
-   CheckCollision.action
+  CheckCollision.srv
 )
 
 ## Generate added messages and services with any dependencies listed here
