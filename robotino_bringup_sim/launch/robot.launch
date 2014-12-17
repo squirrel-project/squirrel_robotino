@@ -28,6 +28,4 @@
 		<arg name="paused" value="$(arg paused)" />
 	</include>
 
-	<node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen" />
-
 </launch>
