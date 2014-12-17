@@ -53,31 +53,46 @@
 
 // Code:
 
+#ifndef ROBOTINOCONTROLLER_H_
+#define ROBOTINOCONTROLLER_H_
+
 #include <ros/ros.h>
 
 #include <geometry_msgs/Twist.h>
 #include <std_msgs/Float64.h>
 
-#ifndef ROBOTINOCONTROLLER_H_
-#define ROBOTINOCONTROLLER_H_
+#include <tf/transform_broadcaster.h>
+#include <nav_msgs/Odometry.h>
+
+#include <boost/thread/mutex.hpp>
 
 namespace robotino_controller_configuration_gazebo {
 
 class RobotinoController
 {
  public:
-  RobotinoController( void );
-  virtual ~RobotinoController( void );
-  void spin( void );
+	RobotinoController(ros::NodeHandle& nh);
+	virtual ~RobotinoController( void );
+	void spin( void );
  
 private:
-  void setVelocity( const geometry_msgs::TwistConstPtr& );
-  
-  ros::NodeHandle nh_;
-  ros::Subscriber cmd_vel_sub_;
-  ros::Publisher w0_pub_, w1_pub_, w2_pub_;
-  float rw_, rb_, gear_, k_;
-  std_msgs::Float64 w0_, w1_, w2_;
+	void setVelocity( const geometry_msgs::TwistConstPtr& );
+	
+	void UpdateOdometry();
+	
+	ros::NodeHandle nh_;
+	ros::Subscriber cmd_vel_sub_;
+	ros::Publisher w0_pub_, w1_pub_, w2_pub_;
+	float x_, y_, phi_;		// robot odometry coordinates in [m], angle in [rad], relative to starting position of robot
+	float vx_, vy_, omega_;		// robot speeds in [m/s] measured relative to robot coordinate system, robot turning speed in [rad]
+	ros::Time current_time_, last_time_;	// for measuring the time difference between two odometry estimates
+	float rw_, rb_, gear_, k_;
+	std_msgs::Float64 w0_, w1_, w2_;
+	
+	boost::mutex velocity_mutex_;
+	
+	ros::Publisher odometry_publisher_;
+	tf::TransformBroadcaster odometry_broadcaster_;
 };
 
 } // namespace robotino_controller_configuration_gazebo

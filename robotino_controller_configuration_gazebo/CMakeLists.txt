@@ -15,7 +15,11 @@ find_package(catkin REQUIRED COMPONENTS
 	joint_state_controller
 	robotino_bringup
 	effort_controllers
+	tf
+	nav_msgs
 )
+
+find_package(Boost REQUIRED COMPONENTS thread)
 
 catkin_package(
   CATKIN_DEPENDS 
@@ -32,7 +36,8 @@ catkin_package(
 	joint_state_controller
 	robotino_bringup
 	effort_controllers
-
+	tf
+	nav_msgs
 )
 
 ## Building the executables
@@ -40,6 +45,7 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
 
 add_executable(robotino_controller_configuration_gazebo_node
@@ -49,6 +55,7 @@ add_executable(robotino_controller_configuration_gazebo_node
 
 target_link_libraries(robotino_controller_configuration_gazebo_node
   ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
 )
 
 ## Mark cpp header files for installation
