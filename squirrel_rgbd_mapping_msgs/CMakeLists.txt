@@ -13,6 +13,7 @@ find_package(catkin
   actionlib
   std_msgs
   message_generation
+  nav_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -62,6 +63,7 @@ add_service_files(
   RgbdSlamRosUiB.srv
   RgbdSlamRosUiF.srv
   RgbdSlamRosUiS.srv
+  GetPushingPlan.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -80,6 +82,7 @@ generate_messages(
    geometry_msgs
    sensor_msgs
    std_msgs
+   nav_msgs
 )
 
 ###################################
@@ -94,7 +97,7 @@ generate_messages(
 catkin_package(
   # INCLUDE_DIRS include
   # LIBRARIES 
-  CATKIN_DEPENDS actionlib_msgs std_msgs geometry_msgs sensor_msgs message_runtime
+  CATKIN_DEPENDS actionlib_msgs std_msgs geometry_msgs sensor_msgs message_runtime nav_msgs
   #  DEPENDS system_lib
 )
 
