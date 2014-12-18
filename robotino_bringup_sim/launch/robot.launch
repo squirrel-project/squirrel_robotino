@@ -3,6 +3,7 @@
 
 	<!-- define arguments -->
 	<arg name="robot_env" default="simple_room"/>
+	<arg name="hostname" default="localhost" />
 
 	<arg name="paused" default="false"/>
 	<arg name="use_sim_time" default="true"/>
