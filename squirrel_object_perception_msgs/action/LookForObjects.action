@@ -5,7 +5,9 @@
 # check for object = 0, classify and recognize objects = 1
 int32 look_for_object
 # use with look_for_object = 0
-string object_id
+string id
+string category
+geometry_msgs/Pose pose
 ---
 # result definition
 string result_status
