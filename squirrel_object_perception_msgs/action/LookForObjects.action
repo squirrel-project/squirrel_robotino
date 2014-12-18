@@ -1,7 +1,16 @@
 # Object perception action definition
+# author: Markus Bajones (bajo), bajones@acin.tuwien.ac.at
+
+uint8 CHECK = 0
+uint8 EXPLORE = 1
 
 # goal definition
-int32 look_for_object
+uint8 look_for_object
+
+# only used for CHECK
+string id
+string category
+geometry_msgs/Pose pose
 ---
 # result definition
 string result_status
