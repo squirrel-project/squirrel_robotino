@@ -68,11 +68,11 @@ RobotinoController::RobotinoController(ros::NodeHandle& nh) :
 	x_(0.f), y_(0.f), phi_(0.f),
 	vx_(0.f), vy_(0.f), omega_(0.f),
 	current_time_(ros::Time::now()), last_time_(ros::Time::now()), 
-    gear_(16.0),
-    rw_(0.040),
-    rb_(0.132)
+    gear_(32.0),	//16
+    rw_(0.06),  //40),
+    rb_(0.175) //132)
 {
-	odometry_publisher_ = nh_.advertise<nav_msgs::Odometry>("odom", 50);
+	//odometry_publisher_ = nh_.advertise<nav_msgs::Odometry>("odom", 50);
 
 	cmd_vel_sub_ = nh_.subscribe("/cmd_vel", 1000, &RobotinoController::setVelocity, this);
 	w0_pub_ = nh_.advertise<std_msgs::Float64>("/wheel0", 1000);
@@ -92,7 +92,7 @@ void RobotinoController::spin( void )
 	last_time_ = ros::Time::now();
 	while ( ros::ok() )
 	{
-		UpdateOdometry();
+		//UpdateOdometry();	// --> done by the "libgazebo_ros_planar_move.so" plugin for gazebo in gazebo.urdf.xacro
 		ros::spinOnce();
 		lr.sleep();
 	}  
@@ -118,6 +118,7 @@ void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_ve
 	// ROS_INFO("v2[0] = %f", v2[0]);
 	// ROS_INFO("v2[1] = %f", v2[1]);
 	
+	// scale omega with the radius of the robot
 	double v_omega_scaled = rb_ * (double)omega_ ;
 	
 	w0_.data = ( v0[0] * (double)vx_ + v0[1] * (double)vy_ + v_omega_scaled ) * gear_;
@@ -161,7 +162,7 @@ void RobotinoController::UpdateOdometry()
 	odom_trans.transform.rotation = odom_quat;
 
 	//send the transform
-	odometry_broadcaster_.sendTransform(odom_trans);
+	tf_broadcaster_.sendTransform(odom_trans);
 	
 	//next, we'll publish the odometry message over ROS
 	nav_msgs::Odometry odom;

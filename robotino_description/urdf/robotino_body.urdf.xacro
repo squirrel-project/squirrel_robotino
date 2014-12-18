@@ -3,13 +3,12 @@
 
   <xacro:macro name="body" params="name">
   
-    <!-- <link name="${name}_footprint"/> -->
-
-    <!-- <joint name="${name}_footprint_joint" type="fixed"> -->
-    <!--   <origin xyz="0 0 0" rpy="0 0 0" /> -->
-    <!--   <child link="${name}_link" /> -->
-    <!--   <parent link="${name}_footprint"/> -->
-    <!-- </joint> -->
+    <link name="${name}_footprint"/>
+	<joint name="${name}_footprint_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<child link="${name}_link" />
+		<parent link="${name}_footprint"/>
+	</joint>
 
    <link name="${name}_link">
       <inertial>
@@ -63,24 +62,23 @@
   <!-- WHEEL -->
   <xacro:macro name="wheel" params="parent name *origin *axis">
     <joint name="${name}_joint" type="continuous">
-      <insert_block name="origin" />
-      <insert_block name="axis" />
       <parent link="${parent}"/>
       <child link="${name}_link" />
+      <insert_block name="origin" />
+      <insert_block name="axis" />
     </joint>
     
     <link name="${name}_link">
       <inertial>
-        <mass value="2" />
+        <mass value="0.4" />
         <origin xyz="0 0 0" />
-        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
-          iyy="1.0" iyz="0.0"
-          izz="1.0" />
+        <inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983" iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
       </inertial>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
+		  <!--cylinder length="0.04" radius="0.04"/-->
           <mesh filename="package://robotino_description/meshes/RobotinoWheel.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
         </geometry>
       </visual>
@@ -104,6 +102,7 @@
         <hardwareInterface>VelocityJointInterface</hardwareInterface>
       </joint>
       <actuator name="${name}_motor">
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>${624/35 * 80/18}</mechanicalReduction>
       </actuator>
     </transmission>
