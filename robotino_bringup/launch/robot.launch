@@ -35,16 +35,16 @@
   </node>
 
   <!-- Hokuyo driver -->
-  <node name="laser" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+  <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
     <!-- Set the port to connect to here -->
     <param name="port" type="string" value="/dev/ttyACM0"/> 
-    <param name="frame_id" type="string" value="laser_link"/> 
+    <param name="frame_id" type="string" value="hokuyo_link"/> 
     <param name="intensity" type="bool" value="false"/>
   </node>
 
   <!-- kinect -->
   <include file="$(find openni2_launch)/launch/openni2.launch" >
-    <param name="camera" value="kinect"/> 
+    <arg name="camera" value="kinect"/> 
   </include>
 
 </launch>
