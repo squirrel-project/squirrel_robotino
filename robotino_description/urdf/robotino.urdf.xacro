@@ -42,16 +42,16 @@
     </plugin>
 
     <plugin name="base_controller" filename="libgazebo_ros_planar_move.so">
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <odometryRate>20.0</odometryRate>
-      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <commandTopic>cmd_vel</commandTopic> 
+      <odometryTopic>odom</odometryTopic>   
+      <odometryFrame>odom</odometryFrame> -->
+      <odometryRate>20.0</odometryRate> 
+      <robotBaseFrame>base_footprint</robotBaseFrame> -->
     </plugin>
   </gazebo>
 
   <!--anglebracketusb name="anglebracketusb" parent="base_link">
-    <origin xyz="${anglebracketusb_x} ${anglebracketusb_y} ${anglebracketusb_z}" rpy="${anglebracketusb_roll} ${anglebracketusb_pitch} ${anglebracketusb_yaw}"/>
+      <origin xyz="${anglebracketusb_x} ${anglebracketusb_y} ${anglebracketusb_z}" rpy="${anglebracketusb_roll} ${anglebracketusb_pitch} ${anglebracketusb_yaw}"/>
   </anglebracketusb-->
   
 </robot>
