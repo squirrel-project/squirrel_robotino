@@ -44,7 +44,7 @@
 
   <!-- kinect -->
   <include file="$(find openni2_launch)/launch/openni2.launch" >
-    <param name="camera" value="kinect"/> 
+    <arg name="camera" value="kinect"/> 
   </include>
 
 </launch>
