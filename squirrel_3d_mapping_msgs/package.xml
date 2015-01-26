@@ -1,12 +1,19 @@
+<?xml version="1.0"?>
 <package>
     <name>squirrel_3d_mapping_msgs</name>
+    
     <version>1.11.6</version>
+    
     <description>
-    Contains the definition of the action related to the detection of 3D collisions
+      Contains the definition of the action related to the detection of 3D collisions
     </description>
+    
+    <author>Federico Boniardi</author>
     <author>Juergen Hess</author>
-    <author>hess@cs.uni-freiburg.de</author>
-    <maintainer email="hess@cs.informatik.uni-freiburg.de">Juergen Hess</maintainer>
+    
+    <maintainer email="hess@cs.uni-freiburg.de">Juergen Hess</maintainer>
+    <maintainer email="boniardi@cs.uni-freiburg.de">Federico Boniardi</maintainer>
+    
     <license>BSD</license>
 
     <buildtool_depend>catkin</buildtool_depend>
