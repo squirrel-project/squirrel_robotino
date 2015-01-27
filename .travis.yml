@@ -5,6 +5,7 @@ before_install:
   - sudo rosdep init && rosdep update 
   - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
   - sudo sh -c 'echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list'
+  - wget http://doc.openrobotino.org/download/packages/amd64/robotino-api2_*_amd64.deb
   - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
   - sudo apt-get update -qq
 install:
