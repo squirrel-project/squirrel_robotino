@@ -12,12 +12,12 @@
   <xacro:include filename="$(find robotino_description)/urdf/tilt_axis.urdf.xacro" />
   
   <xacro:body name="base"/>
-  <gazebo>
+  <!--gazebo>
     <plugin name="ros_control" filename="libmulti_hw_interface_gazebo_ros_control.so">
       <robotNamespace>base_controller</robotNamespace>
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
-  </gazebo>
+  </gazebo-->
 
   <webcam name="camera" parent="base_link">
     <origin xyz="${camera_x} ${camera_y} ${camera_z}" rpy="${camera_roll} ${camera_pitch} ${camera_yaw}"/>
@@ -27,11 +27,11 @@
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
-  <!-- <tilt_axis name="tilt" parent="base_link"> -->
-  <!--   <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/> -->
-  <!-- </tilt_axis> -->
+  <tilt_axis name="tilt" parent="base_link">
+    <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/>
+  </tilt_axis>
     
-  <kinect name="kinect" parent="base_link">
+  <kinect name="kinect" parent="tilt_link">
     <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
   </kinect>
 
@@ -39,14 +39,6 @@
     <plugin name="ros_control" filename="libmulti_hw_interface_gazebo_ros_control.so">
       <robotNamespace>tilt_controller</robotNamespace>
       <filterJointsParam>joint_names</filterJointsParam>
-    </plugin>
-
-    <plugin name="base_controller" filename="libgazebo_ros_planar_move.so">
-      <commandTopic>cmd_vel</commandTopic> 
-      <odometryTopic>odom</odometryTopic>   
-      <odometryFrame>odom</odometryFrame>
-      <odometryRate>20.0</odometryRate> 
-      <robotBaseFrame>base_footprint</robotBaseFrame>
     </plugin>
   </gazebo>
 
