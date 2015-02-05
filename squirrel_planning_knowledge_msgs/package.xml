@@ -6,7 +6,7 @@
   <maintainer email="michael.cashmore@kcl.ac.uk">michael</maintainer>
   <license>BSD</license>
 
-  <!-- <url type="website">http://wiki.ros.org/planning_dispatch_msgs</url> -->
+  <!-- <url type="website">http://wiki.ros.org/squirrel_planning_knowledge_msgs</url> -->
 
   <buildtool_depend>catkin</buildtool_depend>
 
