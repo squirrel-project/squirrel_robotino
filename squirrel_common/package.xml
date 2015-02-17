@@ -1,5 +1,5 @@
 <package>
-  <name>common</name>
+  <name>squirrel_common</name>
   <version>0.0.1</version>
   <description>Definitions for mesages, services and actions. Startup packages for the robots</description>
   <maintainer email="michael.cashmore@kcl.ac.uk">michael</maintainer>
