@@ -27,7 +27,7 @@
   <!-- hokuyo mount positions | relative to base_link -->
   <property name="hokuyo_x" value="0.024"/>
   <property name="hokuyo_y" value="0.0"/>
-  <property name="hokuyo_z" value="0.11"/>
+  <property name="hokuyo_z" value="0.16"/>
   <property name="hokuyo_roll" value="0.0"/>
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="0.0"/>
@@ -35,7 +35,7 @@
   <!-- tilt mount positions | handeye calibration | relative to base_link -->
   <property name="tilt_x" value="-0.01"/>
   <property name="tilt_y" value="0.0"/>
-  <property name="tilt_z" value="0.3"/>
+  <property name="tilt_z" value="0.5"/>
   <property name="tilt_roll" value="0"/>
   <property name="tilt_pitch" value="${M_PI/2}"/>
   <property name="tilt_yaw" value="0"/>
