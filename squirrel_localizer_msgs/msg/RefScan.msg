@@ -1,0 +1,9 @@
+geometry_msgs/PoseWithCovarianceStamped pose
+sensor_msgs/LaserScan scan_front_ros
+geometry_msgs/TransformStamped transform_front_laser
+sensor_msgs/LaserScan scan_rear_ros
+geometry_msgs/TransformStamped transform_rear_laser
+bool use_second_laser
+float64 min_reading
+float64 max_reading
+string id
