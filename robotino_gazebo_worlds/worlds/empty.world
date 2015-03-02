@@ -62,10 +62,17 @@
           <surface>
             <friction>
               <ode>
-                <mu>100</mu>
-                <mu2>50</mu2>
+                <mu>100</mu>  <!-- 100 -->
+                <mu2>50</mu2> <!-- 50 -->
               </ode>
             </friction>
+            <contact>
+              <ode>
+                <kp>50000</kp>
+                <kd>5000</kd>
+                <max_vel>0</max_vel>
+              </ode>
+            </contact>
           </surface>
         </collision>
       </link>
