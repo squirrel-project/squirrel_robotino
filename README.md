@@ -1,6 +1,5 @@
-common
-======
-[![Build Status](https://magnum.travis-ci.com/squirrel-project/common.svg?token=3yXoCRsCegowgzzpPuqw&branch=hydro_dev)](https://magnum.travis-ci.com/squirrel-project/common)
+squirrel_common
+===============
 
 Repository for message, service and action related SQUIRREL packages.
 
