@@ -92,7 +92,7 @@ private:
 	boost::mutex velocity_mutex_;
 	
 	ros::Publisher odometry_publisher_;
-	tf::TransformBroadcaster odometry_broadcaster_;
+	tf::TransformBroadcaster tf_broadcaster_;
 };
 
 } // namespace robotino_controller_configuration_gazebo
