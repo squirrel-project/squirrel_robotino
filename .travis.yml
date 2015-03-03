@@ -4,10 +4,12 @@ before_install:
   - sudo pip install cpplint rosdep
   - sudo rosdep init && rosdep update 
   - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
+  - sudo sh -c 'echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list'
+  - wget http://doc.openrobotino.org/download/packages/amd64/robotino-api2_0.9.16_amd64.deb
   - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
   - sudo apt-get update -qq
 install:
-  - rosdep install --from-paths .. --ignore-src --rosdistro hydro
+  - rosdep install --from-path .. --ignore-src --rosdistro indigo -i -y
   - source /opt/ros/hydro/setup.bash
   - mkdir -p ~/catkin_ws/src && pushd ~/catkin_ws
   - catkin_init_workspace src
