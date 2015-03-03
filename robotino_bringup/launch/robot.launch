@@ -47,4 +47,13 @@
     <arg name="camera" value="kinect"/> 
   </include>
 
+  <!-- Dynamixel servo based (pan)/tilt unit -->
+  <!-- Start the meta controller for all connected servos -->
+  <include file="$(find squirrel_robotino)/launch/dynamixel_controller_manager.launch" >
+  </include>
+  <!-- Spawn a new controller instance in the meta controller.
+       NOTE: This starter exits after having spawned the controller! -->
+  <include file="$(find squirrel_robotino)/launch/start_tilt_controller.launch" >
+  </include>
+
 </launch>
