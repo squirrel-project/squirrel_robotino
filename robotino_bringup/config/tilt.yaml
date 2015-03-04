@@ -8,6 +8,6 @@ tilt_controller:
     motor:
         id: 1
         init: 2048
-        min: 0
-        max: 4095
+        min: 1500
+        max: 3000
 

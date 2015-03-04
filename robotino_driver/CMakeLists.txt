@@ -146,6 +146,17 @@ target_link_libraries(
 )
 
 add_executable(
+  robotino_tilt_controller
+  src/tilt_controller_node.cpp
+  src/TiltControllerNode.cpp
+)
+
+target_link_libraries(
+  robotino_tilt_controller
+  ${catkin_LIBRARIES}
+)
+
+add_executable(
   robotino_odometry_node
   src/robotino_odometry_node.cpp
   src/ComROS.cpp

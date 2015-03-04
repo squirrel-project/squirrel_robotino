@@ -8,7 +8,7 @@
       <parent link="${parent}"/>
       <child link="${name}_link" />      
       <axis xyz="0 1 0" />
-      <calibration rising="0"/>
+      <calibration rising="0.1"/>
       <limit effort="100" lower="-1.57" upper="1.57" velocity="1.4"/>
     </joint>
     

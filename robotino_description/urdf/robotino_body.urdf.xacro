@@ -14,9 +14,9 @@
       <inertial>
         <mass value="${BASE_MASS}" />
         <origin xyz="0 0 0" />
-        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
-          iyy="1.0" iyz="0.0"
-          izz="1.0" />
+        <inertia ixx="75.0" ixy="0.0" ixz="0.0"
+          iyy="75.0" iyz="0.0"
+          izz="75.0" />
       </inertial>
       <visual>
         <origin xyz="0.01 0 0" rpy="0 0 ${M_PI/2}"/>
