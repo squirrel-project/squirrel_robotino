@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   robotino_msgs
   tf
   roscpp
+  std_msgs
+  dynamixel_msgs
 )
 
 list(APPEND CMAKE_MODULE_PATH "/usr/local/robotino/api2/cmake")
@@ -142,6 +144,17 @@ add_executable(
 target_link_libraries(
   robotino_driver
   ${REC_ROBOTINO_API2_LIBRARY}
+  ${catkin_LIBRARIES}
+)
+
+add_executable(
+  robotino_tilt_controller
+  src/tilt_controller_node.cpp
+  src/TiltControllerNode.cpp
+)
+
+target_link_libraries(
+  robotino_tilt_controller
   ${catkin_LIBRARIES}
 )
 
