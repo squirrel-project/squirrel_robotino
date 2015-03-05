@@ -7,7 +7,6 @@ Panels:
         - /Global Options1
         - /Status1
         - /RobotModel1
-        - /RobotModel1/Status1
         - /TF1
         - /TF1/Frames1
       Splitter Ratio: 0.681208
@@ -103,6 +102,10 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         base_link:
           Alpha: 1
           Show Axes: false
@@ -157,15 +160,25 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        base_footprint:
+          Value: true
         base_link:
           Value: true
         command_bridge_link:
           Value: true
         hokuyo_link:
           Value: true
+        kinect_depth_frame:
+          Value: true
         kinect_frame:
           Value: true
         kinect_link:
+          Value: true
+        kinect_optical_depth_frame:
+          Value: true
+        kinect_optical_rgb_frame:
+          Value: true
+        kinect_rgb_frame:
           Value: true
         odom:
           Value: true
@@ -178,15 +191,12 @@ Visualization Manager:
       Show Names: true
       Tree:
         odom:
-          base_link:
-            command_bridge_link:
-              {}
-            hokuyo_link:
-              {}
-            tilt_link:
-              kinect_link:
-                kinect_frame:
-                  {}
+          base_footprint:
+            base_link:
+              command_bridge_link:
+                {}
+              hokuyo_link:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -242,7 +252,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.743272
+      Distance: 4.50424
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -277,5 +287,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1631
-  X: 279
-  Y: 14
+  X: 58
+  Y: 24

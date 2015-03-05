@@ -16,6 +16,7 @@
 	</node>
 	
 	<!-- start gazebo controllers -->
-	<include file="$(find robotino_controller_configuration_gazebo)/launch/default_controllers_robotino.launch"/>
+	<include file="$(find robotino_controller_configuration_gazebo)/launch/tilt_controller.launch"/>
+
 	
 </launch>
