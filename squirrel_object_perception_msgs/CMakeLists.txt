@@ -64,6 +64,7 @@ add_service_files(
   SegmentOnce.srv
   SegmentVisualizationInit.srv
   SegmentVisualizationOnce.srv
+  SegmentsToObjects.srv
   GetSaliencyLocation.srv
   GetSaliencyColor.srv
   GetSaliencyItti.srv
@@ -71,7 +72,6 @@ add_service_files(
   GetSaliency3DSymmetry.srv
   GetSaliencyHeight.srv
   GetSaliencySurfaceOrientation.srv
-  ObjectRecognizer.srv
 )
 
 ## Generate actions in the 'action' folder
