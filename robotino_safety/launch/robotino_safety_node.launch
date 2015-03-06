@@ -1,0 +1,18 @@
+<launch>
+  <arg name="use_safe_velocity" default="false" />
+  <arg name="controller_vel_topic" default="/robotino_cmd_vel" /> 
+  <arg name="bumper_topic" default="/bumper" />
+  <arg name="scan_topic" default="/scan" />
+
+  <node pkg="robotino_safety" type="robotino_safety_node" name="robotino_safety_node" output="screen">
+    <param name="outer_major_radius" value="0.70"/>
+    <param name="outer_minor_radius" value="0.30"/>
+    <param name="inner_major_radius" value="0.40"/>
+    <param name="inner_minor_radius" value="0.25"/>
+    <param name="use_safe_velocity" value="" />
+    <param name="use_safe_velocity" value="$(arg use_safe_velocity)"/>
+    <param name="controller_vel_topic" value="$(arg controller_vel_topic)"/>
+    <param name="bumper_topic" value="$(arg bumper_topic)"/>
+    <param name="scan_topic" value="$(arg scan_topic)"/>
+  </node>
+</launch>

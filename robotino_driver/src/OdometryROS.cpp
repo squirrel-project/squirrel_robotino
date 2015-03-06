@@ -6,7 +6,9 @@
  */
 
 #include "OdometryROS.h"
+
 #include <tf/transform_datatypes.h>
+
 #include <geometry_msgs/Quaternion.h>
 
 OdometryROS::OdometryROS()
