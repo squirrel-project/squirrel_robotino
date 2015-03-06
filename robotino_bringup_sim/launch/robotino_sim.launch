@@ -18,5 +18,13 @@
 	<node name="kinect_depth_relay" pkg="topic_tools" type="relay" args="/kinect/depth/points /kinect/depth_registered/points" cwd="node" respawn="true" output="screen"/>
 	<!-- start gazebo controllers -->
 	<include file="$(find robotino_controller_configuration_gazebo)/launch/default_controllers_robotino.launch"/>
-	
+
+  <node pkg="tf" type="static_transform_publisher" name="kinect_rgb_frame_broadcaster"
+        args="0.0 -0.045 0.0 0.0 0.0 0.0 kinect_link kinect_rgb_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="kinect_depth_frame_broadcaster"
+        args="0.0 -0.020 0.0 0.0 0.0 0.0 kinect_link kinect_depth_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="kinect_rgb_optical_frame_broadcaster"
+        args="0.0 0.0 0.0 -1.517 0.0 -1.517 kinect_rgb_frame kinect_optical_rgb_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="kinect_depth_optical_frame_broadcaster"
+        args="0.0 0.0 0.0 -1.517 0.0 -1.517 kinect_depth_frame kinect_optical_depth_frame 100" />
 </launch>
