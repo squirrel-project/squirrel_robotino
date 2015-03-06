@@ -70,7 +70,7 @@
         <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
           <updateRate>20.0</updateRate>
           <cameraName>${ros_topic}</cameraName>
-          <frameName>${name}_optical_depth_frame</frameName>
+          <frameName>${name}_depth_optical_frame</frameName>
           <imageTopicName>rgb/image_raw</imageTopicName>
           <depthImageTopicName>depth/image_raw</depthImageTopicName>
           <!--pointCloudTopicName>depth_registered/points</pointCloudTopicName-->
