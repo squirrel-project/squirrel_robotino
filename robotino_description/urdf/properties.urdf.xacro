@@ -22,7 +22,7 @@
   <property name="camera_z" value="0.2"/>
   <property name="camera_roll" value="0.0"/>
   <property name="camera_pitch" value="0.0"/>
-  <property name="camera_yaw" value="${M_PI/2}"/>
+  <property name="camera_yaw" value="-${M_PI/2}"/>
 	
   <!-- hokuyo mount positions | relative to base_link -->
   <property name="hokuyo_x" value="0.024"/>
@@ -35,8 +35,8 @@
    <!-- tilt mount positions | handeye calibration | relative to base_link -->
   <property name="tilt_x" value="-0.01"/>
   <property name="tilt_y" value="0.0"/>
-  <property name="tilt_z" value="0.47"/>
-  <property name="tilt_roll" value="0"/>
+  <property name="tilt_z" value="0.45"/>
+  <property name="tilt_roll" value="-0.05"/>
   <property name="tilt_pitch" value="${M_PI/2}"/>
   <property name="tilt_yaw" value="0"/>
 	
@@ -44,8 +44,8 @@
   <property name="kinect_x" value="-0.03"/>
   <property name="kinect_y" value="0.0"/>
   <property name="kinect_z" value="0.0"/>
-  <property name="kinect_roll" value="0.0"/>
-  <property name="kinect_pitch" value="-${M_PI/2}"/>
+  <property name="kinect_roll" value="-0.02"/>
+  <property name="kinect_pitch" value="-1.45"/>
   <property name="kinect_yaw" value="0.0"/>
   
   <!-- anglebracketusb mount positions | handeye calibration | relative to base_link -->

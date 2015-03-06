@@ -82,9 +82,10 @@ void TiltControllerNode::spin( void )
     ROS_INFO("moving Kinect to starting position (%f rad)", desired_angle_msg_.data);
   }
 
-  ros::Rate lr(2.0);
+  ros::Rate lr(1.0);
   while ( private_nh_.ok() ) {     
     ros::spinOnce();
+    lr.sleep();
   }
 }
 
@@ -99,7 +100,6 @@ bool TiltControllerNode::resetKinectPosition( std_srvs::Empty::Request& req, std
   ROS_INFO("moving Kinect to starting position (%f rad)", desired_angle_msg_.data);
   return true;
 }
-
 
 // 
 // TiltControllerNode.cpp ends here
