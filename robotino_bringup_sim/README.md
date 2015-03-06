@@ -50,7 +50,7 @@ The currently available colors are the following: http://wiki.ros.org/simulator_
 #### Model the object using a mesh model(Collada for example) ####
 Put the resulting mesh file into the package robotino_gazebo_worlds into the folder Media/models/. The folder with the textures should also be added to this folder.
 
-Create a new object file in the package robotino_gazebo_objects in the folder objects named "MY_OBJECT.urdf". You can use the following template and replace the filenames in line tags <mesh filename.../>. Note the scaling in order to reduce the model to metric values.
+Create a new object file in the package robotino_gazebo_worlds in the folder objects named "MY_OBJECT.urdf". You can use the following template and replace the filenames in line tags <mesh filename.../>. Note the scaling in order to reduce the model to metric values.
 
 ```
     <?xml version="1.0" ?> 
@@ -83,7 +83,7 @@ Create a new object file in the package robotino_gazebo_objects in the folder ob
 ```
 ### Define a object position ###
 
- You have to define a position for this object in the package cob_gazebo_objects, for each world there a configuration file in: robotino_gazebo_objects/config/[environment_name]/object_locations.yaml. The format for this file is: 
+ You have to define a position for this object in the package cob_gazebo_objects, for each world there a configuration file in: robotino_gazebo_worlds/config/[environment_name]/object_locations.yaml. The format for this file is: 
 
  ```
  MY_OBJECT:
