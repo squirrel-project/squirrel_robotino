@@ -32,13 +32,13 @@
       </collision>
     </link>
     
-    <joint name="${name}_frame_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${M_PI/2} -${M_PI/2} 0" /> 
-      <parent link="${name}_link"/>
-      <child link="${name}_frame"/>
-    </joint>
+    <!-- <joint name="${name}_frame_joint" type="fixed"> -->
+    <!--   <origin xyz="0 0 0" rpy="${M_PI/2} -${M_PI/2} 0" />  -->
+    <!--   <parent link="${name}_link"/> -->
+    <!--   <child link="${name}_frame"/> -->
+    <!-- </joint> -->
 
-    <link name="${name}_frame"/>
+    <!-- <link name="${name}_frame"/> -->
 
     <!-- gazebo extensions -->
     <xacro:kinect_gazebo name="kinect" ros_topic="kinect" />
@@ -46,7 +46,7 @@
 
   <!-- GAZEBO OPENNI PLUGIN -->
   <xacro:macro name="kinect_gazebo" params="name ros_topic">
-    <gazebo reference="${name}_frame">
+    <gazebo reference="${name}_link">
       <sensor type="depth" name="${name}_frame_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
@@ -70,7 +70,7 @@
         <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
           <updateRate>20.0</updateRate>
           <cameraName>${ros_topic}</cameraName>
-          <frameName>${name}_link</frameName>
+          <frameName>${name}_depth_optical_frame</frameName>
           <imageTopicName>rgb/image_raw</imageTopicName>
           <depthImageTopicName>depth/image_raw</depthImageTopicName>
           <!--pointCloudTopicName>depth_registered/points</pointCloudTopicName-->
