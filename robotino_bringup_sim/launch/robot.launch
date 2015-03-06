@@ -2,7 +2,7 @@
 <launch>
 
   <!-- define arguments -->
-  <arg name="robot_env" default="simple_room"/>
+  <arg name="robot_env" default="ipa-apartment"/>
 
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
