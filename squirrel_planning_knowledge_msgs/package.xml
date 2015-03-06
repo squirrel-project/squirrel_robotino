@@ -2,11 +2,10 @@
 <package>
   <name>squirrel_planning_knowledge_msgs</name>
   <version>0.0.1</version>
-  <description>The squirrel_planning_knowledge_msgs package for the ROSPlan framework.</description>
+  <description>Knowledge messages for adding and updating the model in the SQUIRREL knowledge base.</description>
   <maintainer email="michael.cashmore@kcl.ac.uk">michael</maintainer>
   <license>BSD</license>
-
-  <!-- <url type="website">http://wiki.ros.org/squirrel_planning_knowledge_msgs</url> -->
+  <url type="website">http://www.squirrel-project.eu</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 

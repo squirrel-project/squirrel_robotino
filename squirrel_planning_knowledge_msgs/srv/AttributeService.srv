@@ -1,7 +1,0 @@
-# PDDL problem generation; service(2/2):
-# Get all attributes of an instance or all instances of a domain predicate.
-string type_name
-string instance_name
-string predicate_name
----
-squirrel_planning_knowledge_msgs/KnowledgeItem[] attributes

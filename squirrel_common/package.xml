@@ -9,7 +9,6 @@
   <run_depend>squirrel_manipulation_msgs</run_depend>
   <run_depend>squirrel_mhand_msgs</run_depend>
   <run_depend>squirrel_object_perception_msgs</run_depend>
-  <run_depend>squirrel_planning_dispatch_msgs</run_depend>
   <run_depend>squirrel_planning_knowledge_msgs</run_depend>
   <run_depend>squirrel_rgbd_mapping_msgs</run_depend>
   <run_depend>squirrel_person_tracker_msgs</run_depend>
