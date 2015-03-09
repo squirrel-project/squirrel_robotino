@@ -120,9 +120,9 @@ if __name__ == "__main__":
 		object_pose.orientation.w = quaternion[3]
 
 		try:
-			file_localition = roslib.packages.get_pkg_dir('robotino_gazebo_worlds') + '/objects/' + model + '.' + model_type
+			file_localition = roslib.packages.get_pkg_dir('cob_gazebo_objects') + '/objects/' + model + '.' + model_type
 		except:
-			print "File not found: robotino_gazebo_worlds" + "/objects/" + model + "." + model_type
+			print "File not found: cob_gazebo_objects" + "/objects/" + model + "." + model_type
 			continue
 
 		# call gazebo service to spawn model (see http://ros.org/wiki/gazebo)
