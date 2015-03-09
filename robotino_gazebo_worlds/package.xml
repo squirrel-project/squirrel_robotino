@@ -18,7 +18,7 @@
   <run_depend>kdl_parser</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>joint_state_publisher</run_depend>
-  <run_depend>cob_gazebo_wolrds</run_depend>
+  <run_depend>cob_gazebo_worlds</run_depend>
   <run_depend>cob_gazebo_objects</run_depend>
 
   <export>
