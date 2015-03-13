@@ -2,9 +2,9 @@ Start the Robotino Simulation
 =============================
 
 ```
-  roslaunch robotino_bringup_sim robot.launch
+  roslaunch robotino_bringup_sim robot.launch robot:=_ROBOT_NAME_
 ```
-
+where _ROBOT_NAME_=ipa-robotino,tuw-robotino...
 Start Rviz 
 ===========
 ```
@@ -50,7 +50,7 @@ The currently available colors are the following: http://wiki.ros.org/simulator_
 #### Model the object using a mesh model(Collada for example) ####
 Put the resulting mesh file into the package robotino_gazebo_worlds into the folder Media/models/. The folder with the textures should also be added to this folder.
 
-Create a new object file in the package robotino_gazebo_objects in the folder objects named "MY_OBJECT.urdf". You can use the following template and replace the filenames in line tags <mesh filename.../>. Note the scaling in order to reduce the model to metric values.
+Create a new object file in the package robotino_gazebo_worlds in the folder objects named "MY_OBJECT.urdf". You can use the following template and replace the filenames in line tags <mesh filename.../>. Note the scaling in order to reduce the model to metric values.
 
 ```
     <?xml version="1.0" ?> 
