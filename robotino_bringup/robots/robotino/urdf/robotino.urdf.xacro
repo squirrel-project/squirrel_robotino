@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="robotino">
   
-  <xacro:include filename="$(find robotino_description)/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_bringup)/robots/robotino/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
