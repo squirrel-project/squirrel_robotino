@@ -2,9 +2,10 @@
 <launch>
 
 	<arg name="paused" default="false"/>
+	<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
 
 	<!-- send cob urdf to param server -->
-	<param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_description)/urdf/robotino.urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
 	<include file="$(find robotino_description)/launch/kinect_static_transform.launch"/>
 	
 	<!-- push robot_description to factory and spawn robot in gazebo -->
@@ -16,6 +17,7 @@
 	</node>
 	
 	<!-- start gazebo controllers -->
-	<include file="$(find robotino_controller_configuration_gazebo)/launch/default_controllers_robotino.launch"/>
+	<include file="$(find robotino_controller_configuration_gazebo)/launch/tilt_controller.launch"/>
+
 	
 </launch>
