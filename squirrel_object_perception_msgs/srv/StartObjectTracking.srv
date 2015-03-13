@@ -1,0 +1,8 @@
+# Start tracking a given object
+# author: Michael Zillich, zillich@acin.tuwien.ac.at
+
+# object ID in the scene database.
+# NOTE: this is not the name of the model file (like 'teabox')! This is all stored in the scene database.
+std_msgs/String object_id
+
+---
