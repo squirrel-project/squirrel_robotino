@@ -2,7 +2,7 @@
 <launch>
 
   <!-- define arguments -->
-  <arg name="robot_env" default="simple_room"/>
+  <arg name="robot_env" default="ipa-apartment"/>
   <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
 
   <arg name="paused" default="false"/>
