@@ -2,9 +2,9 @@ Start the Robotino Simulation
 =============================
 
 ```
-  roslaunch robotino_bringup_sim robot.launch
+  roslaunch robotino_bringup_sim robot.launch robot:=_ROBOT_NAME_
 ```
-
+where _ROBOT_NAME_=ipa-robotino,tuw-robotino...
 Start Rviz 
 ===========
 ```
