@@ -9,6 +9,7 @@ This repository holds packages for hardware launch files and configuration, as w
 #####Hydro
 
 Install the package dependencies:
+
 rosdep install --from-path squirrel_robotino -i -y
 
 #####Indigo
