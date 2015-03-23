@@ -72,6 +72,8 @@ add_service_files(
   GetSaliency3DSymmetry.srv
   GetSaliencyHeight.srv
   GetSaliencySurfaceOrientation.srv
+  StartObjectTracking.srv
+  StopObjectTracking.srv
 )
 
 ## Generate actions in the 'action' folder
