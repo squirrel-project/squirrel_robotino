@@ -1,0 +1,13 @@
+# Manipulation action messages: PICKUP
+
+# goal definition
+int32 max_time_in_seconds
+---
+# result definition
+string result_status
+---
+#feedback
+string current_phase
+string current_status
+sensor_msgs/PointCloud point_cloud
+int32 percent_completed

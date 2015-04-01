@@ -1,0 +1,16 @@
+# Segment the whole scene in one go.
+# author: Michael Zillich, zillich@acin.tuwien.ac.at
+
+# the full view organized point cloud
+sensor_msgs/PointCloud2 cloud
+
+# point indices of segmented clusters
+std_msgs/Int32MultiArray[] clusters_indices
+
+---
+
+# 3D poses extracted from the object points (centroid and some more or less arbitrary orientation)
+geometry_msgs/PoseStamped[] poses
+
+# 3D object point clouds
+sensor_msgs/PointCloud2[] points

@@ -1,0 +1,14 @@
+# Classify a set of segmented clusters of a point cloud
+# author: Aitor Aldoma, aldoma@acin.tuwien.ac.at
+# author: Michael Zillich, zillich@acin.tuwien.ac.at
+
+# the original full view organized point cloud
+sensor_msgs/PointCloud2 cloud
+
+# the indices of the segmented clusters
+std_msgs/Int32MultiArray[] clusters_indices
+
+---
+
+# classification result for clusters, array corresponds to clusters array
+squirrel_object_perception_msgs/Classification[] class_results

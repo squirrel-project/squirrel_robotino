@@ -1,0 +1,28 @@
+# Get saliency map location
+# author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
+
+# the full view organized point cloud
+sensor_msgs/PointCloud2 cloud
+# location of the saliency 
+# enum LocationTypes
+# {
+#   AM_CENTER       = 0,
+#   AM_LEFT_CENTER  = 1,
+#   AM_LEFT         = 2,
+#   AM_RIGHT_CENTER = 3,
+#   AM_RIGHT        = 4,
+#   AM_TOP_CENTER   = 5,
+#   AM_TOP          = 6,
+#   AM_BOTTOM_CENTER= 7,
+#   AM_BOTTOM       = 8,
+#   AM_LOCATION_CUSTOM= 9,
+# };
+std_msgs/Char location
+# center is used to create centric location only when AM_LOCATION_CUSTOM
+# x,y -- coordinates in the image
+geometry_msgs/Point32 center
+
+---
+
+# 2D saliency map image of same size as organized point cloud
+sensor_msgs/Image saliency_map

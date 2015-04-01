@@ -1,0 +1,15 @@
+# Manipulation action messages: PUTDOWN
+
+# goal definition
+string destination_id
+geometry_msgs/Pose destPoseSE2
+---
+# result definition
+string result_status
+# for stacking some stability measure might be useful
+float32 stability
+---
+#feedback
+string current_phase
+string current_status
+int32 percent_completed

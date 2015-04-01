@@ -1,0 +1,12 @@
+# Get saliency map color
+# author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
+
+# the full view organized point cloud
+sensor_msgs/PointCloud2 cloud
+# color to create saliency x -- red, y -- green, z -- blue
+geometry_msgs/Point32 color
+
+---
+
+# 2D saliency map image of same size as organized point cloud
+sensor_msgs/Image saliency_map
