@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="default_inertial">
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="arm" params="parent *origin">
+  
+    <joint name="arm_base_joint" type="fixed">
+      <insert_block name="origin" />
+      <child link="arm_base_link" />
+      <parent link="${parent}"/>
+    </joint>
+
+    <link name="arm_base_link" >
+      <xacro:default_inertial/>
+    </link>
+
+    <joint name="arm_1_joint" type="revolute">
+      <parent link="arm_base_link" />
+      <child link = "arm_1_link" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_1_ref}"/>
+      <limit effort="100" lower="-6.2831" upper="6.2831" velocity="1.4"/>
+    </joint>
+    
+    <link name="arm_1_link">
+      <xacro:default_inertial/>
+    </link>
+
+    <joint name="arm_2_joint" type="revolute">
+      <parent link="arm_1_link" />
+      <child link = "arm_2_link" />
+      <origin xyz="0.0 0.0 0.25" rpy="0.0 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_2_ref}"/>
+      <limit effort="100" lower="-2.36" upper="0.79" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_2_link">
+      <xacro:default_inertial/>
+      <visual>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="arm_3_joint" type="revolute">
+      <parent link="arm_2_link" />
+      <child link = "arm_3_link" />
+      <origin xyz="0.0 0.0 0.0" rpy="1.57 0.0 1.57" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_3_ref}"/>
+      <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_3_link">
+      <xacro:default_inertial/>
+      <visual>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="arm_4_joint" type="revolute">
+      <parent link="arm_3_link" />
+      <child link = "arm_4_link" />
+      <origin xyz="0.0 0.0 0.25" rpy="0.0 0.0 -1.57" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_4_ref}"/>
+      <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_4_link">
+      <xacro:default_inertial/>
+      <visual>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="arm_5_joint" type="revolute">
+      <parent link="arm_4_link" />
+      <child link = "arm_5_link" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 1.57" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_5_ref}"/>
+      <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_5_link">
+      <xacro:default_inertial/>
+      <visual>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="arm_6_joint" type="revolute">
+      <parent link="arm_5_link" />
+      <child link = "arm_6_link" />
+      <origin xyz="0.0 0.0 0.075" rpy="0.0 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_6_ref}"/>
+      <limit effort="100" lower="-4.19" upper="4.19" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_6_link">
+      <xacro:default_inertial/>
+      <visual>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>
+    </link>
+    
+  </xacro:macro>
+</robot>

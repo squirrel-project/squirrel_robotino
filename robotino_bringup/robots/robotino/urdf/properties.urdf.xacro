@@ -15,7 +15,6 @@
   <property name="KINECT_WIDTH" value="0.18"/>
   <property name="KINECT_HEIGHT" value="0.05"/>
 
-
   <!-- camera mount positions | handeye calibration | relative to base_link -->
   <property name="camera_x" value="0.0"/>
   <property name="camera_y" value="0.0"/>
@@ -39,8 +38,24 @@
   <property name="tilt_roll" value="-0.05"/>
   <property name="tilt_pitch" value="${M_PI/2}"/>
   <property name="tilt_yaw" value="0"/>
+  
+   <!-- arm mount positions | handeye calibration | relative to base_link -->
+  <property name="arm_x" value="0.0"/>
+  <property name="arm_y" value="0.0"/>
+  <property name="arm_z" value="0.35"/>
+  <property name="arm_roll" value="0.0"/>
+  <property name="arm_pitch" value="0"/>
+  <property name="arm_yaw" value="-${M_PI/2}"/>
 	
-  <!-- kinect mount positions | handeye calibration | relative to tilt_link -->
+   <!-- arm calibration-->
+  <property name="arm_1_ref" value="0.0"/>
+  <property name="arm_2_ref" value="0.0"/>
+  <property name="arm_3_ref" value="0.0"/>
+  <property name="arm_4_ref" value="0.0"/>
+  <property name="arm_5_ref" value="0.0"/>
+  <property name="arm_6_ref" value="0.0"/>
+
+   <!-- kinect mount positions | handeye calibration | relative to tilt_link -->
   <property name="kinect_x" value="-0.03"/>
   <property name="kinect_y" value="0.0"/>
   <property name="kinect_z" value="0.0"/>
@@ -48,12 +63,13 @@
   <property name="kinect_pitch" value="-1.45"/>
   <property name="kinect_yaw" value="0.0"/>
   
-  <!-- anglebracketusb mount positions | handeye calibration | relative to base_link -->
+   <!-- anglebracketusb mount positions | handeye calibration | relative to base_link -->
   <property name="anglebracketusb_x" value="0.008"/>
   <property name="anglebracketusb_y" value="0.0"/>
   <property name="anglebracketusb_z" value="0.137"/>
   <property name="anglebracketusb_roll" value="0.0"/>
   <property name="anglebracketusb_pitch" value="0.0"/>
   <property name="anglebracketusb_yaw" value="0.0"/>
+
 
 </robot>
