@@ -33,12 +33,12 @@
     <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
   </kinect>
 
-  <!--gazebo>
-    <plugin name="ros_control" filename="libmulti_hw_interface_gazebo_ros_control.so">
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
       <robotNamespace>tilt_controller</robotNamespace>
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
-  </gazebo-->
+  </gazebo>
 
   <!--anglebracketusb name="anglebracketusb" parent="base_link">
       <origin xyz="${anglebracketusb_x} ${anglebracketusb_y} ${anglebracketusb_z}" rpy="${anglebracketusb_roll} ${anglebracketusb_pitch} ${anglebracketusb_yaw}"/>
