@@ -26,7 +26,7 @@
   </kinect>
 
   <gazebo>
-    <plugin name="ros_control" filename="libmulti_hw_interface_gazebo_ros_control.so">
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
       <robotNamespace>tilt_controller</robotNamespace>
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
