@@ -32,7 +32,7 @@
 
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
-      <robotNamespace>tilt_controller</robotNamespace>
+      <robotNamespace>arm_controller</robotNamespace>
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
