@@ -37,7 +37,7 @@
     <joint name="arm_2_joint" type="revolute">
       <parent link="arm_1_link" />
       <child link = "arm_2_link" />
-      <origin xyz="0.0 0.0 0.25" rpy="0.0 0.0 0.0" />
+      <origin xyz="0.25 0.0 0.0" rpy="0.0 0.0 0.0" />
       <axis xyz="0 0 1" />
       <calibration rising="${arm_2_ref}"/>
       <limit effort="100" lower="-2.36" upper="0.79" velocity="1.4"/>
@@ -89,7 +89,7 @@
     <joint name="arm_4_joint" type="revolute">
       <parent link="arm_3_link" />
       <child link = "arm_4_link" />
-      <origin xyz="0.0 0.0 0.25" rpy="0.0 0.0 -1.57" />
+      <origin xyz="0.0 0.0 0.25" rpy="-1.57 0.0 0.0" />
       <axis xyz="0 0 1" />
       <calibration rising="${arm_4_ref}"/>
       <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
@@ -115,7 +115,7 @@
     <joint name="arm_5_joint" type="revolute">
       <parent link="arm_4_link" />
       <child link = "arm_5_link" />
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 1.57" />
+      <origin xyz="0.0 0.0 0.0" rpy="1.57 0.0 0.0" />
       <axis xyz="0 0 1" />
       <calibration rising="${arm_5_ref}"/>
       <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
