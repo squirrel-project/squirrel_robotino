@@ -31,4 +31,15 @@
       <node name="command_mux" pkg="topic_tools" type="mux" args="tilt_joint_position_controller/command command" cwd="node" respawn="true" output="screen"/>   
     </group> 
 
+    <group ns="arm_controller">
+      <!-- Arm Control -->
+      <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/arm_controller.yaml" command="load"/>
+      <node name="joint_state_arm_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true"/>
+      <node name="arm_controller_spawner_traj" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_trajectory_controller"/>
+      <node name="arm_controller_spawner_pos" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_group_position_controller"/>
+      <node name="arm_controller_spawner_vel" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_group_velocity_controller"/>
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>   
+      <node name="command_mux" pkg="topic_tools" type="mux" args="arm_joint_position_controller/command command" cwd="node" respawn="true" output="screen"/>   
+    </group> 
+    
 </launch>
