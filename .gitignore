@@ -1,3 +1,6 @@
+robotino_bringup_sim/scripts/*
+robotino_gazebo_worlds/Media/*
+
 *.pydevproject
 .metadata
 .gradle
