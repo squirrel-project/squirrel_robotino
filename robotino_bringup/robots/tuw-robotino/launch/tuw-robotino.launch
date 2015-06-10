@@ -38,10 +38,11 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
+  <!-- we are not using a webcam
   <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
     <param name="hostname" value="$(arg hostname)" />
     <param name="cameraNumber" value="0" />
-  </node>
+  </node> -->
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
