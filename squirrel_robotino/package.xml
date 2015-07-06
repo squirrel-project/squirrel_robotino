@@ -3,10 +3,12 @@
   <name>squirrel_robotino</name>
   <version>0.0.0</version>
   <description>This repository holds packages for hardware launch files and configuration, as well as the simulation model for starting up the basic layer for operating Robotino</description>
-  <maintainer email="michael.cashmore@kcl.ac.uk">michael</maintainer>  
+
+  <license>BSD</license>
+
   <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
   <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
-  <license>BSD</license>
+
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>robotino_bringup</run_depend>
@@ -17,10 +19,6 @@
   <run_depend>robotino_gazebo_worlds</run_depend>
   <run_depend>robotino_msgs</run_depend>
   <run_depend>robotino_teleop</run_depend>
-
-
-
-
 
   <export>
 	<metapackage/>

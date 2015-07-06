@@ -5,16 +5,11 @@ project(robotino_bringup_sim)
 find_package(catkin REQUIRED COMPONENTS)
 
 
-# TODO: fill in what other packages will need to use this package
-## DEPENDS: system dependencies of this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## INCLUDE_DIRS: 
-## LIBRARIES: libraries you create in this project that dependent projects also need
 catkin_package(
     CATKIN_DEPENDS gazebo_ros robotino_gazebo_worlds
-    DEPENDS # TODO
-    INCLUDE_DIRS # TODO include
-    LIBRARIES # TODO
+    DEPENDS 
+    INCLUDE_DIRS 
+    LIBRARIES
 )
 
 install(DIRECTORY launch
@@ -24,7 +19,3 @@ install(DIRECTORY launch
 install(PROGRAMS scripts/remove_object.py scripts/spawn_object.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts
 )
-
-
-# rostest
-# none (not possible because of arg used in include tags)

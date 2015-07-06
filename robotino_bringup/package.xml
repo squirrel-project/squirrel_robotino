@@ -4,50 +4,37 @@
   <version>0.0.0</version>
   <description>Everything to start up the Festo Robotino robot</description>
 
-  <!-- One maintainer tag required, multiple allowed, one person per tag --> 
-  <!-- Example:  -->
-  <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="team02@todo.todo">team02</maintainer>
+  <license>BSD</license>
 
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <maintainer email="bajones@acin.tuwien.ac.at">Markus Bajones</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
 
-  <!-- One license tag required, multiple allowed, one license per tag -->
-  <!-- Commonly used license strings: -->
-  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
-
-
-  <!-- Url tags are optional, but mutiple are allowed, one per tag -->
-  <!-- Optional attribute type can be: website, bugtracker, or repository -->
-  <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/robotino_bringup</url> -->
-
-
-  <!-- Author tags are optional, mutiple are allowed, one per tag -->
-  <!-- Authors do not have to be maintianers, but could be -->
-  <!-- Example: -->
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
-
-
-  <!-- The *_depend tags are used to specify dependencies -->
-  <!-- Dependencies can be catkin packages or system dependencies -->
-  <!-- Examples: -->
-  <!-- Use build_depend for packages you need at compile time: -->
-  <!--   <build_depend>message_generation</build_depend> -->
-  <!-- Use buildtool_depend for build tool packages: -->
-  <!--   <buildtool_depend>catkin</buildtool_depend> -->
-  <!-- Use run_depend for packages you need at runtime: -->
-  <!--   <run_depend>message_runtime</run_depend> -->
-  <!-- Use test_depend for packages you need only for testing: -->
-  <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roslaunch</build_depend>
 
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>robotino_driver</run_depend>
+  <run_depend>dynamixel_controllers</run_depend>
+  <run_depend>openni2_launch</run_depend>
+  <run_depend>image_proc</run_depend>
+  <run_depend>hokuyo_node</run_depend>
 
-  <!-- The export tag contains other, unspecified, tags -->
+  <!--run_depend>camera1394</run_depend-->
+  <run_depend>nodelet</run_depend>
+  <run_depend>joy</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>topic_tools</run_depend>
+
+  <!--control dependencies -->
+  <run_depend>controller_manager</run_depend>
+  <run_depend>cob_trajectory_controller</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>joint_state_controller</run_depend>
+  <run_depend>position_controllers</run_depend>
+  <run_depend>joint_trajectory_controller</run_depend>
+
   <export>
-    <!-- You can specify that this package is a metapackage here: -->
-    <!-- <metapackage/> -->
-
-    <!-- Other tools can request additional information be placed here -->
-
   </export>
 </package>

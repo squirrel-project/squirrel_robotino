@@ -3,8 +3,7 @@
   <version>0.0.0</version>
   <description>This packages provides the controller configuration for simulating robotino in the gazebo simulator.</description>
   
-  <license>LGPL</license>
-
+  <license>BSD</license>
 
   <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
   <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
