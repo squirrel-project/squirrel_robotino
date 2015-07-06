@@ -4,9 +4,10 @@
   <version>0.0.0</version>
   <description>Everything to start up the Festo Robotino robot</description>
 
-  <license>LGPL</license>
+  <license>BSD</license>
 
   <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <maintainer email="bajones@acin.tuwien.ac.at">Markus Bajones</maintainer>
   <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
 
   <buildtool_depend>catkin</buildtool_depend>

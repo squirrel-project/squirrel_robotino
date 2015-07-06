@@ -4,7 +4,7 @@
   <version>0.0.0</version>
   <description>The robotino_description package</description>
 
-  <license>LGPL</license>
+  <license>BSD</license>
   
   <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
   <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>

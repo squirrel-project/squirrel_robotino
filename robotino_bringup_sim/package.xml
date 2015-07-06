@@ -3,7 +3,7 @@
   <version>0.5.2</version>
   <description>This package provides launch files for starting a simulated Robotino.</description>
 
-  <license>LGPL</license>
+  <license>BSD</license>
 
   <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
   <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
