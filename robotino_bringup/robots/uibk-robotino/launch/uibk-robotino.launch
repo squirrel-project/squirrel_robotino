@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot" default="robotino"/>
+  <arg name="use_robotino_safety" value="true" />
+  <arg name="hostname" default="172.26.1.1" />
+  <!--param name="use_sim_time" value="false" /-->
+
+  <!-- COMMON -->
+  <!-- send robot urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/$(arg robot).urdf.xacro'" />
+  <!-- state publisher -->
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen">
+    <param name="publish_frequency" type="double" value="20.0" />
+  </node>
+
+  <!-- robotino node -->
+  <node name="robotino_node" pkg="robotino_driver" type="robotino_driver" output="screen">
+    <param name="hostname" value="$(arg hostname)" />
+    <param name="max_linear_vel" value="0.5" />
+    <param name="min_linear_vel" value="0.05" />
+    <param name="max_angular_vel" value="3.0" />
+    <param name="min_angular_vel" value="0.1" />
+    <param name="downsample_kinect" value="true" />
+    <param name="leaf_size_kinect" value="0.04" />
+    <remap from="robotino_joint_states" to="joint_states" />
+    <remap from="cmd_vel" to="robotino_cmd_vel" if="$(arg use_robotino_safety)" />
+  </node>
+
+  <include file="$(find robotino_safety)/launch/robotino_safety_node.launch" if="$(arg use_robotino_safety)">
+    <arg name="use_safe_velocity" value="false" />
+    <arg name="controller_vel_topic" value="/robotino_cmd_vel" />
+    <arg name="bumper_topic" value="/bumper" />
+    <arg name="scan_topic" value="/scan" />
+  </include>
+
+  <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
+    <param name="hostname" value="$(arg hostname)" />
+  </node>
+
+  <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
+    <param name="hostname" value="$(arg hostname)" />
+    <param name="cameraNumber" value="0" />
+  </node>
+
+  <!-- Hokuyo driver -->
+  <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+    <!-- Set the port to connect to here -->
+    <!--param name="port" type="string" value="/dev/ttyScan"/-->
+    <param name="port" type="string" value="/dev/ttyACM0"/>
+    <param name="frame_id" type="string" value="hokuyo_link"/> 
+    <param name="intensity" type="bool" value="false"/>
+  </node>
+
+  <!-- kinect -->
+  <include file="$(find openni2_launch)/launch/openni2.launch" >
+    <arg name="camera" value="kinect"/>
+    <!-- <arg name="rgb_frame_id" value="/kinect_link" /> -->
+    <!-- <arg name="depth_frame_id" value="/kinect_frame" /> -->
+    <arg name="publish_tf" value="true" />
+    <arg name="depth_registration" value="true"/>
+  </include>
+
+  <!-- Dynamixel servo based (pan)/tilt unit -->
+  <!-- Start the meta controller for all connected servos -->
+  <!--include file="$(find robotino_bringup)/launch/dynamixel_controller_manager.launch"-->
+  <!--/include-->
+  <!-- Spawn a new controller instance in the meta controller.
+       NOTE: This starter exits after having spawned the controller! -->
+  <!--include file="$(find robotino_bringup)/launch/start_tilt_controller.launch"-->
+  <!--/include-->
+
+  <!-- Simple node to move the kinect in the default position on robot's startup
+       It also exposes a service /tilt_controller/resetPosition -->
+  <!--node name="robotino_tilt_controller" pkg="robotino_driver" type="robotino_tilt_controller" output="screen">
+    <!param name="tilt_command_topic" value="/tilt_controller/command" />
+    <!param name="tilt_status_topic" value="/tilt_controller/state" />
+    <param name="startup_angle" value="0.6" />
+  </node-->
+
+</launch>
