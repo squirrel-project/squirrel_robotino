@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="robotino">
+  
+  <xacro:include filename="$(find robotino_bringup)/robots/robotino/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/camera.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/angle_bracket.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/tilt_axis.urdf.xacro" />
+  
+  <xacro:body name="base"/>
+
+  <hokuyo name="hokuyo" parent="base_link">
+    <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
+  </hokuyo>
+
+  <tilt_axis name="tilt" parent="base_link">
+    <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/>
+  </tilt_axis>
+
+  <kinect name="kinect" parent="tilt_link">
+    <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
+  </kinect>
+
+  <!--anglebracketusb name="anglebracketusb" parent="base_link">
+    <origin xyz="${anglebracketusb_x} ${anglebracketusb_y} ${anglebracketusb_z}" rpy="${anglebracketusb_roll} ${anglebracketusb_pitch} ${anglebracketusb_yaw}"/>
+  </anglebracketusb-->
+
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>tilt_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
+</robot>
