@@ -24,9 +24,9 @@
   <property name="camera_yaw" value="-${M_PI/2}"/>
 	
   <!-- hokuyo mount positions | relative to base_link -->
-  <property name="hokuyo_x" value="0.024"/>
+  <property name="hokuyo_x" value="0.034"/>
   <property name="hokuyo_y" value="0.0"/>
-  <property name="hokuyo_z" value="0.135"/>
+  <property name="hokuyo_z" value="0.187"/>
   <property name="hokuyo_roll" value="0.0"/>
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="0.0"/>

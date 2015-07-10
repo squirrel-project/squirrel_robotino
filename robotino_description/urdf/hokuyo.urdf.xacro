@@ -33,7 +33,7 @@
     </link>
     
     <!-- gazebo extensions -->
-    <xacro:hokuyo_gazebo name="${name}" ros_topic="scan" update_rate="10" min_angle="-2.3562" max_angle="2.3562"/>
+    <xacro:hokuyo_gazebo name="${name}" ros_topic="scan" update_rate="10" min_angle="-2.2689" max_angle="2.2689"/>
     
   </xacro:macro>
 
