@@ -28,7 +28,7 @@
       <collision>
         <origin xyz="0.01 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotino_description/meshes/RobotinoBody.dae"/>
+          <mesh filename="package://robotino_description/meshes/RobotinoBody.stl"/>
         </geometry>
       </collision>
     </link>
