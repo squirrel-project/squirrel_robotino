@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package>
+  <name>robotino_bringup</name>
+  <version>0.0.0</version>
+  <description>Everything to start up the Festo Robotino robot</description>
+
+  <license>BSD</license>
+
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <maintainer email="bajones@acin.tuwien.ac.at">Markus Bajones</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roslaunch</build_depend>
+
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>robotino_driver</run_depend>
+  <run_depend>dynamixel_controllers</run_depend>
+  <run_depend>openni2_launch</run_depend>
+  <run_depend>image_proc</run_depend>
+  <run_depend>hokuyo_node</run_depend>
+
+  <!--run_depend>camera1394</run_depend-->
+  <run_depend>nodelet</run_depend>
+  <run_depend>joy</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>topic_tools</run_depend>
+
+  <!--control dependencies -->
+  <run_depend>controller_manager</run_depend>
+  <run_depend>cob_trajectory_controller</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>joint_state_controller</run_depend>
+  <run_depend>position_controllers</run_depend>
+  <run_depend>joint_trajectory_controller</run_depend>
+
+  <export>
+  </export>
+</package>

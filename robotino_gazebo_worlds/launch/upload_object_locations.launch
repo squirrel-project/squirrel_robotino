@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="robot_env" default="simple_room"/>
+
+	<!-- send objects locations to parameter server -->
+	<rosparam command="delete" param="/objects"/>
+	<rosparam command="load" ns="objects" file="$(find robotino_gazebo_worlds)/config/$(arg robot_env)/object_locations.yaml"/>
+
+
+</launch>

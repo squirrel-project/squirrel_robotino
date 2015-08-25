@@ -1,0 +1,20 @@
+table:
+  model: table
+  model_type: urdf.xacro
+  position: [1.1, 1.2, 0]
+  orientation: [0, 0, 0]
+
+bookcase:
+  model: bookcase
+  model_type: urdf.xacro
+  position: [-1.4, -2.1, 0]
+  orientation: [0, 0, -1.57079]
+
+chair:
+  model: chair
+  model_type: urdf
+  position: [0.7, 1.2, 0.0]
+  orientation: [0, 0, 1.5708]
+
+
+

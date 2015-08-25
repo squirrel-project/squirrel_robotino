@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="default_inertial">
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+  </xacro:macro>
+
+  
+  <xacro:macro name="arm_SimpleTransmission" params="number">
+    <transmission name="arm_${number}_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="arm_${number}_joint">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="arm_${number}_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+  <xacro:macro name="arm" params="parent *origin">
+  
+    <joint name="arm_base_joint" type="fixed">
+      <insert_block name="origin" />
+      <child link="arm_base_link" />
+      <parent link="${parent}"/>
+    </joint>
+
+    <link name="arm_base_link" >
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0.0 0.0 0.175" rpy="0 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.0" length="0.0"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 0.175" rpy="0 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.0" length="0.0"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="arm_1_joint" type="revolute">
+      <parent link="arm_base_link" />
+      <child link = "arm_1_link" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_1_ref}"/>
+      <limit effort="100" lower="-6.2831" upper="6.2831" velocity="1.4"/>
+    </joint>
+    
+    <link name="arm_1_link">
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0.0 0.0 -0.04" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <box size="0.08 0.08 0.08"/>
+        </geometry>
+        <material name="Black">
+          <color rgba="0 0 0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 -0.04" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.08"/>
+        </geometry>
+      </collision>
+    </link>
+    
+    <gazebo reference="arm_1_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+    
+    <joint name="arm_2_joint" type="revolute">
+      <parent link="arm_1_link" />
+      <child link = "arm_2_link" />
+      <origin xyz="0.0 0.0 0.0" rpy="1.57 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_2_ref}"/>
+      <limit effort="100" lower="-2.36" upper="0.79" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_2_link">
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0.0 0.125 0.0" rpy="1.57 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.25"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.125 0.0" rpy="1.57 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.25"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="arm_2_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+    
+    <joint name="arm_3_joint" type="revolute">
+      <parent link="arm_2_link" />
+      <child link = "arm_3_link" />
+      <origin xyz="0.0 0.25 -0.05" rpy="0.0 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_3_ref}"/>
+      <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_3_link">
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0.0 0.125 0.0" rpy="-1.57 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.25"/>
+        </geometry>
+        <material name="Black">
+          <color rgba="0 0 0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.125 0.0" rpy="-1.57 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.25"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="arm_3_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+    
+    <joint name="arm_4_joint" type="revolute">
+      <parent link="arm_3_link" />
+      <child link = "arm_4_link" />
+      <origin xyz="0.0 0.175 0.0" rpy="-1.57 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_4_ref}"/>
+      <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_4_link">
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0.0 0.0 -0.0375" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.05"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 -0.0375" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.05"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="arm_4_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+    
+    <joint name="arm_5_joint" type="revolute">
+      <parent link="arm_4_link" />
+      <child link = "arm_5_link" />
+      <origin xyz="0.0 0.05 0.075" rpy="1.57 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_5_ref}"/>
+      <limit effort="100" lower="-2.62" upper="2.62" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_5_link">
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0.0 0.0175 0.0" rpy="-1.57 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.035"/>
+        </geometry>
+        <material name="Black">
+          <color rgba="0 0 0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0175 0.0" rpy="-1.57 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.035"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="arm_5_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+    
+    <joint name="arm_6_joint" type="revolute">
+      <parent link="arm_5_link" />
+      <child link = "arm_6_link" />
+      <origin xyz="0.0 0.035 0.0" rpy="-1.57 0.0 0.0" />
+      <axis xyz="0 0 1" />
+      <calibration rising="${arm_6_ref}"/>
+      <limit effort="100" lower="-4.19" upper="4.19" velocity="1.4"/>
+    </joint>
+
+    <link name="arm_6_link">
+      <xacro:default_inertial/>
+      <visual>
+        <origin xyz="0.0 0.0 0.0125" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.025"/>
+        </geometry>
+        <material name="LightGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 -0.0125" rpy="0.0 0.0 0.0" />
+        <geometry>
+          <cylinder radius="0.025" length="0.025"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="arm_6_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <xacro:arm_SimpleTransmission number="1"></xacro:arm_SimpleTransmission>
+    <xacro:arm_SimpleTransmission number="2"></xacro:arm_SimpleTransmission>
+    <xacro:arm_SimpleTransmission number="3"></xacro:arm_SimpleTransmission>
+    <xacro:arm_SimpleTransmission number="4"></xacro:arm_SimpleTransmission>
+    <xacro:arm_SimpleTransmission number="5"></xacro:arm_SimpleTransmission>
+    <xacro:arm_SimpleTransmission number="6"></xacro:arm_SimpleTransmission>
+    <xacro:arm_SimpleTransmission number="7"></xacro:arm_SimpleTransmission>
+
+
+  </xacro:macro>
+</robot>

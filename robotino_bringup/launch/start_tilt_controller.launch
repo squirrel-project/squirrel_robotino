@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Start tilt joint controller -->
+    <rosparam file="$(find robotino_bringup)/config/tilt.yaml" command="load"/>
+    <node name="tilt_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --port pan_tilt_port
+                tilt_controller"
+          output="screen"/>
+
+    <node name="tilt_state_publisher" pkg="robotino_bringup" type="tilt_state_publisher.py" output="screen"/>
+</launch>

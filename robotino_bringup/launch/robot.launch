@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+  
+	<include file="$(find robotino_bringup)/robots/$(arg robot)/launch/$(arg robot).launch" >
+	</include>
+
+</launch>
