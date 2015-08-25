@@ -20,34 +20,34 @@
           izz="75.0" />
       </inertial>
       <visual>
-        <origin xyz="0.01 0 0" rpy="0 0 ${M_PI/2}"/>
+        <origin xyz="0.01 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotino_description/meshes/RobotinoBody.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://robotino_description/meshes/RobotinoBody.dae"/>
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0.01 0 0" rpy="0 0 ${M_PI/2}"/>
+        <origin xyz="0.01 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotino_description/meshes/RobotinoBody.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://robotino_description/meshes/RobotinoBody.stl"/>
         </geometry>
       </collision>
     </link>
     <base_gazebo name="base" />
     
     <wheel name="wheel0" parent="base_link">
-      <origin xyz="0.065 0.11 0.04" rpy="0 0 ${M_PI/3}"/>
+      <origin xyz="0.095 0.14 0.02" rpy="0 0 ${M_PI/3}"/>
       <axis xyz="-1 0 0"/>
     </wheel>
     <wheel_transmission name="wheel0" />
     <wheel_gazebo name="wheel0" />
     <wheel name="wheel1" parent="base_link">
-      <origin xyz="-0.13 0 0.04" rpy="0 0 0"/>
+      <origin xyz="-0.16 0 0.02" rpy="0 0 0"/>
       <axis xyz="1 0 0"/>
     </wheel>
     <wheel_transmission name="wheel1" />
     <wheel_gazebo name="wheel1" />
     <wheel name="wheel2" parent="base_link">
-      <origin xyz="0.065 -0.11 0.04" rpy="0 0 -${M_PI/3}"/>
+      <origin xyz="0.105 -0.15 0.02" rpy="0 0 -${M_PI/3}"/>
       <axis xyz="-1 0 0"/>
     </wheel>
     <wheel_transmission name="wheel2" />
