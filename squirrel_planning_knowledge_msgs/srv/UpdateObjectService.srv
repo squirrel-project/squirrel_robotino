@@ -1,9 +1,0 @@
-# add object to scene database
-string id
-string category
-geometry_msgs/PoseStamped pose
-sensor_msgs/PointCloud2 cloud
----
-uint8 SUCCESS = 0
-uint8 FAILURE = 1
-uint8 result

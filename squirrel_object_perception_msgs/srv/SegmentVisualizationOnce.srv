@@ -1,6 +1,0 @@
-# Do one step in an incremental segmentation cycle, resulting in one more segmented object
-# author: Ekaterina Potapova, potapova@acin.tuwien.ac.at
-
-std_msgs/Int32MultiArray[] clusters_indices
-
----
