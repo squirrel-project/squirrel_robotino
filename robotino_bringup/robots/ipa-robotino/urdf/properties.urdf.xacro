@@ -11,9 +11,9 @@
   <property name="BASE_MASS" value="20"/>
   <property name="HOKUYO_RADIUS" value="0.02"/>
   <property name="HOKUYO_LENGTH" value="0.07"/>
-  <property name="KINECT_LENGTH" value="0.035"/>
-  <property name="KINECT_WIDTH" value="0.18"/>
-  <property name="KINECT_HEIGHT" value="0.05"/>
+  <property name="KINECT_LENGTH" value="0.18"/>
+  <property name="KINECT_WIDTH" value="0.035"/>
+  <property name="KINECT_HEIGHT" value="0.02"/>
 
 
   <!-- camera mount positions | handeye calibration | relative to base_link -->
@@ -33,7 +33,7 @@
   <property name="hokuyo_yaw" value="0.0"/>
 
    <!-- tilt mount positions | handeye calibration | relative to base_link -->
-  <property name="tilt_x" value="-0.01"/>
+  <property name="tilt_x" value="0.02"/>
   <property name="tilt_y" value="0.0"/>
   <property name="tilt_z" value="0.45"/>
   <property name="tilt_roll" value="-0.05"/>
