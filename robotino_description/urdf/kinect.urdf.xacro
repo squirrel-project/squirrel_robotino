@@ -19,7 +19,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="${KINECT_LENGTH} ${KINECT_WIDTH} ${KINECT_HEIGHT}"/>
+          <box size="${KINECT_WIDTH} ${KINECT_LENGTH} ${KINECT_HEIGHT}"/>
         </geometry>
         <material name="Grey"/>
       </visual>
@@ -27,7 +27,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="${KINECT_LENGTH} ${KINECT_WIDTH} ${KINECT_HEIGHT}"/>
+          <box size="${KINECT_WIDTH}  ${KINECT_LENGTH} ${KINECT_HEIGHT}"/>
         </geometry>
       </collision>
     </link>
