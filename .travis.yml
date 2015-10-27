@@ -17,11 +17,12 @@ install:
   - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
   - sudo sh -c 'echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list'
   - sudo apt-get update
+  - sudo apt-key update
   - sudo apt-get install -qq -y python-rosdep python-catkin-tools
   - sudo rosdep init
   - rosdep update
   - sudo apt-get install ros-indigo-desktop
-  - sudo apt-get install robotino-api2
+  - sudo apt-get -q -y --force-yes install robotino-api2
   # Use rosdep to install all dependencies (including ROS itself)
 script:
   - source /opt/ros/$CI_ROS_DISTRO/setup.bash
