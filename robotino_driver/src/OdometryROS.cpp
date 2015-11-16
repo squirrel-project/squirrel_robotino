@@ -48,6 +48,17 @@ void OdometryROS::readingsEvent(double x, double y, double phi,
 	odometry_msg_.twist.twist.angular.y = 0.0;
 	odometry_msg_.twist.twist.angular.z = omega;
 
+
+	//odometry_transform_.header.frame_id = "odom";
+	//odometry_transform_.header.stamp = odometry_msg_.header.stamp;
+	//odometry_transform_.child_frame_id = "base_link";
+	//odometry_transform_.transform.translation.x = x;
+	//odometry_transform_.transform.translation.y = y;
+	//odometry_transform_.transform.translation.z = 0.0;
+	//odometry_transform_.transform.rotation = phi_quat;
+
+	//odometry_transform_broadcaster_.sendTransform( odometry_transform_ ); 
+
 	odometry_translation_.header.frame_id = "odom";
 	odometry_translation_.header.stamp = odometry_msg_.header.stamp;
 	odometry_translation_.child_frame_id = "odomp";
