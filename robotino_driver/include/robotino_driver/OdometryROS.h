@@ -32,7 +32,9 @@ private:
 	ros::ServiceServer reset_odometry_server_;
 
 	nav_msgs::Odometry odometry_msg_;
-	geometry_msgs::TransformStamped odometry_transform_;
+	//geometry_msgs::TransformStamped odometry_transform_;
+	geometry_msgs::TransformStamped odometry_translation_;
+	geometry_msgs::TransformStamped odometry_rotation_;
 
 	tf::TransformBroadcaster odometry_transform_broadcaster_;
 

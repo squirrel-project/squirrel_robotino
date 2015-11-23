@@ -16,6 +16,8 @@
 	  <param name="tf_prefix" type="string" value="" />
 	</node>
 	
+	<node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom odomp 100" />
+
 	<node name="kinect_depth_relay" pkg="topic_tools" type="relay" args="/kinect/depth/points /kinect/depth_registered/points" cwd="node" respawn="true" output="screen"/>
 
 	<!-- start gazebo controllers -->
