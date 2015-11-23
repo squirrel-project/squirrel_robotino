@@ -371,3 +371,15 @@ cb_9x6:
   model_type: urdf
   position: [-0.7, -0.1, 1]
   orientation: [1.56, 0, 1.56]
+
+##################################
+#Objects for pushing
+##################################
+
+simple_blue_box:
+  model: simple_blue_box
+  model_type: urdf
+  position: [0.37, 0, 0.03]
+  orientation: [0, 0, 1.2]
+
+
