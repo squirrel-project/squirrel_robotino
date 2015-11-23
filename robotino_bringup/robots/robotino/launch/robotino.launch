@@ -10,7 +10,7 @@
   <!-- send robot urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/$(arg robot).urdf.xacro'" />
   <!-- state publisher -->
-  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen">
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
     <param name="publish_frequency" type="double" value="5.0" />
   </node>
 
