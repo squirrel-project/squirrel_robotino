@@ -121,30 +121,51 @@ if __name__ == "__main__":
 
 		try:
 			file_localition = roslib.packages.get_pkg_dir('cob_gazebo_objects') + '/objects/' + model + '.' + model_type
-		except:
-			print "File not found: cob_gazebo_objects" + "/objects/" + model + "." + model_type
-			continue
+		
+			# call gazebo service to spawn model (see http://ros.org/wiki/gazebo)
+			if model_type == "urdf":
+				srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
+				file_xml = open(file_localition)
+				xml_string=file_xml.read()
 
-		# call gazebo service to spawn model (see http://ros.org/wiki/gazebo)
-		if model_type == "urdf":
-			srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
-			file_xml = open(file_localition)
-			xml_string=file_xml.read()
+			elif model_type == "urdf.xacro":
+				p = os.popen("rosrun xacro xacro.py " + file_localition)
+				xml_string = p.read()
+				p.close()
+				srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
 
-		elif model_type == "urdf.xacro":
-			p = os.popen("rosrun xacro xacro.py " + file_localition)
-			xml_string = p.read()
-			p.close()
-			srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
+			elif model_type == "model":
+				srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_gazebo_model', SpawnModel)
+				file_xml = open(file_localition)
+				xml_string=file_xml.read()
+			else:
+				rospy.logerr('Model type not know. model_type = ' + model_type)
+				continue
+		except: 
+			try:
+				file_localition = roslib.packages.get_pkg_dir('robotino_gazebo_worlds') + '/objects/' + model + '.' + model_type
+				print "getting locaton "+file_localition
+				if model_type == "urdf":
+					srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
+					file_xml = open(file_localition)
+					xml_string=file_xml.read()
 
-		elif model_type == "model":
-			srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_gazebo_model', SpawnModel)
-			file_xml = open(file_localition)
-			xml_string=file_xml.read()
-		else:
-			rospy.logerr('Model type not know. model_type = ' + model_type)
-			continue
+				elif model_type == "urdf.xacro":
+					p = os.popen("rosrun xacro xacro.py " + file_localition)
+					xml_string = p.read()
+					p.close()
+					srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
 
+				elif model_type == "model":
+					srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_gazebo_model', SpawnModel)
+					file_xml = open(file_localition)
+					xml_string=file_xml.read()
+				else:
+					rospy.logerr('Model type not know. model_type = ' + model_type)
+					continue	
+                        except:
+				print "File not found: cob_gazebo_objects" + "/objects/" + model + "." + model_type
+				print "File not found: robotino_gazebo_worlds" + "/objects/" + model + "." + model_type
 
 		# check if object is already spawned
 		srv_delete_model = rospy.ServiceProxy('gazebo/delete_model', DeleteModel)
