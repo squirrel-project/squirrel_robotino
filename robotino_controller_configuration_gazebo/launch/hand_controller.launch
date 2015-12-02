@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+    <group ns="hand_controller">
+
+      <!-- Hand Control -->
+      <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/hand_controller.yaml" command="load"/>
+      <node name="joint_state_hand_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="joint_state_controller"/>
+      <node name="hand_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="joint_group_position_controller"/>
+
+      <node name="joint_states_relay_hand" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
+
+    </group> 
+
+</launch>
