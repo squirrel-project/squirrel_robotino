@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <launch>	
-  <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/tilt_controller.yaml" command="load" />
-  <node name="tilt_controller_spawner" pkg="controller_manager" type="spawner" args="--timeout 60 tilt_controller" />
-  <!--node ns="tilt_controller" name="gazebo_services" pkg="robotino_controller_configuration_gazebo" type="gazebo_services.py"  cwd="node" respawn="false" output="screen" /-->
 
-  <!-- joint_state_controller -->
-  <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/joint_controller.yaml" command="load"/>
-  <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" args="--timeout 60 joint_state_controller" />
-
+    <group ns="tilt_controller">
+      <!-- Tilt Control -->
+      <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/tilt_controller.yaml" command="load"/>
+      <node name="joint_state_tilt_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true"/>
+      <node name="tilt_controller_spawner" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="tilt_joint_position_controller"/>
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>   
+      <node name="command_mux" pkg="topic_tools" type="mux" args="tilt_joint_position_controller/command command" cwd="node" respawn="true" output="screen"/>   
+    </group> 
 
 </launch>
