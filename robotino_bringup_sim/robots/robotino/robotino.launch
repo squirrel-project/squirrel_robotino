@@ -20,5 +20,8 @@
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/arm_controller.launch" >
     <arg name="use_velocity_controller" value="true"/>
-</include>
+  </include>
+
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/hand_controller.launch" />
+
 </launch>

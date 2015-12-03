@@ -1,0 +1,71 @@
+## joint_names
+joint_names: [hand_middle_finger_lower_joint, hand_middle_finger_upper_joint, hand_left_crank_base_joint, hand_left_coupler_crank_joint, hand_left_finger_lower_joint, hand_left_finger_upper_joint, hand_right_crank_base_joint, hand_right_coupler_crank_joint, hand_right_finger_lower_joint, hand_right_finger_upper_joint]
+## control_mode_adapter
+max_command_silence: 0.5
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 10
+
+## position controller
+joint_group_position_controller:
+  type: position_controllers/JointGroupPositionController
+  joints:
+    - hand_middle_finger_lower_joint
+    - hand_middle_finger_upper_joint
+    - hand_left_crank_base_joint
+    - hand_left_coupler_crank_joint
+    - hand_left_finger_lower_joint
+    - hand_left_finger_upper_joint
+    - hand_right_crank_base_joint
+    - hand_right_coupler_crank_joint
+    - hand_right_finger_lower_joint
+    - hand_right_finger_upper_joint
+  required_drive_mode: 1
+
+#hand_joint_trajectory_controller:
+#  type: position_controllers/JointTrajectoryController
+#  joints:
+#    - hand_middle_finger_lower_joint
+#    - hand_middle_finger_upper_joint
+#    - hand_left_crank_base_joint
+#    - hand_left_coupler_crank_joint
+#    - hand_left_finger_lower_joint
+#    - hand_left_finger_upper_joint
+#    - hand_right_crank_base_joint
+#    - hand_right_coupler_crank_joint
+#    - hand_right_finger_lower_joint
+#    - hand_right_finger_upper_joint
+#  constraints:
+#    goal_time: 10.0
+#    stopped_velocity_tolerance: 0.1
+#    hand_middle_finger_lower_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_middle_finger_upper_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_left_crank_base_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_left_coupler_crank_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_left_finger_lower_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_left_finger_upper_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_right_crank_base_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_right_coupler_crank_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_right_finger_lower_joint:
+#      trajectory: 0.5
+#      goal: 0.2
+#    hand_right_finger_upper_joint:
+#      trajectory: 0.5
+#      goal: 0.2
