@@ -17,6 +17,6 @@ install(DIRECTORY robots
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(PROGRAMS src/tilt_state_publisher.py
+install(PROGRAMS src/dynamixel_joint_state_publisher.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/src
 )
