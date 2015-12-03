@@ -151,8 +151,19 @@ add_executable(
   src/TiltControllerNode.cpp
 )
 
+add_executable(
+  robotino_pan_controller
+  src/pan_controller_node.cpp
+  src/PanControllerNode.cpp
+)
+
 target_link_libraries(
   robotino_tilt_controller
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+  robotino_pan_controller
   ${catkin_LIBRARIES}
 )
 

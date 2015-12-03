@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-    
+  
+  
 import roslib; roslib.load_manifest('robotino_bringup')
 import rospy
   
@@ -22,7 +23,7 @@ class JointStatePublisher():
   
         # The namespace and joints parameter needs to be set by the servo controller
         # (The namespace is usually null.)
-	namespace = 'tilt_controller'
+	namespace = 'pan_controller'
         #namespace = rospy.get_namespace()
         self.joints = rospy.get_param(namespace + '/joints', '')
   
@@ -35,7 +36,7 @@ class JointStatePublisher():
             self.controllers.append(controller)
   
         # Start controller state subscribers
-        rospy.Subscriber('/tilt_controller/state', JointStateDynamixel, self.controller_state_handler)
+        rospy.Subscriber('/pan_controller/state', JointStateDynamixel, self.controller_state_handler)
   
         # Start publisher
         self.joint_states_pub = rospy.Publisher('/joint_states', JointStatePR2)
