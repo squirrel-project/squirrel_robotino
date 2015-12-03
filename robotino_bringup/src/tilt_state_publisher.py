@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-  
-  
+    
 import roslib; roslib.load_manifest('robotino_bringup')
 import rospy
   

@@ -25,12 +25,12 @@
   <property name="camera_yaw" value="-${M_PI/2}"/>
 	
   <!-- hokuyo mount positions | relative to base_link -->
-  <property name="hokuyo_x" value="0.064"/>
-  <property name="hokuyo_y" value="0.0"/>
-  <property name="hokuyo_z" value="0.22"/>
+  <property name="hokuyo_x" value="0.131740483"/>
+  <property name="hokuyo_y" value="0.00937244242"/>
+  <property name="hokuyo_z" value="0.5"/> <!-- not used, apprx -->
   <property name="hokuyo_roll" value="0.0"/>
   <property name="hokuyo_pitch" value="0.0"/>
-  <property name="hokuyo_yaw" value="0.0"/>
+  <property name="hokuyo_yaw" value="-0.0536545473"/>
 
    <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
   <property name="pan_tilt_x" value="0.25"/>
