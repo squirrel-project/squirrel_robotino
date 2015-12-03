@@ -34,6 +34,8 @@
   <run_depend>joint_state_controller</run_depend>
   <run_depend>position_controllers</run_depend>
   <run_depend>joint_trajectory_controller</run_depend>
+  <run_depend>cob_gazebo_ros_control</run_depend>
+
   <!--run_depend>robotino_arm_description</run_depend-->
 
   <export>
