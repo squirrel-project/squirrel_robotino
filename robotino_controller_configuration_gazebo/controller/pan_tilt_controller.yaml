@@ -1,0 +1,28 @@
+#all
+joint_names: [pan_joint ,tilt_joint ]
+
+## control_mode_adapter
+max_command_silence: 0.5
+
+## joint_state_controller
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+## position controller
+#joint_group_position_controller:
+#  type: position_controllers/JointGroupPositionController
+#  joints:
+#     - tilt_joint
+#     - pan_joint
+#  required_drive_mode: 1
+
+pan_joint_position_controller:
+  type: position_controllers/JointPositionController
+  joint: pan_joint
+  required_drive_mode: 1
+tilt_joint_position_controller:
+  type: position_controllers/JointPositionController
+  joint: tilt_joint
+  required_drive_mode: 1
+
