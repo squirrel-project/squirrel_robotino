@@ -7,15 +7,15 @@
  *
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *
- * Project name: care-o-bot
- * ROS stack name: telair
- * ROS package name: telair_baggage_detection
+ * Project name: squirrel
+ * ROS stack name: squirrel_robotino
+ * ROS package name: robotino_calibration
  *
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *
  * Author: Richard Bormann, email:richard.bormann@ipa.fhg.de
  *
- * Date of creation: August 2015
+ * Date of creation: December 2015
  *
  * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  *

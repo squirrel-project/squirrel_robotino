@@ -36,7 +36,7 @@ find_package(PCL REQUIRED)
 catkin_package(
 INCLUDE_DIRS
 #	common/include
-#	ros/include
+	ros/include
 LIBRARIES
 CATKIN_DEPENDS
 	${catkin_RUN_PACKAGES}
@@ -53,14 +53,15 @@ DEPENDS
 ## Your package locations should be listed before other locations
 include_directories(
 #	common/include
-#	ros/include
+	ros/include
 	${catkin_INCLUDE_DIRS} 		# same name as find_package
 	${OpenCV_INCLUDE_DIRS}
 	${PCL_INCLUDE_DIRS}
 )
 
 # calibration software
-add_executable(hand_camera_calibration	ros/src/hand_camera_calibration_node.cpp)
+add_executable(hand_camera_calibration	ros/src/hand_camera_calibration_node.cpp
+										ros/src/hand_camera_calibration.cpp)
 target_link_libraries(hand_camera_calibration
 	${catkin_LIBRARIES} # automatically links all catkin_BUILD_PACKAGES
 	${OpenCV_LIBRARIES}
