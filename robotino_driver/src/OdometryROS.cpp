@@ -11,82 +11,83 @@
 
 OdometryROS::OdometryROS()
 {
-	odometry_pub_ = nh_.advertise<nav_msgs::Odometry>("odom", 1, true);
+  odometry_pub_ = nh_.advertise<nav_msgs::Odometry>("odom", 1, true);
 
-	reset_odometry_server_ = nh_.advertiseService("reset_odometry",
-			&OdometryROS::resetOdometryCallback, this);
+  reset_odometry_server_ = nh_.advertiseService("reset_odometry", &OdometryROS::resetOdometryCallback, this);
 }
 
 OdometryROS::~OdometryROS()
 {
-	odometry_pub_.shutdown();
-	reset_odometry_server_.shutdown();
+  odometry_pub_.shutdown();
+  reset_odometry_server_.shutdown();
 }
 
 void OdometryROS::setTimeStamp(ros::Time stamp)
 {
-	stamp_ = stamp;
+  stamp_ = stamp;
 }
 void OdometryROS::readingsEvent(double x, double y, double phi,
-		float vx, float vy, float omega, unsigned int sequence )
+                                float vx, float vy, float omega, unsigned int sequence )
 {
-	geometry_msgs::Quaternion phi_quat = tf::createQuaternionMsgFromYaw( phi );
+  geometry_msgs::Quaternion phi_quat = tf::createQuaternionMsgFromYaw( phi );
 
-	// Construct messages
-	odometry_msg_.header.seq = sequence;
-	odometry_msg_.header.frame_id = "odom";
-	odometry_msg_.header.stamp = stamp_;
-	odometry_msg_.child_frame_id = "base_link";
-	odometry_msg_.pose.pose.position.x = x ;
-	odometry_msg_.pose.pose.position.y = y ;
-	odometry_msg_.pose.pose.position.z = 0.0;
-	odometry_msg_.pose.pose.orientation = phi_quat;
-	odometry_msg_.twist.twist.linear.x = vx;
-	odometry_msg_.twist.twist.linear.y = vy;
-	odometry_msg_.twist.twist.linear.z = 0.0;
-	odometry_msg_.twist.twist.angular.x = 0.0;
-	odometry_msg_.twist.twist.angular.y = 0.0;
-	odometry_msg_.twist.twist.angular.z = omega;
+  // Construct messages
+  odometry_msg_.header.seq = sequence;
+  odometry_msg_.header.frame_id = "odom";
+  odometry_msg_.header.stamp = stamp_;
+  odometry_msg_.child_frame_id = child_frame;
+  odometry_msg_.pose.pose.position.x = x ;
+  odometry_msg_.pose.pose.position.y = y ;
+  odometry_msg_.pose.pose.position.z = 0.0;
+  odometry_msg_.pose.pose.orientation = phi_quat;
+  odometry_msg_.twist.twist.linear.x = vx;
+  odometry_msg_.twist.twist.linear.y = vy;
+  odometry_msg_.twist.twist.linear.z = 0.0;
+  odometry_msg_.twist.twist.angular.x = 0.0;
+  odometry_msg_.twist.twist.angular.y = 0.0;
+  odometry_msg_.twist.twist.angular.z = omega;
 
 
-	//odometry_transform_.header.frame_id = "odom";
-	//odometry_transform_.header.stamp = odometry_msg_.header.stamp;
-	//odometry_transform_.child_frame_id = "base_link";
-	//odometry_transform_.transform.translation.x = x;
-	//odometry_transform_.transform.translation.y = y;
-	//odometry_transform_.transform.translation.z = 0.0;
-	//odometry_transform_.transform.rotation = phi_quat;
+  //odometry_transform_.header.frame_id = "odom";
+  //odometry_transform_.header.stamp = odometry_msg_.header.stamp;
+  //odometry_transform_.child_frame_id = "base_link";
+  //odometry_transform_.transform.translation.x = x;
+  //odometry_transform_.transform.translation.y = y;
+  //odometry_transform_.transform.translation.z = 0.0;
+  //odometry_transform_.transform.rotation = phi_quat;
 
-	//odometry_transform_broadcaster_.sendTransform( odometry_transform_ ); 
+  //odometry_transform_broadcaster_.sendTransform( odometry_transform_ ); 
 
-	odometry_translation_.header.frame_id = "odom";
-	odometry_translation_.header.stamp = odometry_msg_.header.stamp;
-	odometry_translation_.child_frame_id = "odomp";
-	odometry_translation_.transform.translation.x = x;
-	odometry_translation_.transform.translation.y = y;
-	odometry_translation_.transform.translation.z = 0.0;
-	odometry_translation_.transform.rotation = tf::createQuaternionMsgFromYaw(0.0);
+  if ( publish_tf ) {
+    odometry_translation_.header.frame_id = "odom";
+    odometry_translation_.header.stamp = odometry_msg_.header.stamp;
+    odometry_translation_.child_frame_id = "odomp";
+    odometry_translation_.transform.translation.x = x;
+    odometry_translation_.transform.translation.y = y;
+    odometry_translation_.transform.translation.z = 0.0;
+    odometry_translation_.transform.rotation = tf::createQuaternionMsgFromYaw(0.0);
 
-	odometry_rotation_.header.frame_id = "odomp";
-	odometry_rotation_.header.stamp = odometry_msg_.header.stamp;
-	odometry_rotation_.child_frame_id = "base_link";
-	odometry_rotation_.transform.translation.x = 0.0;
-	odometry_rotation_.transform.translation.y = 0.0;
-	odometry_rotation_.transform.translation.z = 0.0;
-	odometry_rotation_.transform.rotation = phi_quat;
+    odometry_rotation_.header.frame_id = "odomp";
+    odometry_rotation_.header.stamp = odometry_msg_.header.stamp;
+    odometry_rotation_.child_frame_id = child_frame;
+    odometry_rotation_.transform.translation.x = 0.0;
+    odometry_rotation_.transform.translation.y = 0.0;
+    odometry_rotation_.transform.translation.z = 0.0;
+    odometry_rotation_.transform.rotation = phi_quat;
 
-	odometry_transform_broadcaster_.sendTransform( odometry_translation_ );
-	odometry_transform_broadcaster_.sendTransform( odometry_rotation_ );
+    odometry_transform_broadcaster_.sendTransform( odometry_translation_ );
+    odometry_transform_broadcaster_.sendTransform( odometry_rotation_ );
+  }
 
-	// Publish the msg
-	odometry_pub_.publish( odometry_msg_ );
+  // Publish the msg
+    odometry_pub_.publish( odometry_msg_ );    
 }
 
 bool OdometryROS::resetOdometryCallback(
-		robotino_msgs::ResetOdometry::Request &req,
-		robotino_msgs::ResetOdometry::Response &res)
+    robotino_msgs::ResetOdometry::Request &req,
+    robotino_msgs::ResetOdometry::Response &res)
 {
-	set( req.x, req.y, req.phi, true );
+  set( req.x, req.y, req.phi, true );
 
-	return true;
+  return true;
 }
