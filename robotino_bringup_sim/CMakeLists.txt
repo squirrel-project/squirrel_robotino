@@ -16,6 +16,6 @@ install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(PROGRAMS scripts/remove_object.py scripts/spawn_object.py
+install(PROGRAMS scripts/remove_object.py scripts/spawn_object.py scripts/odomp_frame.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts
 )
