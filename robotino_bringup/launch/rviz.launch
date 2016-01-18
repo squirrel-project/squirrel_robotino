@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <launch>
 
-        <!-- start rviz with configuration -->
-        <node pkg="rviz" type="rviz" name="$(anon rviz)" args="-d $(find robotino_bringup)/config/config.rviz" respawn="false" output="screen" />
+  <arg name="robot" default="robotino"/>
+
+    <!-- start rviz with configuration -->
+    <node pkg="rviz" type="rviz" name="$(anon rviz)" args="-d $(find robotino_bringup)/$(arg robot)/config/config.rviz" respawn="false" output="screen" />
 
 </launch>
 
