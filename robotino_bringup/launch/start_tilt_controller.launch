@@ -8,5 +8,8 @@
                 tilt_controller"
           output="screen"/>
 
-    <node name="tilt_state_publisher" pkg="robotino_bringup" type="tilt_state_publisher.py" output="screen"/>
+    <node name="dynamixel_tilt_state_publisher" pkg="robotino_bringup" type="dynamixel_joint_state_publisher.py" output="screen">
+      <param name="joint_name" value="tilt"/>
+      <param name="frame_id" value="pan_link"/>
+    </node>
 </launch>

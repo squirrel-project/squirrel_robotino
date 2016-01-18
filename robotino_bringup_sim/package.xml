@@ -12,9 +12,9 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>gazebo_ros</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
   <run_depend>robotino_gazebo_worlds</run_depend>
+  <run_depend>rospy</run_depend>
 
-  <export>
-
-  </export>
 </package>
