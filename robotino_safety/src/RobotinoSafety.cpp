@@ -154,7 +154,7 @@ void RobotinoSafety::scanCallback( const sensor_msgs::LaserScanConstPtr& msg )
 	sensor_msgs::PointCloud cloud;
 
 	try {
-		tfListener_.waitForTransform("/base_link", "/hokuyo_link", ros::Time(0), ros::Duration(1.0));
+		tfListener_.waitForTransform("/base_link", "/hokuyo_link", ros::Time::now(), ros::Duration(10.0));
 		projector_.transformLaserScanToPointCloud("/base_link", *msg, cloud, tfListener_);
 	} catch(tf::LookupException& ex) {
 		ROS_WARN("Lookup exception: %s", ex.what());
