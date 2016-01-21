@@ -8,7 +8,7 @@
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/$(arg robot).urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
   <!-- state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
     <param name="publish_frequency" type="double" value="5.0" />
@@ -36,8 +36,8 @@
 
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
     <param name="hostname" value="$(arg hostname)" />
-    <param name="publish_tf" value="true" />
-    <param name="child_frame" value="/base_link_encoder" />
+    <param name="publish_tf" value="true"/>
+    <param name="child_frame" value="/odom_encoders"/>
   </node>
 
   <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
@@ -69,6 +69,7 @@
   <!-- Spawn a new controller instance in the meta controller.
        NOTE: This starter exits after having spawned the controller! -->
   <include file="$(find robotino_bringup)/launch/start_tilt_controller.launch" >
+    <arg name="robot" value="$(arg robot)" />
   </include>
 
   <!-- Simple node to move the kinect in the default position on robot's startup
