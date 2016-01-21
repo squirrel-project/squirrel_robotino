@@ -3,7 +3,7 @@
 
   <!-- define arguments -->
   <arg name="robot_env" default="ipa-apartment"/>
-  <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+  <arg name="robot" default="robotino"/>
 
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
@@ -25,8 +25,8 @@
   </include>
 
   <!-- startup simulated robot -->
-  <include file="$(find robotino_bringup_sim)/launch/robotino_sim.launch" >
-    <arg name="paused" value="$(arg paused)" />
+  <include file="$(find robotino_bringup_sim)/robots/$(arg robot)/$(arg robot).launch" >
+    <arg name="paused" value="$(arg paused)" /> 
     <arg name="robot" value="$(arg robot)" />
   </include>
 

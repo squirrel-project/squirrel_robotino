@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  
+    <!-- Base Control -->
+    <!--rosparam file="$(find robotino_controller_configuration_gazebo)/controller/base_controller.yaml" command="load" />
+    <node name="base_controller_spawner" ns="/robotino" pkg="controller_manager" type="spawner" args="wheel0_controller wheel1_controller wheel2_controller"/-->
+    <!--rosparam ns="base_controller" file="$(find robotino_controller_configuration_gazebo)/controller/base_controller.yaml" command="load"/>
+    
+    <node ns="base_controller" name="joint_state_base_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true" /-->
+    <!--node ns="base_controller" name="base_controller_spawner" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_group_velocity_controller"/-->
+
+    <!--node ns="base_controller" name="base_controller_vel_spawner" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="wheel0_joint_velocity_controller wheel1_joint_velocity_controller wheel2_joint_velocity_controller"/>
+    <node ns="base_controller" name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/-->   
+
+    <!--node pkg="robotino_controller_configuration_gazebo" name="robotino_controller" type="robotino_controller_configuration_gazebo_node" output="screen">
+      <remap from="wheel0" to="base_controller/wheel0_joint_velocity_controller/command" />
+      <remap from="wheel1" to="base_controller/wheel1_joint_velocity_controller/command" />
+      <remap from="wheel2" to="base_controller/wheel2_joint_velocity_controller/command" />
+    </node-->
+    
+</launch>
