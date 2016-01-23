@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+g<?xml version="1.0"?>
 <launch>
 
   <arg name="robot" default="alufr-robotino"/>
@@ -37,6 +37,7 @@
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
     <param name="hostname" value="$(arg hostname)" />
     <param name="publish_tf" value="true"/>
+    <param name="position_child_frame" value="/odomp_encoders"/>
     <param name="child_frame" value="/odom_encoders"/>
   </node>
 

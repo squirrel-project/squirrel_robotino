@@ -61,13 +61,13 @@ void OdometryROS::readingsEvent(double x, double y, double phi,
   if ( publish_tf ) {
     odometry_translation_.header.frame_id = "odom";
     odometry_translation_.header.stamp = odometry_msg_.header.stamp;
-    odometry_translation_.child_frame_id = "odomp";
+    odometry_translation_.child_frame_id = position_child_frame;
     odometry_translation_.transform.translation.x = x;
     odometry_translation_.transform.translation.y = y;
     odometry_translation_.transform.translation.z = 0.0;
     odometry_translation_.transform.rotation = tf::createQuaternionMsgFromYaw(0.0);
 
-    odometry_rotation_.header.frame_id = "odomp";
+    odometry_rotation_.header.frame_id = position_child_frame;
     odometry_rotation_.header.stamp = odometry_msg_.header.stamp;
     odometry_rotation_.child_frame_id = child_frame;
     odometry_rotation_.transform.translation.x = 0.0;

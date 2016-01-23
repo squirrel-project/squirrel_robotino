@@ -12,6 +12,7 @@ RobotinoOdometryNode::RobotinoOdometryNode()
 {
   nh_.param<std::string>("hostname", hostname_, "192.168.5.5" );
   nh_.param<bool>("publish_tf", odometry_.publish_tf, true);
+  nh_.param<std::string>("position_child_frame", odometry_.position_child_frame, "/odomp");
   nh_.param<std::string>("child_frame", odometry_.child_frame, "/base_link");
   
   com_.setName( "Odometry" );
