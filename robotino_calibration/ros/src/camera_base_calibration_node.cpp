@@ -55,7 +55,7 @@
 int main(int argc, char** argv)
 {
 	// Initialize ROS, specify name of node
-	ros::init(argc, argv, "hand_camera_calibration_node");
+	ros::init(argc, argv, "camera_base_calibration_node");
 
 	// Create a handle for this node, initialize node
 	ros::NodeHandle nh("~");

@@ -48,7 +48,7 @@
  *
  ****************************************************************/
 
-#include <robotino_calibration/hand_camera_calibration.h>
+#include <robotino_calibration/camera_base_calibration.h>
 
 #include <opencv/highgui.h>
 #include <pcl/io/pcd_io.h>
@@ -80,16 +80,16 @@ cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t)
 	return T;
 }
 
-HandCameraCalibration::HandCameraCalibration()
+CameraBaseCalibration::CameraBaseCalibration()
 {
 }
 
-HandCameraCalibration::~HandCameraCalibration();
+CameraBaseCalibration::~CameraBaseCalibration()
 {
 }
 
 
-bool HandCameraCalibration::calibrateHandToCameraExtrinsicOnly(const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images)
+bool CameraBaseCalibration::calibrateHandToCameraExtrinsicOnly(const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images)
 {
 	// setup storage folder
 	system("mkdir -p robotino_calibration");
@@ -123,7 +123,7 @@ bool HandCameraCalibration::calibrateHandToCameraExtrinsicOnly(const cv::Size pa
 }
 
 
-bool HandCameraCalibration::calibrateHandToCamera(const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images)
+bool CameraBaseCalibration::calibrateHandToCamera(const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images)
 {
 	// setup storage folder
 	system("mkdir -p robotino_calibration");
@@ -158,7 +158,7 @@ bool HandCameraCalibration::calibrateHandToCamera(const cv::Size pattern_size, i
 	return success;
 }
 
-bool HandCameraCalibration::acquireCalibrationImages(int& jai_width, int& jai_height, int& fz_width, int& fz_height,
+bool CameraBaseCalibration::acquireCalibrationImages(int& jai_width, int& jai_height, int& fz_width, int& fz_height,
 		std::vector<cv::Point2f>& jai_points_2d_vector, std::vector<cv::Point3f>& fz_points_3d_vector,
 		std::vector< std::vector<cv::Point2f> >& jai_points_2d_per_image, std::vector< std::vector<cv::Point2f> >& fz_points_2d_per_image,
 		const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images)
@@ -176,7 +176,7 @@ bool HandCameraCalibration::acquireCalibrationImages(int& jai_width, int& jai_he
 	return true;
 }
 
-int HandCameraCalibration::acquireCalibrationImage(int& jai_width, int& jai_height, int& fz_width, int& fz_height,
+int CameraBaseCalibration::acquireCalibrationImage(int& jai_width, int& jai_height, int& fz_width, int& fz_height,
 		std::vector<cv::Point2f>& jai_points_2d_vector, std::vector<cv::Point3f>& fz_points_3d_vector,
 		std::vector< std::vector<cv::Point2f> >& jai_points_2d_per_image, std::vector< std::vector<cv::Point2f> >& fz_points_2d_per_image,
 		const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images, int& image_counter)
@@ -309,7 +309,7 @@ int HandCameraCalibration::acquireCalibrationImage(int& jai_width, int& jai_heig
 	return return_value;
 }
 
-void HandCameraCalibration::computeCheckerboard3dPoints(std::vector< std::vector<cv::Point3f> >& pattern_points, const cv::Size pattern_size, const int number_images)
+void CameraBaseCalibration::computeCheckerboard3dPoints(std::vector< std::vector<cv::Point3f> >& pattern_points, const cv::Size pattern_size, const int number_images)
 {
 	// prepare chessboard 3d points
 	pattern_points.clear();
@@ -322,7 +322,7 @@ void HandCameraCalibration::computeCheckerboard3dPoints(std::vector< std::vector
 	pattern_points.resize(number_images, pattern_points[0]);
 }
 
-void HandCameraCalibration::intrinsicCalibrationJai(const std::vector< std::vector<cv::Point3f> >& pattern_points, const std::vector< std::vector<cv::Point2f> >& camera_points_2d_per_image, const cv::Size& image_size, std::vector<cv::Mat>& rvecs_jai, std::vector<cv::Mat>& tvecs_jai)
+void CameraBaseCalibration::intrinsicCalibrationJai(const std::vector< std::vector<cv::Point3f> >& pattern_points, const std::vector< std::vector<cv::Point2f> >& camera_points_2d_per_image, const cv::Size& image_size, std::vector<cv::Mat>& rvecs_jai, std::vector<cv::Mat>& tvecs_jai)
 {
 	std::cout << "Intrinsic calibration JAI go 5000 started ..." << std::endl;
 	K_jai_ = cv::Mat::eye(3, 3, CV_64F);
@@ -331,7 +331,7 @@ void HandCameraCalibration::intrinsicCalibrationJai(const std::vector< std::vect
 	std::cout << "Intrinsic calibration JAI go 5000:\nK_jai:\n" << K_jai_ << "\ndistortion_jai:\n" << distortion_jai_ << std::endl;
 }
 
-void HandCameraCalibration::extrinsicCalibration(const std::vector<cv::Point3f>& fz_points_3d_vector, const std::vector<cv::Point2f>& jai_points_2d_vector)
+void CameraBaseCalibration::extrinsicCalibration(const std::vector<cv::Point3f>& fz_points_3d_vector, const std::vector<cv::Point2f>& jai_points_2d_vector)
 {
 	// clean list of 3d points from invalid measurements
 	std::vector<cv::Point3f> fz_points_3d_cleaned;
@@ -352,7 +352,7 @@ void HandCameraCalibration::extrinsicCalibration(const std::vector<cv::Point3f>&
 	std::cout << "solvePnP: Extrinsinc calibration:\nR:\n" << R_ << "\nt:\n" << t_ << std::endl;
 }
 
-void HandCameraCalibration::cameraRobotCalibration(const std::vector<cv::Mat>& rvecs_jai, const std::vector<cv::Mat>& tvecs_jai)
+void CameraBaseCalibration::cameraRobotCalibration(const std::vector<cv::Mat>& rvecs_jai, const std::vector<cv::Mat>& tvecs_jai)
 {
 	// arm-camera calibration
 	// x, y, z, w, p, r (= yaw, pitch, roll with 1. rotation = roll around z, 2. rotation = pitch around y', 3. rotation around x'')
@@ -469,7 +469,7 @@ void HandCameraCalibration::cameraRobotCalibration(const std::vector<cv::Mat>& r
 	std::cout << "\n-------------------------\nR_world_to_fz:\n" << R_world_to_fz_ << "\nt_world_to_fz:\n" << t_world_to_fz_ << std::endl;
 }
 
-bool HandCameraCalibration::testCalibration()
+bool CameraBaseCalibration::testCalibration()
 {
 	const cv::Size pattern_size(6,4);
 	int black_white_threshold = 43;
@@ -541,7 +541,7 @@ bool HandCameraCalibration::testCalibration()
 	return success;
 }
 
-bool HandCameraCalibration::saveCalibration()
+bool CameraBaseCalibration::saveCalibration()
 {
 	bool success = true;
 
@@ -566,7 +566,7 @@ bool HandCameraCalibration::saveCalibration()
 	return success;
 }
 
-bool HandCameraCalibration::loadCalibration()
+bool CameraBaseCalibration::loadCalibration()
 {
 	bool success = true;
 
@@ -593,7 +593,7 @@ bool HandCameraCalibration::loadCalibration()
 	return success;
 }
 
-void HandCameraCalibration::getCalibration(cv::Mat& K_jai, cv::Mat& distortion_jai, cv::Mat& R, cv::Mat& t)
+void CameraBaseCalibration::getCalibration(cv::Mat& K_jai, cv::Mat& distortion_jai, cv::Mat& R, cv::Mat& t)
 {
 	if (calibrated_ == false && loadCalibration() == false)
 	{
@@ -607,7 +607,7 @@ void HandCameraCalibration::getCalibration(cv::Mat& K_jai, cv::Mat& distortion_j
 	t = t_.clone();
 }
 
-void HandCameraCalibration::getCameraWorldPose(cv::Mat& R_world_to_fz, cv::Mat& t_world_to_fz)
+void CameraBaseCalibration::getCameraWorldPose(cv::Mat& R_world_to_fz, cv::Mat& t_world_to_fz)
 {
 	if (calibrated_ == false && loadCalibration() == false)
 	{
@@ -619,7 +619,7 @@ void HandCameraCalibration::getCameraWorldPose(cv::Mat& R_world_to_fz, cv::Mat& 
 	t_world_to_fz = t_world_to_fz_.clone();
 }
 
-void HandCameraCalibration::projectFz3dToJai2d(const std::vector<cv::Point3f>& fz_points_3d, std::vector<cv::Point2f>& jai_points_projected)
+void CameraBaseCalibration::projectFz3dToJai2d(const std::vector<cv::Point3f>& fz_points_3d, std::vector<cv::Point2f>& jai_points_projected)
 {
 	if (calibrated_ == false && loadCalibration() == false)
 	{
@@ -632,7 +632,7 @@ void HandCameraCalibration::projectFz3dToJai2d(const std::vector<cv::Point3f>& f
 	cv::projectPoints(fz_points_3d, rvec, t_, K_jai_, distortion_jai_, jai_points_projected);
 }
 
-void HandCameraCalibration::undistortJai(const cv::Mat& jai_image, cv::Mat& jai_image_undistorted)
+void CameraBaseCalibration::undistortJai(const cv::Mat& jai_image, cv::Mat& jai_image_undistorted)
 {
 	if (calibrated_ == false && loadCalibration() == false)
 	{
@@ -643,7 +643,7 @@ void HandCameraCalibration::undistortJai(const cv::Mat& jai_image, cv::Mat& jai_
 	cv::undistort(jai_image, jai_image_undistorted, K_jai_, distortion_jai_);
 }
 
-cv::Point3f HandCameraCalibration::getMean3DCoordinate(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, const int x, const int y)
+cv::Point3f CameraBaseCalibration::getMean3DCoordinate(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, const int x, const int y)
 {
 	cv::Point3f mean_point(0,0,0);
 	int num_avg_points = 0;

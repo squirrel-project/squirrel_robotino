@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+	<node name="checkerboard_localisation" pkg="robotino_calibration" type="checkerboard_localisation_node" output="screen">
+		<remap from="laser_scan_in" to="/scan_front"/>
+	</node>
+</launch>

@@ -48,14 +48,15 @@
  *
  ****************************************************************/
 
-#ifndef __HAND_CAMERA_CALIBRATION_H__
-#define __HAND_CAMERA_CALIBRATION_H__
+#ifndef __CAMERA_BASE_CALIBRATION_H__
+#define __CAMERA_BASE_CALIBRATION_H__
 
 // OpenCV
 #include <opencv/cv.h>
 
 // PCL
 #include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
 
 
 //// ROS
@@ -75,13 +76,13 @@ cv::Mat rotationMatrixFromRPY(double roll, double pitch, double yaw);
 cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t);
 
 
-class HandCameraCalibration
+class CameraBaseCalibration
 {
 public:
 
-	HandCameraCalibration();
+	CameraBaseCalibration();
 
-	~HandCameraCalibration();
+	~CameraBaseCalibration();
 
 	bool calibrateHandToCameraExtrinsicOnly(const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images);
 
@@ -143,4 +144,4 @@ protected:
 	cv::Point3f getMean3DCoordinate(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, const int x, const int y);
 };
 
-#endif // __HAND_CAMERA_CALIBRATION_H__
+#endif // __CAMERA_BASE_CALIBRATION_H__

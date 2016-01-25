@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 2.8.3)
 project(robotino_calibration)
 
 set(catkin_RUN_PACKAGES			# all ROS packages from package.xml (libopencv-dev is system dependency --> sudo apt-get install)
+	dynamic_reconfigure
 	roscpp
 	roslib
+	sensor_msgs
+	tf
 )
 
 set(catkin_BUILD_PACKAGES 
@@ -19,10 +22,17 @@ find_package(catkin REQUIRED
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 find_package(OpenCV REQUIRED)	# name identical to FindOpenCV.cmake in cmake_modules
 find_package(PCL REQUIRED)
 
+
+################################################
+## Declare ROS messages, services and actions ##
+################################################
+generate_dynamic_reconfigure_options(
+	cfg/CheckerboardLocalisation.cfg
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -41,6 +51,7 @@ LIBRARIES
 CATKIN_DEPENDS
 	${catkin_RUN_PACKAGES}
 DEPENDS
+	Boost
 	OpenCV
 	PCL
 )
@@ -55,18 +66,30 @@ include_directories(
 #	common/include
 	ros/include
 	${catkin_INCLUDE_DIRS} 		# same name as find_package
+	${Boost_INCLUDE_DIRS}
 	${OpenCV_INCLUDE_DIRS}
 	${PCL_INCLUDE_DIRS}
 )
 
+# software for laser scanner localization of a calibration checkerboard by detecting reflecting markers
+add_executable(checkerboard_localisation_node
+						ros/src/checkerboard_localisation.cpp 
+						ros/src/checkerboard_localisation_node.cpp
+)
+add_dependencies(checkerboard_localisation_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg)
+target_link_libraries(checkerboard_localisation_node
+	${catkin_LIBRARIES}
+	${Boost_LIBRARIES}
+)
+
 # calibration software
-add_executable(hand_camera_calibration	ros/src/hand_camera_calibration_node.cpp
-										ros/src/hand_camera_calibration.cpp)
-target_link_libraries(hand_camera_calibration
+add_executable(camera_base_calibration	ros/src/camera_base_calibration_node.cpp
+										ros/src/camera_base_calibration.cpp)
+target_link_libraries(camera_base_calibration
 	${catkin_LIBRARIES} # automatically links all catkin_BUILD_PACKAGES
 	${OpenCV_LIBRARIES}
 	${PCL_LIBRARIES})
-add_dependencies(hand_camera_calibration	${catkin_EXPORTED_TARGETS})
+add_dependencies(camera_base_calibration	${catkin_EXPORTED_TARGETS})
 
 
 #############
@@ -84,7 +107,7 @@ add_dependencies(hand_camera_calibration	${catkin_EXPORTED_TARGETS})
 # )
 
 ## Mark executables and/or libraries for installation
-install(TARGETS hand_camera_calibration
+install(TARGETS camera_base_calibration checkerboard_localisation_node
 	ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 	LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 	RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
