@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ****************** -->
+  <!-- ***** COMMON ***** -->
+  <!-- ****************** -->
+  <property name="M_PI" value="3.14159"/>
+  <property name="M_SCALE" value="0.01"/>
+  <property name="BASE_RADIUS" value="0.18"/>
+  <property name="BASE_HEIGHT" value="0.05"/>
+  <property name="BASE_MASS" value="20"/>
+  <property name="HOKUYO_RADIUS" value="0.02"/>
+  <property name="HOKUYO_LENGTH" value="0.07"/>
+  <property name="KINECT_LENGTH" value="0.18"/>
+  <property name="KINECT_WIDTH" value="0.035"/>
+  <property name="KINECT_HEIGHT" value="0.02"/>
+
+
+  <!-- camera mount positions | handeye calibration | relative to base_link -->
+  <property name="camera_x" value="0.0"/>
+  <property name="camera_y" value="0.0"/>
+  <property name="camera_z" value="0.2"/>
+  <property name="camera_roll" value="0.0"/>
+  <property name="camera_pitch" value="0.0"/>
+  <property name="camera_yaw" value="-${M_PI/2}"/>
+	
+  <!-- hokuyo mount positions | relative to base_link -->
+  <property name="hokuyo_x" value="0.064"/>
+  <property name="hokuyo_y" value="0.0"/>
+  <property name="hokuyo_z" value="0.22"/>
+  <property name="hokuyo_roll" value="0.0"/>
+  <property name="hokuyo_pitch" value="0.0"/>
+  <property name="hokuyo_yaw" value="0.0"/>
+
+   <!-- tilt mount positions | handeye calibration | relative to base_link -->
+  <property name="tilt_x" value="0.02"/>
+  <property name="tilt_y" value="0.0"/>
+  <property name="tilt_z" value="0.45"/>
+  <property name="tilt_roll" value="-0.05"/>
+  <property name="tilt_pitch" value="${M_PI/2}"/>
+  <property name="tilt_yaw" value="0"/>
+	
+  <!-- kinect mount positions | handeye calibration | relative to tilt_link -->
+  <property name="kinect_x" value="-0.03"/>
+  <property name="kinect_y" value="0.0"/>
+  <property name="kinect_z" value="0.0"/>
+  <property name="kinect_roll" value="-0.02"/>
+  <property name="kinect_pitch" value="-1.45"/>
+  <property name="kinect_yaw" value="0.0"/>
+  
+  <!-- anglebracketusb mount positions | handeye calibration | relative to base_link -->
+  <property name="anglebracketusb_x" value="0.008"/>
+  <property name="anglebracketusb_y" value="0.0"/>
+  <property name="anglebracketusb_z" value="0.137"/>
+  <property name="anglebracketusb_roll" value="0.0"/>
+  <property name="anglebracketusb_pitch" value="0.0"/>
+  <property name="anglebracketusb_yaw" value="0.0"/>
+
+</robot>
