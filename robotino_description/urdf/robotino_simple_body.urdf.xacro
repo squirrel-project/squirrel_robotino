@@ -34,7 +34,7 @@
     </link>
     <base_gazebo name="base" />
     
-    <wheel name="wheel0" parent="base_link">
+    <!--wheel name="wheel0" parent="base_link">
       <origin xyz="0.095 0.14 0.02" rpy="0 0 ${M_PI/3}"/>
       <axis xyz="-1 0 0"/>
     </wheel>
@@ -56,7 +56,7 @@
 
     <command_bridge name="command_bridge" parent="base_link">
       <origin xyz="-0.05 0 0.13" rpy="0 0 ${M_PI/2}"/>
-    </command_bridge>
+    </command_bridge-->
      
   </xacro:macro>
 
