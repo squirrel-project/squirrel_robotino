@@ -18,7 +18,7 @@
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/joint_state_controller.launch" />
 
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/tilt_controller.launch" />
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/pan_tilt_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/kinect_controller.launch" />
 </launch>
