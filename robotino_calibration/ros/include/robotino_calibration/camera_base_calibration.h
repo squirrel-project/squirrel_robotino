@@ -103,7 +103,7 @@ public:
 
 	~CameraBaseCalibration();
 
-	bool calibrateCameraToBaseExtrinsicOnly(const cv::Size pattern_size, const bool load_images);
+	bool calibrateCameraToBase(const bool load_images);
 
 	// acquires images manually until user interrupts
 	bool acquireCalibrationImages(int& jai_width, int& jai_height, std::vector< std::vector<cv::Point2f> >& points_2d_per_image,
@@ -114,7 +114,7 @@ public:
 	int acquireCalibrationImage(int& image_width, int& image_height, std::vector<cv::Point2f>& points_2d_per_image,
 			const cv::Size pattern_size, const bool load_images, int& image_counter);
 
-	void computeCheckerboard3dPoints(std::vector< std::vector<cv::Point3f> >& pattern_points, const cv::Size pattern_size, const int number_images);
+	void computeCheckerboard3dPoints(std::vector< std::vector<cv::Point3f> >& pattern_points, const cv::Size pattern_size, const double chessboard_cell_size, const int number_images);
 
 	void intrinsicCalibration(const std::vector< std::vector<cv::Point3f> >& pattern_points, const std::vector< std::vector<cv::Point2f> >& camera_points_2d_per_image, const cv::Size& image_size, std::vector<cv::Mat>& rvecs_jai, std::vector<cv::Mat>& tvecs_jai);
 
@@ -126,10 +126,10 @@ public:
 			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
 			std::vector<cv::Mat>& T_camera_to_checkerboard_vector);
 
-	// computes transform between camera which captured 2d image points in points_2d_vector to the camera or coordinate system measuring the corresponding metric 3d points in points_3d_vector
-	void extrinsicCalibration(const std::vector<cv::Point3f>& points_3d_vector, const std::vector<cv::Point2f>& points_2d_vector);
-
-	void cameraRobotCalibration(const std::vector<cv::Mat>& rvecs_jai, const std::vector<cv::Mat>& tvecs_jai);
+//	// computes transform between camera which captured 2d image points in points_2d_vector to the camera or coordinate system measuring the corresponding metric 3d points in points_3d_vector
+//	void extrinsicCalibration(const std::vector<cv::Point3f>& points_3d_vector, const std::vector<cv::Point2f>& points_2d_vector);
+//
+//	void cameraRobotCalibration(const std::vector<cv::Mat>& rvecs_jai, const std::vector<cv::Mat>& tvecs_jai);
 
 	void setCalibrationStatus(bool calibrated)
 	{
@@ -181,13 +181,6 @@ protected:
 	cv::Mat T_base_to_torso_lower_;		// transformation to estimate from base to torso_lower
 	cv::Mat T_torso_upper_to_camera_;		// transformation to estimate from torso_upper to camera
 
-
-	cv::Mat R_;		// extrinsic calibration: rotation matrix from fz_sensor to jai sensor
-	cv::Mat t_;		// extrinsic calibration: translation vector from fz_sensor to jai sensor
-
-	cv::Mat R_world_to_fz_;	// robot-camera calibration: rotation matrix from world to fz_sensor
-	cv::Mat t_world_to_fz_;	// robot-camera calibration: translation vector from world to fz_sensor
-
 	bool calibrated_;	// only true if cameras were calibrated or a calibration was loaded before
 
 	// parameters
@@ -195,7 +188,19 @@ protected:
 	std::string tilt_controller_command_;
 	std::string pan_controller_command_;
 
+	double chessboard_cell_size_;	// cell side length in [m]
+	cv::Size chessboard_pattern_size_;		// number of checkerboard corners in x and y direction
+
+
+
+
 	cv::Point3f getMean3DCoordinate(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, const int x, const int y);
+	cv::Mat R_;		// extrinsic calibration: rotation matrix from fz_sensor to jai sensor
+	cv::Mat t_;		// extrinsic calibration: translation vector from fz_sensor to jai sensor
+
+	cv::Mat R_world_to_fz_;	// robot-camera calibration: rotation matrix from world to fz_sensor
+	cv::Mat t_world_to_fz_;	// robot-camera calibration: translation vector from world to fz_sensor
+
 };
 
 #endif // __CAMERA_BASE_CALIBRATION_H__
