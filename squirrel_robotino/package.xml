@@ -18,6 +18,7 @@
   <run_depend>robotino_driver</run_depend>
   <run_depend>robotino_full_moveit_config</run_depend>
   <run_depend>robotino_gazebo_worlds</run_depend>
+  <run_depend>robotino_calibration</run_depend>
   <run_depend>robotino_teleop</run_depend>
 
   <export>
