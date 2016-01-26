@@ -65,6 +65,7 @@
 
 // messages
 #include "sensor_msgs/LaserScan.h"
+#include "visualization_msgs/Marker.h"
 
 // tf
 #include <tf/tf.h>
@@ -73,6 +74,9 @@
 // dynamic reconfigure
 #include <dynamic_reconfigure/server.h>
 #include <robotino_calibration/CheckerboardLocalisationConfig.h>
+
+// OpenCV
+#include <opencv/cv.h>
 
 
 class CheckerboardLocalization
@@ -128,9 +132,11 @@ private:
 
 	void callback(const sensor_msgs::LaserScan::ConstPtr& laser_scan_msg);
 	void dynamicReconfigureCallback(robotino_calibration::CheckerboardLocalisationConfig& config, uint32_t level);
+	void fitLine(const std::vector<cv::Point2d>& points, cv::Vec4d& line, double inlier_ratio, double success_probability, double max_inlier_distance, bool draw_from_both_halves_of_point_set=false);
 
 	ros::NodeHandle node_handle_;
 	ros::Subscriber laser_scan_sub_;
+	ros::Publisher marker_pub_;
 
 	tf::TransformBroadcaster transform_broadcaster_;
 

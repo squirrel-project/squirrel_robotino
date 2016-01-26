@@ -238,7 +238,7 @@ bool CameraBaseCalibration::moveRobot(const RobotConfiguration& robot_configurat
 	move_base_msgs::MoveBaseGoal goal;
 
 	//we'll send a goal to the robot to move 1 meter forward
-	goal.target_pose.header.frame_id = "checkerboard_reflector_nav";
+	goal.target_pose.header.frame_id = "checkerboard_reference_nav";
 	goal.target_pose.header.stamp = ros::Time::now();
 
 	goal.target_pose.pose.position.x = robot_configuration.pose_x_;
