@@ -85,8 +85,15 @@ cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t)
 
 CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 			node_handle_(nh), transform_listener_(nh), camera_calibration_path_("robotino_calibration/camera_calibration/"),
-			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/tilt_controller/command")
+			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/tilt_controller/command"),
+			move_base_client_("move_base", true)
 {
+	//wait for the action server to come up
+	while (!move_base_client_.waitForServer(ros::Duration(5.0)))
+	{
+		ROS_INFO("Waiting for the move_base action server to come up");
+	}
+
 	it_ = new image_transport::ImageTransport(node_handle_);
 	color_image_sub_.subscribe(*it_, "colorimage_in", 1);
 	color_image_sub_.registerCallback(boost::bind(&CameraBaseCalibration::imageCallback, this, _1));
@@ -224,19 +231,53 @@ bool CameraBaseCalibration::getTransform(const std::string& target_frame, const 
 	return true;
 }
 
+bool CameraBaseCalibration::moveRobot(const RobotConfiguration& robot_configuration)
+{
+	bool result = true;
+
+	move_base_msgs::MoveBaseGoal goal;
+
+	//we'll send a goal to the robot to move 1 meter forward
+	goal.target_pose.header.frame_id = "checkerboard_reflector_nav";
+	goal.target_pose.header.stamp = ros::Time::now();
+
+	goal.target_pose.pose.position.x = robot_configuration.pose_x_;
+	goal.target_pose.pose.position.y = robot_configuration.pose_y_;
+	goal.target_pose.pose.position.z = robot_configuration.pose_z_;
+	goal.target_pose.pose.orientation.w = 1.0;
+
+	ROS_INFO("Sending goal");
+	move_base_client_.sendGoal(goal);
+	move_base_client_.waitForResult();
+
+	if (move_base_client_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+		result = true;
+	else
+		result = false;
+
+	std_msgs::Float64 msg;
+	msg.data = robot_configuration.pan_angle_;
+	pan_controller_.publish(msg);
+	msg.data = robot_configuration.tilt_angle_;
+	tilt_controller_.publish(msg);
+
+	return result;
+}
+
 bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& image_height,
 		std::vector< std::vector<cv::Point2f> >& points_2d_per_image, std::vector<cv::Mat>& T_base_to_checkerboard_vector,
 		std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
 		const cv::Size pattern_size, const bool load_images)
 {
 	// capture images from different perspectives
-	const int number_images_to_capture = 10;
 	// todo: define pan/tilt unit positions and robot base locations relative to checkerboard
+	std::vector<RobotConfiguration> robot_configurations;
+	robot_configurations.push_back(RobotConfiguration(-1.0, 0, 0, 0, 0));
+	robot_configurations.push_back(RobotConfiguration(-1.0, 0, 0, 0.1, -0.1));
+	const int number_images_to_capture = (int)robot_configurations.size();
 	for (int image_counter = 0; image_counter < number_images_to_capture; ++image_counter)
 	{
-		// todo: drive robot to position and turn pan/tilt unit
-//		tilt_controller_;
-//		pan_controller_;
+		moveRobot(robot_configurations[image_counter]);
 
 		// acquire image and extract checkerboard points
 		std::vector<cv::Point2f> checkerboard_points_2d;

@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 2.8.3)
 project(robotino_calibration)
 
 set(catkin_RUN_PACKAGES			# all ROS packages from package.xml (libopencv-dev is system dependency --> sudo apt-get install)
+	actionlib
 	cv_bridge
 	dynamic_reconfigure
 	image_transport
+	move_base_msgs
 	roscpp
 	roslib
 	sensor_msgs

@@ -7,6 +7,7 @@
 		checkerboard_reflector: similar definition as checkerboard, but located in the middle of the reflectors stripes (vertical stripes parallel to y direction) at the hight of the laser scanner
 		transform between them: no rotation, just a x and y offset (ATTENTION: y offset depends on mounting height of the laser scanner) -->
 	<node pkg="tf" type="static_transform_publisher" name="static_transform_publisher_map_geometry_frame" output="screen" args="-0.2 -0.5 0 0 0 0  checkerboard_reflector checkerboard 100"/>
+	<node pkg="tf" type="static_transform_publisher" name="static_transform_publisher_map_geometry_frame" output="screen" args="0.0 0.0 0.0 1.57079632679 0 1.57079632679  checkerboard_reflector checkerboard_reflector_nav 100"/>
 
 	<node name="checkerboard_localisation" pkg="robotino_calibration" type="checkerboard_localisation_node" output="screen">
 		<remap from="laser_scan_in" to="/scan_front"/>

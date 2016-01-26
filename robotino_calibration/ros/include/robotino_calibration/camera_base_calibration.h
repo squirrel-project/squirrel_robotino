@@ -54,6 +54,9 @@
 // ROS
 #include <ros/ros.h>
 
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
+
 #include <tf/transform_listener.h>
 #include <sensor_msgs/Image.h>
 
@@ -95,15 +98,37 @@ cv::Mat rotationMatrixFromRPY(double roll, double pitch, double yaw);
 cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t);
 
 
+struct RobotConfiguration
+{
+	double pose_x_;
+	double pose_y_;
+	double pose_z_;
+	double pan_angle_;
+	double tilt_angle_;
+
+	RobotConfiguration(const double pose_x, const double pose_y, const double pose_z, const double pan_angle, const double tilt_angle)
+	{
+		pose_x_ = pose_x;
+		pose_y_ = pose_y;
+		pose_z_ = pose_z;
+		pan_angle_ = pan_angle;
+		tilt_angle_ = tilt_angle;
+	}
+};
+
 class CameraBaseCalibration
 {
 public:
+
+	typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
 	CameraBaseCalibration(ros::NodeHandle nh);
 
 	~CameraBaseCalibration();
 
 	bool calibrateCameraToBase(const bool load_images);
+
+	bool moveRobot(const RobotConfiguration& robot_configuration);
 
 	// acquires images manually until user interrupts
 	bool acquireCalibrationImages(int& jai_width, int& jai_height, std::vector< std::vector<cv::Point2f> >& points_2d_per_image,
@@ -165,6 +190,7 @@ protected:
 	cv::Mat camera_image_;		// stores the latest camera image
 	ros::Time latest_image_time_;	// stores time stamp of latest image
 
+	MoveBaseClient move_base_client_;
 	ros::Publisher tilt_controller_;
 	ros::Publisher pan_controller_;
 
