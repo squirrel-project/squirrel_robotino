@@ -51,12 +51,31 @@
 #ifndef __CAMERA_BASE_CALIBRATION_H__
 #define __CAMERA_BASE_CALIBRATION_H__
 
+// ROS
+#include <ros/ros.h>
+
+#include <tf/transform_listener.h>
+#include <sensor_msgs/Image.h>
+
+// image transport
+#include <image_transport/image_transport.h>
+#include <image_transport/subscriber_filter.h>
+
 // OpenCV
 #include <opencv/cv.h>
 
 // PCL
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+
+// opencv
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
+#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
+
+// Boost
+#include <boost/thread/mutex.hpp>
 
 
 //// ROS
@@ -80,32 +99,35 @@ class CameraBaseCalibration
 {
 public:
 
-	CameraBaseCalibration();
+	CameraBaseCalibration(ros::NodeHandle nh);
 
 	~CameraBaseCalibration();
 
-	bool calibrateHandToCameraExtrinsicOnly(const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images);
-
-	// runs cameras in calibration mode and publishes respective images such that an external calibration software can do the calibration
-	bool calibrateHandToCamera(const cv::Size pattern_size = cv::Size(6,4), int black_white_threshold = 43, const bool load_images = false, const int num_images = 94);
+	bool calibrateCameraToBaseExtrinsicOnly(const cv::Size pattern_size, const bool load_images);
 
 	// acquires images manually until user interrupts
-	bool acquireCalibrationImages(int& jai_width, int& jai_height, int& fz_width, int& fz_height,
-			std::vector<cv::Point2f>& jai_points_2d_vector, std::vector<cv::Point3f>& fz_points_3d_vector,
-			std::vector< std::vector<cv::Point2f> >& jai_points_2d_per_image, std::vector< std::vector<cv::Point2f> >& fz_points_2d_per_image,
-			const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images);
+	bool acquireCalibrationImages(int& jai_width, int& jai_height, std::vector< std::vector<cv::Point2f> >& points_2d_per_image,
+			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
+			const cv::Size pattern_size, const bool load_images);
 
 	// acquire a single image, can be used within automatic image capture
-	int acquireCalibrationImage(int& jai_width, int& jai_height, int& fz_width, int& fz_height,
-			std::vector<cv::Point2f>& jai_points_2d_vector, std::vector<cv::Point3f>& fz_points_3d_vector,
-			std::vector< std::vector<cv::Point2f> >& jai_points_2d_per_image, std::vector< std::vector<cv::Point2f> >& fz_points_2d_per_image,
-			const cv::Size pattern_size, int black_white_threshold, const bool load_images, const int num_images, int& image_counter);
+	int acquireCalibrationImage(int& image_width, int& image_height, std::vector<cv::Point2f>& points_2d_per_image,
+			const cv::Size pattern_size, const bool load_images, int& image_counter);
 
 	void computeCheckerboard3dPoints(std::vector< std::vector<cv::Point3f> >& pattern_points, const cv::Size pattern_size, const int number_images);
 
-	void intrinsicCalibrationJai(const std::vector< std::vector<cv::Point3f> >& pattern_points, const std::vector< std::vector<cv::Point2f> >& camera_points_2d_per_image, const cv::Size& image_size, std::vector<cv::Mat>& rvecs_jai, std::vector<cv::Mat>& tvecs_jai);
+	void intrinsicCalibration(const std::vector< std::vector<cv::Point3f> >& pattern_points, const std::vector< std::vector<cv::Point2f> >& camera_points_2d_per_image, const cv::Size& image_size, std::vector<cv::Mat>& rvecs_jai, std::vector<cv::Mat>& tvecs_jai);
 
-	void extrinsicCalibration(const std::vector<cv::Point3f>& fz_points_3d_vector, const std::vector<cv::Point2f>& jai_points_2d_vector);
+	void extrinsicCalibrationTorsoUpperToCamera(std::vector< std::vector<cv::Point3f> >& pattern_points_3d,
+			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
+			std::vector<cv::Mat>& T_camera_to_checkerboard_vector);
+
+	void extrinsicCalibrationBaseToTorsoLower(std::vector< std::vector<cv::Point3f> >& pattern_points_3d,
+			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
+			std::vector<cv::Mat>& T_camera_to_checkerboard_vector);
+
+	// computes transform between camera which captured 2d image points in points_2d_vector to the camera or coordinate system measuring the corresponding metric 3d points in points_3d_vector
+	void extrinsicCalibration(const std::vector<cv::Point3f>& points_3d_vector, const std::vector<cv::Point2f>& points_2d_vector);
 
 	void cameraRobotCalibration(const std::vector<cv::Mat>& rvecs_jai, const std::vector<cv::Mat>& tvecs_jai);
 
@@ -115,7 +137,7 @@ public:
 	}
 
 	// find checkerboard corners in fotonic ir image and projects them into the jai image
-	bool testCalibration();
+//	bool testCalibration();
 
 	bool saveCalibration();
 	bool loadCalibration();
@@ -130,8 +152,35 @@ public:
 
 protected:
 
-	cv::Mat K_jai_;			// intrinsic matrix for JAI camera
-	cv::Mat distortion_jai_;	// distortion parameters for JAI camera
+	bool convertImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image);
+
+	bool getTransform(const std::string& target_frame, const std::string& source_frame, cv::Mat& T);
+
+	void imageCallback(const sensor_msgs::ImageConstPtr& color_image_msg);
+
+	ros::NodeHandle node_handle_;
+	image_transport::ImageTransport* it_;
+	image_transport::SubscriberFilter color_image_sub_; ///< Color camera image input topic
+	boost::mutex camera_data_mutex_;	// secures read and write operations on camera data
+	cv::Mat camera_image_;		// stores the latest camera image
+	ros::Time latest_image_time_;	// stores time stamp of latest image
+
+	ros::Publisher tilt_controller_;
+	ros::Publisher pan_controller_;
+
+	tf::TransformListener transform_listener_;
+	std::string torso_lower_frame_;
+	std::string torso_upper_frame_;
+	std::string camera_frame_;
+	std::string base_frame_;
+	std::string checkerboard_frame_;
+
+	cv::Mat K_;			// intrinsic matrix for camera
+	cv::Mat distortion_;	// distortion parameters for camera
+
+	cv::Mat T_base_to_torso_lower_;		// transformation to estimate from base to torso_lower
+	cv::Mat T_torso_upper_to_camera_;		// transformation to estimate from torso_upper to camera
+
 
 	cv::Mat R_;		// extrinsic calibration: rotation matrix from fz_sensor to jai sensor
 	cv::Mat t_;		// extrinsic calibration: translation vector from fz_sensor to jai sensor
@@ -140,6 +189,11 @@ protected:
 	cv::Mat t_world_to_fz_;	// robot-camera calibration: translation vector from world to fz_sensor
 
 	bool calibrated_;	// only true if cameras were calibrated or a calibration was loaded before
+
+	// parameters
+	std::string camera_calibration_path_;	// path to data
+	std::string tilt_controller_command_;
+	std::string pan_controller_command_;
 
 	cv::Point3f getMean3DCoordinate(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, const int x, const int y);
 };
