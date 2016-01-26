@@ -15,9 +15,9 @@
 
   <xacro:body name="base"/>
 
-  <hokuyo name="hokuyo" parent="base_link">
+  <!--hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
-  </hokuyo>
+  </hokuyo-->
 
   <joint name="fixed_base_link_base" type="fixed">
       <parent link="base_link"/>
@@ -27,9 +27,10 @@
 
   <link name="odomp"/> 
         
-  <joint name="rotatory" type="fixed">
+  <joint name="rotatory" type="continuous">
     <parent link="odomp"/>
     <child link="base_link"/>
+    <axis xyz="0 0 1" />
   </joint>
             
   <xacro:arm />

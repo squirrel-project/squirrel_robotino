@@ -20,15 +20,17 @@
           izz="75.0" />
       </inertial>
       <visual>
-        <origin xyz="0 0 0.12" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder length="0.24" radius="0.23"/>
+          <mesh filename="package://robotino_description/meshes/RobotinoBody.dae"/>
+          <!--cylinder length="0.24" radius="0.23"/-->
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0 0 0.12" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <cylinder length="0.24" radius="0.23"/>
+          <mesh filename="package://robotino_description/meshes/RobotinoBody.dae"/>
+          <!--cylinder length="0.24" radius="0.23"/-->
         </geometry>
       </collision>
     </link>
