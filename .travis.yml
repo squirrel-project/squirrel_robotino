@@ -16,7 +16,7 @@ install:
   - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
   - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
   - sudo sh -c 'echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list'
-  - sudo apt-get update
+  - sudo apt-get update -qq
   - sudo apt-key update
   - sudo apt-get install -qq -y python-rosdep python-catkin-tools
   - sudo rosdep init
@@ -29,6 +29,7 @@ script:
   - mkdir -p $CATKIN_WS_SRC
   - ln -s $TRAVIS_BUILD_DIR $CATKIN_WS_SRC
   - cd $CATKIN_WS
+  - git clone https://github.com/squirrel-project/squirrel_common.git ~/catkin_ws/src/squirrel_common
   - catkin init
   - rosdep install --from-paths src/ -i -y --rosdistro $CI_ROS_DISTRO
   # Enable install space

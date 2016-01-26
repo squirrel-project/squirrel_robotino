@@ -67,7 +67,9 @@
   </include>
   <!-- Spawn a new controller instance in the meta controller.
        NOTE: This starter exits after having spawned the controller! -->
-  <include file="$(find robotino_bringup)/launch/start_tilt_controller.launch" >
+  <!-- <include file="$(find robotino_bringup)/launch/start_tilt_controller.launch" > --> 
+  <include file="$(find robotino_bringup)/launch/start_pan_tilt_controller.launch">
+    <arg name="robot" value="$(arg robot)" /> 
   </include>
 
   <!-- Simple node to move the kinect in the default position on robot's startup

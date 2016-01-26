@@ -43,7 +43,7 @@
 
   <!-- hand -->
   <xacro:kclhand name="hand" parent="link5">
-    <origin xyz="0 0.02105 0.151" rpy="1.5707963 0 -1.04719755" />
+    <origin xyz="0 0 0" rpy="1.5707963 0 0" />
   </xacro:kclhand>
 
   <gazebo>
