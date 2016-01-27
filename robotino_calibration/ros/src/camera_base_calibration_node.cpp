@@ -49,6 +49,7 @@
  ****************************************************************/
 
 #include <ros/ros.h>
+#include <robotino_calibration/camera_base_calibration.h>
 
 //#######################
 //#### main programm ####
