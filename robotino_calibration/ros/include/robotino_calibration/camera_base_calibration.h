@@ -128,6 +128,20 @@ public:
 
 	bool calibrateCameraToBase(const bool load_images);
 
+	void setCalibrationStatus(bool calibrated)
+	{
+		calibrated_ = calibrated;
+	}
+
+	bool saveCalibration();
+	bool loadCalibration();
+
+	void getCalibration(cv::Mat& K, cv::Mat& distortion, cv::Mat& T_base_to_torso_lower, cv::Mat& T_torso_upper_to_camera);
+
+	void undistort(const cv::Mat& image, cv::Mat& image_undistorted);
+
+protected:
+
 	bool moveRobot(const RobotConfiguration& robot_configuration);
 
 	// acquires images manually until user interrupts
@@ -151,31 +165,6 @@ public:
 			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
 			std::vector<cv::Mat>& T_camera_to_checkerboard_vector);
 
-//	// computes transform between camera which captured 2d image points in points_2d_vector to the camera or coordinate system measuring the corresponding metric 3d points in points_3d_vector
-//	void extrinsicCalibration(const std::vector<cv::Point3f>& points_3d_vector, const std::vector<cv::Point2f>& points_2d_vector);
-//
-//	void cameraRobotCalibration(const std::vector<cv::Mat>& rvecs_jai, const std::vector<cv::Mat>& tvecs_jai);
-
-	void setCalibrationStatus(bool calibrated)
-	{
-		calibrated_ = calibrated;
-	}
-
-	// find checkerboard corners in fotonic ir image and projects them into the jai image
-//	bool testCalibration();
-
-	bool saveCalibration();
-	bool loadCalibration();
-
-	void getCalibration(cv::Mat& K_jai, cv::Mat& distortion_jai, cv::Mat& R, cv::Mat& t);
-
-	void getCameraWorldPose(cv::Mat& R_world_to_fz, cv::Mat& t_world_to_fz);
-
-	void projectFz3dToJai2d(const std::vector<cv::Point3f>& fz_points_3d, std::vector<cv::Point2f>& jai_points_projected);
-
-	void undistortJai(const cv::Mat& jai_image, cv::Mat& jai_image_undistorted);
-
-protected:
 
 	bool convertImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image);
 
@@ -216,17 +205,6 @@ protected:
 
 	double chessboard_cell_size_;	// cell side length in [m]
 	cv::Size chessboard_pattern_size_;		// number of checkerboard corners in x and y direction
-
-
-
-
-	cv::Point3f getMean3DCoordinate(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, const int x, const int y);
-	cv::Mat R_;		// extrinsic calibration: rotation matrix from fz_sensor to jai sensor
-	cv::Mat t_;		// extrinsic calibration: translation vector from fz_sensor to jai sensor
-
-	cv::Mat R_world_to_fz_;	// robot-camera calibration: rotation matrix from world to fz_sensor
-	cv::Mat t_world_to_fz_;	// robot-camera calibration: translation vector from world to fz_sensor
-
 };
 
 #endif // __CAMERA_BASE_CALIBRATION_H__

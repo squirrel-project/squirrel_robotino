@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<include file="$(find robotino_calibration)/ros/launch/checkerboard_localization.launch">
+	
+	<node name="camera_base_calibration" pkg="robotino_calibration" type="camera_base_calibration" output="screen">
+		<remap from="colorimage_in" to="/camera/rgb/image_color"/>
+	</node>
+</launch>

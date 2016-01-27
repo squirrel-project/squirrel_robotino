@@ -11,6 +11,5 @@
 
 	<node name="checkerboard_localisation" pkg="robotino_calibration" type="checkerboard_localisation_node" output="screen">
 		<remap from="laser_scan_in" to="/scan"/>
-		<param name="laser_scanner_height_above_ground" value="0.1"/>	<!-- laser scanner mounting height above ground in [m] -->
 	</node>
 </launch>

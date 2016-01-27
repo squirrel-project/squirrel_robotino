@@ -133,6 +133,8 @@ private:
 	void callback(const sensor_msgs::LaserScan::ConstPtr& laser_scan_msg);
 	void dynamicReconfigureCallback(robotino_calibration::CheckerboardLocalisationConfig& config, uint32_t level);
 	void fitLine(const std::vector<cv::Point2d>& points, cv::Vec4d& line, double inlier_ratio, double success_probability, double max_inlier_distance, bool draw_from_both_halves_of_point_set=false);
+	void publishWallVisualization(const std_msgs::Header& header, const double px, const double py, const double n0y, const double n0y);
+	void publishBoxPoints(const std_msgs::Header& header, const std::vector< std::vector<cv::Point2d> >& segments, const size_t largest_segment);
 
 	ros::NodeHandle node_handle_;
 	ros::Subscriber laser_scan_sub_;

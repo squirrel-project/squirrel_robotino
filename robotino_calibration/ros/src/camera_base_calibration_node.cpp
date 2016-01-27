@@ -60,15 +60,8 @@ int main(int argc, char** argv)
 	// Create a handle for this node, initialize node
 	ros::NodeHandle nh("~");
 
-//	// calibration
-//	const cv::Size pattern_size(6,4);
-//	int black_white_threshold = 43;
-//	const bool load_images = false;
-//	const int num_images = 39;	// 94
-//
-//	SensorRig sr(!load_images, !load_images);
-//	sr.calibrateCameras(pattern_size, black_white_threshold, load_images, num_images);
-//	sr.testCalibration();
+	CameraBaseCalibration cb(nh);
+	cb.calibrateCameraToBase(false);
 
 	return 0;
 }
