@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+	<!-- accesories -->
+	<xacro:include filename="$(find robotino_description)/urdf/wristSensors.urdf.xacro"/>
+
+	<!-- SOFT HAND MODEL -->
+	<xacro:macro name="soft_hand" params="parent name *origin">
+
+		<!-- PACMAN VERION ALREADY INCLUDES THE COUPLER, CLAMP AND BASE -->
+
+		<!-- Wrist_sensor -->
+		<xacro:wristSensors parent="${parent}">
+			<insert_block name="origin"/>
+		</xacro:wristSensors>
+
+		<!-- CLAMP -->
+		<xacro:clamp parent="coupler_link" name="${name}_clamp">
+			<origin xyz="0 0 0.02" rpy="0 0 0"/>
+		</xacro:clamp>
+
+
+		<!-- PALM -->
+		<joint name="${name}_palm_joint" type="fixed">
+			<origin xyz="0.002 -0.00695 0.09" rpy="0 0 0"/>
+			<parent link="coupler_link" />
+			<child link="${name}_palm_link" />
+		</joint>
+
+		<link name="${name}_palm_link">
+			<inertial>
+				<origin xyz="0.01557 -0.035456 0.0089893" rpy="0 0 0" />
+				<mass value="0.090062" />
+				<inertia ixx="0.00019055" ixy="-9.6717E-07" ixz="-9.3483E-06" iyy="6.2823E-05"  iyz="-5.5839E-07" izz="0.00017976" />
+			</inertial>
+				<visual>
+					<geometry>
+						<box size="0.1 0.02 0.15" />
+					</geometry>
+				</visual>
+				<collision>
+					<geometry>
+						<box size="0.1 0.02 0.15" />
+					</geometry>
+				</collision>
+		</link>
+
+	</xacro:macro>
+
+</robot>

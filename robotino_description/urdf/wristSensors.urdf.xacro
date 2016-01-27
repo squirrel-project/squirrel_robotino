@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="wristSensors" params="parent *origin">
+
+  <joint name="wrist_joint" type="fixed">
+    <insert_block name="origin" />
+    <parent link="${parent}" />
+    <child link="wrist_link" />
+    </joint>
+
+  <link name="wrist_link">
+    <gravity>0</gravity>	
+    <inertial>
+      <origin xyz="0.01557 -0.035456 0.0089893" rpy="0 0 0" />
+      <mass value="0.090062" />
+      <inertia ixx="0.00019055" ixy="-9.6717E-07" ixz="-9.3483E-06" iyy="6.2823E-05"  iyz="-5.5839E-07" izz="0.00017976" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/wrist.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/wrist.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="coupler_joint" type="fixed">
+    <origin xyz="0 0 0.05" rpy="0 0 0" />
+    <parent link="wrist_link" />
+    <child link="coupler_link" />
+    </joint>
+
+  <link name="coupler_link">
+    <gravity>0</gravity>	
+    <inertial>
+      <origin xyz="0.01557 -0.035456 0.0089893" rpy="0 0 0" />
+      <mass value="0.090062" />
+      <inertia ixx="0.00019055" ixy="-9.6717E-07" ixz="-9.3483E-06" iyy="6.2823E-05"  iyz="-5.5839E-07" izz="0.00017976" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/coupler.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/coupler.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  </xacro:macro>
+
+</robot>
