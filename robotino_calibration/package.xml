@@ -12,15 +12,14 @@
 
 	<buildtool_depend>catkin</buildtool_depend>
 
-	<depend>actionlib</depend>
 	<depend>boost</depend>
 	<depend>cmake_modules</depend>
 	<depend>cv_bridge</depend>
 	<depend>dynamic_reconfigure</depend>
+	<depend>geometry_msgs</depend>
 	<depend>image_transport</depend>
 	<depend>libopencv-dev</depend>
 	<depend>libpcl-all-dev</depend>
-	<depend>move_base_msgs</depend>
 	<depend>roscpp</depend>
 	<depend>roslib</depend>
 	<depend>sensor_msgs</depend>

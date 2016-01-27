@@ -1,0 +1,30 @@
+
+### checkerboard parameters
+# side length of the chessboard squares
+chessboard_cell_size: 0.05
+
+# number of checkerboard calibration points (in x- and y-direction), i.e. those points where 4 squares meet
+chessboard_pattern_size: [6,4]
+
+
+# link names for the robot coordinate systems
+# string
+torso_lower_frame: "pan_link"
+torso_upper_frame: "tilt_link"
+camera_frame: "kinect_link"
+camera_optical_frame: "kinect_rgb_optical_frame"
+base_frame: "base_link"
+checkerboard_frame: "checkerboard"
+
+
+#// todo: set good initial parameters
+#T_base_to_torso_lower_ = makeTransform(rotationMatrixFromRPY(0.0, 0.0, 0.0), cv::Mat(cv::Vec3d(0.25, 0, 0.5)));
+#T_torso_upper_to_camera_ = makeTransform(rotationMatrixFromRPY(-1.57, 0.0, 0.0), cv::Mat(cv::Vec3d(0.0, 0.065, 0.0)));
+
+#camera_calibration_path_("robotino_calibration/camera_calibration/"),
+#			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/tilt_controller/command"),
+#			move_base_client_("move_base", true)
+
+
+#positions: [1 2 3 4
+#            5 6 7 8]

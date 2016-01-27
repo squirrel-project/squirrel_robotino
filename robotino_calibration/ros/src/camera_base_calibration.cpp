@@ -85,14 +85,19 @@ cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t)
 
 CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 			node_handle_(nh), transform_listener_(nh), camera_calibration_path_("robotino_calibration/camera_calibration/"),
-			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/tilt_controller/command"),
-			move_base_client_("move_base_simple", true)
+			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/tilt_controller/command")
 {
-	//wait for the action server to come up
-	while (!move_base_client_.waitForServer(ros::Duration(5.0)))
-	{
-		ROS_INFO("Waiting for the move_base action server to come up");
-	}
+//	// load parameters
+//	node_handle_.param("chessboard_cell_size", chessboard_cell_size_, 0.05);
+//	std::vector<double> temp;
+//	node_handle_.param("chessboard_pattern_size", temp);
+//	chessboard_pattern_size_ = cv::Size(temp[0], temp[1]);
+//	std::cout << "pattern: " << chessboard_pattern_size_ << std::endl;
+//
+//	getchar();
+
+	chessboard_cell_size_ = 0.05;
+	chessboard_pattern_size_ = cv::Size(6,4);
 
 	it_ = new image_transport::ImageTransport(node_handle_);
 	color_image_sub_.subscribe(*it_, "colorimage_in", 1);
@@ -100,6 +105,7 @@ CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 
 	tilt_controller_ = node_handle_.advertise<std_msgs::Float64>(tilt_controller_command_, 1, false);
 	pan_controller_ = node_handle_.advertise<std_msgs::Float64>(pan_controller_command_, 1, false);
+	base_controller_ = node_handle_.advertise<geometry_msgs::Twist>("/cmd_vel", 1, false);
 
 	// todo: parameters
 	torso_lower_frame_ = "pan_link";
@@ -108,9 +114,6 @@ CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 	camera_optical_frame_ = "kinect_rgb_optical_frame";
 	base_frame_ = "base_link";
 	checkerboard_frame_ = "checkerboard";
-
-	chessboard_cell_size_ = 0.05;
-	chessboard_pattern_size_ = cv::Size(6,4);
 
 	// todo: set good initial parameters
 	T_base_to_torso_lower_ = makeTransform(rotationMatrixFromRPY(0.0, 0.0, 0.0), cv::Mat(cv::Vec3d(0.25, 0, 0.5)));
@@ -237,34 +240,97 @@ bool CameraBaseCalibration::moveRobot(const RobotConfiguration& robot_configurat
 {
 	bool result = true;
 
-	move_base_msgs::MoveBaseGoal goal;
+	// control robot angle
+	double error_phi = 10;
+	do
+	{
+		cv::Mat T;
+		if (!getTransform("checkerboard_reference_nav", "base_link", T))
+			return false;
+		Eigen::Matrix3f rot;
+		for (int i=0; i<3; ++i)
+			for (int j=0; j<3; ++j)
+				rot(i,j) = T.at<double>(i,j);
+		Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
+		double robot_yaw = euler_angles(0);
+		geometry_msgs::Twist tw;
+		error_phi = robot_configuration.pose_phi_ - robot_yaw;
+		while (error_phi < -CV_PI*0.5)
+			error_phi += CV_PI;
+		while (error_phi > CV_PI*0.5)
+			error_phi -= CV_PI;
+		tw.angular.z = std::min(0.2, error_phi);
+		ros::Rate(20).sleep();
+		base_controller_.publish(tw);
+	} while (fabs(error_phi) > 0.025 && ros::ok());
 
-	//we'll send a goal to the robot to move 1 meter forward
-	goal.target_pose.header.frame_id = "checkerboard_reference_nav";
-	goal.target_pose.header.stamp = ros::Time::now();
+	// control position
+	double error_x = 10;
+	double error_y = 10;
+	do
+	{
+		cv::Mat T;
+		if (!getTransform("checkerboard_reference_nav", "base_link", T))
+			return false;
 
-	goal.target_pose.pose.position.x = robot_configuration.pose_x_;
-	goal.target_pose.pose.position.y = robot_configuration.pose_y_;
-	goal.target_pose.pose.position.z = robot_configuration.pose_z_;
-	goal.target_pose.pose.orientation.w = 1.0;
+		geometry_msgs::Twist tw;
+		error_x = robot_configuration.pose_x_ - T.at<double>(0,3);
+		error_y = robot_configuration.pose_y_ - T.at<double>(1,3);
+		std::cout << "x=" << T.at<double>(0,3) << "      y=" << T.at<double>(1,3) << std::endl;
+		std::cout << "gx=" << robot_configuration.pose_x_ << "      gy=" << robot_configuration.pose_y_ << std::endl;
+		std::cout << "error_x: " << error_x << std::endl;
+		std::cout << "error_y: " << error_y << std::endl;
+		tw.linear.x = std::min(0.1, error_x);
+		tw.linear.y = std::min(0.1, error_y);
+		ros::Rate(20).sleep();
+		base_controller_.publish(tw);
+	} while (fabs(error_x) > 0.01 && fabs(error_y) > 0.01 && ros::ok());
 
-	ROS_INFO("Sending goal");
-	move_base_client_.sendGoal(goal);
-	move_base_client_.waitForResult();
+	// control robot angle
+	error_phi = 10;
+	do
+	{
+		cv::Mat T;
+		if (!getTransform("checkerboard_reference_nav", "base_link", T))
+			return false;
+		Eigen::Matrix3f rot;
+		for (int i=0; i<3; ++i)
+			for (int j=0; j<3; ++j)
+				rot(i,j) = T.at<double>(i,j);
+		Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
+		double robot_yaw = euler_angles(0);
+		geometry_msgs::Twist tw;
+		error_phi = robot_configuration.pose_phi_ - robot_yaw;
+		while (error_phi < -CV_PI*0.5)
+			error_phi += CV_PI;
+		while (error_phi > CV_PI*0.5)
+			error_phi -= CV_PI;
+		tw.angular.z = std::min(0.2, error_phi);
+		ros::Rate(20).sleep();
+		base_controller_.publish(tw);
+	} while (fabs(error_phi) > 0.025 && ros::ok());
 
-	if (move_base_client_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-		result = true;
-	else
-		result = false;
-
-	std_msgs::Float64 msg;
-	msg.data = robot_configuration.pan_angle_;
-	pan_controller_.publish(msg);
-	msg.data = robot_configuration.tilt_angle_;
-	tilt_controller_.publish(msg);
-
-	ros::Duration(2).sleep();
-
+//
+//	move_base_msgs::MoveBaseGoal goal;
+//
+//	//we'll send a goal to the robot to move 1 meter forward
+//	goal.target_pose.header.frame_id = "checkerboard_reference_nav";
+//	goal.target_pose.header.stamp = ros::Time::now();
+//
+//	goal.target_pose.pose.position.x = robot_configuration.pose_x_;
+//	goal.target_pose.pose.position.y = robot_configuration.pose_y_;
+//	goal.target_pose.pose.position.z = robot_configuration.pose_phi_;
+//	goal.target_pose.pose.orientation.w = 1.0;
+//
+//
+//	std_msgs::Float64 msg;
+//	msg.data = robot_configuration.pan_angle_;
+//	pan_controller_.publish(msg);
+//	msg.data = robot_configuration.tilt_angle_;
+//	tilt_controller_.publish(msg);
+//
+//	ros::Duration(2).sleep();
+//
 	return result;
 }
 
