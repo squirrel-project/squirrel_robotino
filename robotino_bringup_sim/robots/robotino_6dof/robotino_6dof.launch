@@ -18,7 +18,7 @@
 
     <!--node name="joint_state_publisher_fake" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
         <remap from="robot_description" to="/robot_description" />
-        <rosparam param="source_list">[/arm_controller/joint_states, /base_controller/joint_states ]</rosparam>
+        <rosparam param="source_list">[/arm_controller/joint_states, /base_controller/joint_states, /rotatory_controller/joint_states]</rosparam>
     </node-->
 
   <node name="tf_odomp" pkg="robotino_bringup_sim" type="odomp_frame.py" respawn="false" output="screen" />
@@ -26,6 +26,8 @@
   <include file="$(find robotino_controller_configuration_gazebo)/launch/joint_state_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" />
+
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/rotatory_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/arm_controller.launch" >
     <arg name="use_velocity_controller" value="true"/>

@@ -3,12 +3,11 @@
 
 	<arg name="use_velocity_controller" default="true"/>
 
-
     <group ns="arm_controller">
       <!-- Arm Control -->
-      <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_arm_bringup)/config/arm_controllers_velocity.yaml" />
+      <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_controller_configuration_gazebo)/controller/arm_controller.yaml" />
       <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_arm_bringup)/config/arm_controllers_position.yaml" />
-      <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/arm_controller.yaml" command="load"/>
+
       <node name="joint_state_arm_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true"/>
       <!--node name="arm_controller_spawner_traj" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_trajectory_controller"/-->
       <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_trajectory_controller"/>
