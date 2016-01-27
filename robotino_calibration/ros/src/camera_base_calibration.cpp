@@ -86,7 +86,7 @@ cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t)
 CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 			node_handle_(nh), transform_listener_(nh), camera_calibration_path_("robotino_calibration/camera_calibration/"),
 			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/tilt_controller/command"),
-			move_base_client_("move_base", true)
+			move_base_client_("move_base_simple", true)
 {
 	//wait for the action server to come up
 	while (!move_base_client_.waitForServer(ros::Duration(5.0)))
@@ -105,6 +105,7 @@ CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 	torso_lower_frame_ = "pan_link";
 	torso_upper_frame_ = "tilt_link";
 	camera_frame_ = "kinect_link";
+	camera_optical_frame_ = "kinect_rgb_optical_frame";
 	base_frame_ = "base_link";
 	checkerboard_frame_ = "checkerboard";
 
@@ -112,8 +113,8 @@ CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 	chessboard_pattern_size_ = cv::Size(6,4);
 
 	// todo: set good initial parameters
-//	T_base_to_torso_lower_;
-//	T_torso_upper_to_camera_;
+	T_base_to_torso_lower_ = makeTransform(rotationMatrixFromRPY(0.0, 0.0, 0.0), cv::Mat(cv::Vec3d(0.25, 0, 0.5)));
+	T_torso_upper_to_camera_ = makeTransform(rotationMatrixFromRPY(-1.57, 0.0, 0.0), cv::Mat(cv::Vec3d(0.0, 0.065, 0.0)));
 }
 
 CameraBaseCalibration::~CameraBaseCalibration()
@@ -161,8 +162,9 @@ bool CameraBaseCalibration::calibrateCameraToBase(const bool load_images)
 	std::vector< std::vector<cv::Point2f> > points_2d_per_image;
 	std::vector<cv::Mat> T_base_to_checkerboard_vector;
 	std::vector<cv::Mat> T_torso_lower_to_torso_upper_vector;
+	std::vector<cv::Mat> T_camera_to_camera_optical_vector;
 	acquireCalibrationImages(image_width, image_height, points_2d_per_image, T_base_to_checkerboard_vector,
-			T_torso_lower_to_torso_upper_vector, chessboard_pattern_size_, load_images);
+			T_torso_lower_to_torso_upper_vector, T_camera_to_camera_optical_vector, chessboard_pattern_size_, load_images);
 
 	// prepare chessboard 3d points
 	std::vector< std::vector<cv::Point3f> > pattern_points_3d;
@@ -175,7 +177,7 @@ bool CameraBaseCalibration::calibrateCameraToBase(const bool load_images)
 	{
 		cv::Mat R, t;
 		cv::Rodrigues(rvecs[i], R);
-		cv::Mat T_camera_to_checkerboard = makeTransform(R, tvecs[i]);
+		cv::Mat T_camera_to_checkerboard = T_camera_to_camera_optical_vector[i] * makeTransform(R, tvecs[i]);
 		T_camera_to_checkerboard_vector.push_back(T_camera_to_checkerboard);
 	}
 
@@ -261,19 +263,28 @@ bool CameraBaseCalibration::moveRobot(const RobotConfiguration& robot_configurat
 	msg.data = robot_configuration.tilt_angle_;
 	tilt_controller_.publish(msg);
 
+	ros::Duration(2).sleep();
+
 	return result;
 }
 
 bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& image_height,
 		std::vector< std::vector<cv::Point2f> >& points_2d_per_image, std::vector<cv::Mat>& T_base_to_checkerboard_vector,
-		std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
+		std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector, std::vector<cv::Mat>& T_camera_to_camera_optical_vector,
 		const cv::Size pattern_size, const bool load_images)
 {
 	// capture images from different perspectives
 	// todo: define pan/tilt unit positions and robot base locations relative to checkerboard
 	std::vector<RobotConfiguration> robot_configurations;
-	robot_configurations.push_back(RobotConfiguration(-1.0, 0, 0, 0, 0));
-	robot_configurations.push_back(RobotConfiguration(-1.0, 0, 0, 0.1, -0.1));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, 0.15, 0));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.05, 0));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.3, 0));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, 0.15, -0.15));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.05, -0.15));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.3, -0.15));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, 0.15, -0.35));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.05, -0.35));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.3, -0.35));
 	const int number_images_to_capture = (int)robot_configurations.size();
 	for (int image_counter = 0; image_counter < number_images_to_capture; ++image_counter)
 	{
@@ -287,7 +298,7 @@ bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& imag
 			continue;
 
 		// retrieve transformations
-		cv::Mat T_base_to_checkerboard, T_torso_lower_to_torso_upper;
+		cv::Mat T_base_to_checkerboard, T_torso_lower_to_torso_upper, T_camera_to_camera_optical;
 		std::stringstream path;
 		path << camera_calibration_path_ << image_counter << ".yml";
 		if (load_images)
@@ -297,6 +308,7 @@ bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& imag
 			{
 				fs["T_base_to_checkerboard"] >> T_base_to_checkerboard;
 				fs["T_torso_lower_to_torso_upper"] >> T_torso_lower_to_torso_upper;
+				fs["T_camera_to_camera_optical"] >> T_camera_to_camera_optical;
 			}
 			else
 			{
@@ -310,6 +322,8 @@ bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& imag
 			bool result = true;
 			result &= getTransform(checkerboard_frame_, base_frame_, T_base_to_checkerboard);
 			result &= getTransform(torso_upper_frame_, torso_lower_frame_, T_torso_lower_to_torso_upper);
+			result &= getTransform(camera_frame_, camera_optical_frame_, T_camera_to_camera_optical);
+
 			if (result == false)
 				continue;
 
@@ -319,6 +333,7 @@ bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& imag
 			{
 				fs << "T_base_to_checkerboard" << T_base_to_checkerboard;
 				fs << "T_torso_lower_to_torso_upper" << T_torso_lower_to_torso_upper;
+				fs << "T_camera_to_camera_optical" << T_camera_to_camera_optical;
 			}
 			else
 			{
@@ -331,6 +346,7 @@ bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& imag
 		points_2d_per_image.push_back(checkerboard_points_2d);
 		T_base_to_checkerboard_vector.push_back(T_base_to_checkerboard);
 		T_torso_lower_to_torso_upper_vector.push_back(T_torso_lower_to_torso_upper);
+		T_camera_to_camera_optical_vector.push_back(T_camera_to_camera_optical);
 		std::cout << "Captured perspectives: " << points_2d_per_image.size() << std::endl;
 	}
 

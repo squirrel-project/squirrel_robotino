@@ -77,7 +77,7 @@ CheckerboardLocalization::~CheckerboardLocalization()
 
 }
 
-#define DEBUG_OUTPUT
+//#define DEBUG_OUTPUT
 void CheckerboardLocalization::callback(const sensor_msgs::LaserScan::ConstPtr& laser_scan_msg)
 {
 	// convert scan to x-y coordinates
@@ -87,13 +87,13 @@ void CheckerboardLocalization::callback(const sensor_msgs::LaserScan::ConstPtr& 
 		double angle = laser_scan_msg->angle_min + i * laser_scan_msg->angle_increment; //[rad]
 		double dist = laser_scan_msg->ranges[i];
 		cv::Point2d point(dist*cos(angle), dist*sin(angle));
-		if (point.y > -1.0 && point.y < 1.0)
+		if (point.y > -0.75 && point.y < 0.75)
 			scan.push_back(point);
 	}
 
 	// match line to scan
 	cv::Vec4d line;
-	fitLine(scan, line, 0.1, 0.9999, 0.02, true);
+	fitLine(scan, line, 0.1, 0.9999, 0.01, true);
 	if (line.val[0] != line.val[0] || line.val[1] != line.val[1] || line.val[2] != line.val[2] || line.val[3] != line.val[3])
 		return;
 
@@ -341,12 +341,12 @@ void CheckerboardLocalization::fitLine(const std::vector<cv::Point2d>& points, c
 		cv::Point2d n0(points[index2].y-points[index1].y, points[index1].x-points[index2].x);	// normal direction on line
 		const double n0_length = sqrt(n0.x*n0.x + n0.y*n0.y);
 		n0.x /= n0_length; n0.y /= n0_length;
-		const float c = -points[index1].x*n0.x - points[index1].y*n0.y;		// distance to line: d = n0*(x-x0) = n0.x*x + n0.y*y + c
+		const double c = -points[index1].x*n0.x - points[index1].y*n0.y;		// distance to line: d = n0*(x-x0) = n0.x*x + n0.y*y + c
 
 		// count inliers
 		int inliers = 0;
 		for (size_t i=0; i<points.size(); ++i)
-			if (abs(n0.x * points[i].x + n0.y * points[i].y + c) <= max_inlier_distance)
+			if (fabs(n0.x * points[i].x + n0.y * points[i].y + c) <= max_inlier_distance)
 				++inliers;
 
 		// update best model
@@ -362,16 +362,16 @@ void CheckerboardLocalization::fitLine(const std::vector<cv::Point2d>& points, c
 #endif
 
 	// final optimization with least squares fit
-	const cv::Point2f n0(line[2], line[3]);
+	const cv::Point2d n0(line[2], line[3]);
 	const double c = -line[0]*n0.x - line[1]*n0.y;
 	std::vector<cv::Point2f> inlier_set;
 	for (size_t i=0; i<points.size(); ++i)
-		if (abs(n0.x * points[i].x + n0.y * points[i].y + c) <= max_inlier_distance)
-			inlier_set.push_back(points[i]);
+		if (fabs(n0.x * points[i].x + n0.y * points[i].y + c) <= max_inlier_distance)
+			inlier_set.push_back(cv::Point2f(points[i].x, points[i].y));
 	cv::Vec4f line_ls;
 	cv::fitLine(inlier_set, line_ls, CV_DIST_L2, 0, 0.01, 0.01);	// (vx, vy, x0, y0), where (vx, vy) is a normalized vector collinear to the line and (x0, y0) is a point on the line
 	const double length = sqrt(line_ls[0]*line_ls[0]+line_ls[1]*line_ls[1]);
-	line = cv::Vec4f(line_ls[2], line_ls[3], line_ls[1]/length, -line_ls[0]/length);
+	line = cv::Vec4d(line_ls[2], line_ls[3], line_ls[1]/length, -line_ls[0]/length);
 
 #ifdef DEBUG_OUTPUT
 	std::cout << "Optimized line: " << line << std::endl;

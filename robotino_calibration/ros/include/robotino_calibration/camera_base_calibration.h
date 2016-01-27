@@ -147,7 +147,7 @@ protected:
 	// acquires images manually until user interrupts
 	bool acquireCalibrationImages(int& jai_width, int& jai_height, std::vector< std::vector<cv::Point2f> >& points_2d_per_image,
 			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
-			const cv::Size pattern_size, const bool load_images);
+			std::vector<cv::Mat>& T_camera_to_camera_optical_vector, const cv::Size pattern_size, const bool load_images);
 
 	// acquire a single image, can be used within automatic image capture
 	int acquireCalibrationImage(int& image_width, int& image_height, std::vector<cv::Point2f>& points_2d_per_image,
@@ -187,6 +187,7 @@ protected:
 	std::string torso_lower_frame_;
 	std::string torso_upper_frame_;
 	std::string camera_frame_;
+	std::string camera_optical_frame_;
 	std::string base_frame_;
 	std::string checkerboard_frame_;
 
