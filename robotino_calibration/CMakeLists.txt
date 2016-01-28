@@ -84,6 +84,7 @@ add_dependencies(checkerboard_localisation_node ${catkin_EXPORTED_TARGETS} ${PRO
 target_link_libraries(checkerboard_localisation_node
 	${catkin_LIBRARIES}
 	${Boost_LIBRARIES}
+	${OpenCV_LIBRARIES}
 )
 
 # calibration software
@@ -92,7 +93,8 @@ add_executable(camera_base_calibration	ros/src/camera_base_calibration_node.cpp
 target_link_libraries(camera_base_calibration
 	${catkin_LIBRARIES} # automatically links all catkin_BUILD_PACKAGES
 	${OpenCV_LIBRARIES}
-	${PCL_LIBRARIES})
+	${PCL_LIBRARIES}
+)
 add_dependencies(camera_base_calibration	${catkin_EXPORTED_TARGETS})
 
 

@@ -164,6 +164,7 @@ protected:
 
 	bool convertImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image);
 
+	// computes the transform from target_frame to source_frame (i.e. transform arrow is pointing from target_frame to source_frame)
 	bool getTransform(const std::string& target_frame, const std::string& source_frame, cv::Mat& T);
 
 	void imageCallback(const sensor_msgs::ImageConstPtr& color_image_msg);
@@ -174,6 +175,7 @@ protected:
 	boost::mutex camera_data_mutex_;	// secures read and write operations on camera data
 	cv::Mat camera_image_;		// stores the latest camera image
 	ros::Time latest_image_time_;	// stores time stamp of latest image
+	bool capture_image_;
 
 	ros::Publisher base_controller_;
 	ros::Publisher tilt_controller_;

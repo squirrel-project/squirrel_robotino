@@ -52,7 +52,8 @@
 
 #include <std_msgs/Float64.h>
 
-#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <pcl/registration/icp.h>
 
 #include <sstream>
 
@@ -85,7 +86,7 @@ cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t)
 
 CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 			node_handle_(nh), transform_listener_(nh), camera_calibration_path_("robotino_calibration/camera_calibration/"),
-			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/tilt_controller/command")
+			tilt_controller_command_("/tilt_controller/command"), pan_controller_command_("/pan_controller/command"), capture_image_(true)
 {
 //	// load parameters
 //	node_handle_.param("chessboard_cell_size", chessboard_cell_size_, 0.05);
@@ -108,7 +109,7 @@ CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 	base_controller_ = node_handle_.advertise<geometry_msgs::Twist>("/cmd_vel", 1, false);
 
 	// todo: parameters
-	torso_lower_frame_ = "pan_link";
+	torso_lower_frame_ = "base_pan_link";
 	torso_upper_frame_ = "tilt_link";
 	camera_frame_ = "kinect_link";
 	camera_optical_frame_ = "kinect_rgb_optical_frame";
@@ -117,7 +118,7 @@ CameraBaseCalibration::CameraBaseCalibration(ros::NodeHandle nh) :
 
 	// todo: set good initial parameters
 	T_base_to_torso_lower_ = makeTransform(rotationMatrixFromRPY(0.0, 0.0, 0.0), cv::Mat(cv::Vec3d(0.25, 0, 0.5)));
-	T_torso_upper_to_camera_ = makeTransform(rotationMatrixFromRPY(-1.57, 0.0, 0.0), cv::Mat(cv::Vec3d(0.0, 0.065, 0.0)));
+	T_torso_upper_to_camera_ = makeTransform(rotationMatrixFromRPY(0.0, 0.0, -1.57), cv::Mat(cv::Vec3d(0.0, 0.065, 0.0)));
 }
 
 CameraBaseCalibration::~CameraBaseCalibration()
@@ -130,7 +131,7 @@ bool CameraBaseCalibration::convertImageMessageToMat(const sensor_msgs::Image::C
 {
 	try
 	{
-		image_ptr = cv_bridge::toCvShare(image_msg, image_msg->encoding);
+		image_ptr = cv_bridge::toCvShare(image_msg, sensor_msgs::image_encodings::BGR8);//image_msg->encoding);
 	}
 	catch (cv_bridge::Exception& e)
 	{
@@ -147,18 +148,34 @@ void CameraBaseCalibration::imageCallback(const sensor_msgs::ImageConstPtr& colo
 	// secure this access with a mutex
 	boost::mutex::scoped_lock lock(camera_data_mutex_);
 
-	// read image
-	cv_bridge::CvImageConstPtr color_image_ptr;
-	if (convertImageMessageToMat(color_image_msg, color_image_ptr, camera_image_) == false)
-		return;
+	if (capture_image_ == true)
+	{
+		// read image
+		cv_bridge::CvImageConstPtr color_image_ptr;
+		if (convertImageMessageToMat(color_image_msg, color_image_ptr, camera_image_) == false)
+			return;
 
-	latest_image_time_ = color_image_msg->header.stamp;
+		latest_image_time_ = color_image_msg->header.stamp;
+
+		capture_image_ = false;
+	}
 }
 
 bool CameraBaseCalibration::calibrateCameraToBase(const bool load_images)
 {
 	// setup storage folder
 	int return_value = system("mkdir -p robotino_calibration/camera_calibration");
+
+	// pre-cache images
+	if (load_images == false)
+	{
+		ros::spinOnce();
+		ros::Duration(2).sleep();
+		capture_image_ = true;
+		ros::spinOnce();
+		ros::Duration(2).sleep();
+		capture_image_ = true;
+	}
 
 	// acquire images
 	int image_width=0, image_height=0;
@@ -187,11 +204,23 @@ bool CameraBaseCalibration::calibrateCameraToBase(const bool load_images)
 	// extrinsic calibration between base and torso_lower as well ass torso_upper and camera
 	for (int i=0; i<5; ++i)
 	{
-		std::cout << "Extrinsic optimization run " << i << ":" << std::endl;
+		std::cout << "\nExtrinsic optimization run " << i << ":" << std::endl;
 		extrinsicCalibrationBaseToTorsoLower(pattern_points_3d, T_base_to_checkerboard_vector, T_torso_lower_to_torso_upper_vector, T_camera_to_checkerboard_vector);
 		std::cout << "T_base_to_torso_lower:\n" << T_base_to_torso_lower_ << std::endl;
+		// todo: make a function
+		Eigen::Matrix3f rot;
+		for (int i=0; i<3; ++i)
+			for (int j=0; j<3; ++j)
+				rot(i,j) = T_base_to_torso_lower_.at<double>(i,j);
+		Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
+		std::cout << "yaw=" << euler_angles(0) << "   pitch=" << euler_angles(1) << "   roll=" << euler_angles(2) << std::endl;
 		extrinsicCalibrationTorsoUpperToCamera(pattern_points_3d, T_base_to_checkerboard_vector, T_torso_lower_to_torso_upper_vector, T_camera_to_checkerboard_vector);
 		std::cout << "T_torso_upper_to_camera:\n" << T_torso_upper_to_camera_ << std::endl;
+		for (int i=0; i<3; ++i)
+			for (int j=0; j<3; ++j)
+				rot(i,j) = T_torso_upper_to_camera_.at<double>(i,j);
+		euler_angles = rot.eulerAngles(2,1,0);
+		std::cout << "yaw=" << euler_angles(0) << "   pitch=" << euler_angles(1) << "   roll=" << euler_angles(2) << std::endl;
 	}
 
 
@@ -225,7 +254,7 @@ bool CameraBaseCalibration::getTransform(const std::string& target_frame, const 
 		for (int v=0; v<3; ++v)
 			transcv.at<double>(v) = trans.m_floats[v];
 		T = makeTransform(rotcv, transcv);
-		std::cout << "Transform from " << source_frame << " to " << target_frame << ":\n" << T << std::endl;
+		//std::cout << "Transform from " << source_frame << " to " << target_frame << ":\n" << T << std::endl;
 	}
 	catch (tf::TransformException& ex)
 	{
@@ -238,100 +267,112 @@ bool CameraBaseCalibration::getTransform(const std::string& target_frame, const 
 
 bool CameraBaseCalibration::moveRobot(const RobotConfiguration& robot_configuration)
 {
-	bool result = true;
-
-	// control robot angle
+	// do not move if close to goal
 	double error_phi = 10;
-	do
-	{
-		cv::Mat T;
-		if (!getTransform("checkerboard_reference_nav", "base_link", T))
-			return false;
-		Eigen::Matrix3f rot;
-		for (int i=0; i<3; ++i)
-			for (int j=0; j<3; ++j)
-				rot(i,j) = T.at<double>(i,j);
-		Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
-		double robot_yaw = euler_angles(0);
-		geometry_msgs::Twist tw;
-		error_phi = robot_configuration.pose_phi_ - robot_yaw;
-		while (error_phi < -CV_PI*0.5)
-			error_phi += CV_PI;
-		while (error_phi > CV_PI*0.5)
-			error_phi -= CV_PI;
-		tw.angular.z = std::min(0.2, error_phi);
-		ros::Rate(20).sleep();
-		base_controller_.publish(tw);
-	} while (fabs(error_phi) > 0.025 && ros::ok());
-
-	// control position
 	double error_x = 10;
 	double error_y = 10;
-	do
+	cv::Mat T;
+	if (!getTransform("checkerboard_reference_nav", "base_link", T))
+		return false;
+	// todo: make a conversion function
+	Eigen::Matrix3f rot;
+	for (int i=0; i<3; ++i)
+		for (int j=0; j<3; ++j)
+			rot(i,j) = T.at<double>(i,j);
+	Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
+	double robot_yaw = euler_angles(0);
+	geometry_msgs::Twist tw;
+	error_phi = robot_configuration.pose_phi_ - robot_yaw;
+	while (error_phi < -CV_PI*0.5)
+		error_phi += CV_PI;
+	while (error_phi > CV_PI*0.5)
+		error_phi -= CV_PI;
+	error_x = robot_configuration.pose_x_ - T.at<double>(0,3);
+	error_y = robot_configuration.pose_y_ - T.at<double>(1,3);
+
+	std::cout << "error_x=" << error_x << "   error_y=" << error_y << "   error_phi=" << error_phi << std::endl;
+	if (fabs(error_phi) > 0.03 || fabs(error_x) > 0.02 || fabs(error_y) > 0.02)
 	{
-		cv::Mat T;
-		if (!getTransform("checkerboard_reference_nav", "base_link", T))
-			return false;
+		// control robot angle
+		while(true)
+		{
+			if (!getTransform("checkerboard_reference_nav", "base_link", T))
+				return false;
+			Eigen::Matrix3f rot;
+			for (int i=0; i<3; ++i)
+				for (int j=0; j<3; ++j)
+					rot(i,j) = T.at<double>(i,j);
+			Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
+			double robot_yaw = euler_angles(0);
+			geometry_msgs::Twist tw;
+			error_phi = robot_configuration.pose_phi_ - robot_yaw;
+			while (error_phi < -CV_PI*0.5)
+				error_phi += CV_PI;
+			while (error_phi > CV_PI*0.5)
+				error_phi -= CV_PI;
+			if (fabs(error_phi) < 0.02 || !ros::ok())
+				break;
+			tw.angular.z = std::min(0.05, error_phi);
+			base_controller_.publish(tw);
+			ros::Rate(20).sleep();
+		}
 
-		geometry_msgs::Twist tw;
-		error_x = robot_configuration.pose_x_ - T.at<double>(0,3);
-		error_y = robot_configuration.pose_y_ - T.at<double>(1,3);
-		std::cout << "x=" << T.at<double>(0,3) << "      y=" << T.at<double>(1,3) << std::endl;
-		std::cout << "gx=" << robot_configuration.pose_x_ << "      gy=" << robot_configuration.pose_y_ << std::endl;
-		std::cout << "error_x: " << error_x << std::endl;
-		std::cout << "error_y: " << error_y << std::endl;
-		tw.linear.x = std::min(0.1, error_x);
-		tw.linear.y = std::min(0.1, error_y);
-		ros::Rate(20).sleep();
-		base_controller_.publish(tw);
-	} while (fabs(error_x) > 0.01 && fabs(error_y) > 0.01 && ros::ok());
+		// control position
+		while(true)
+		{
+			if (!getTransform("checkerboard_reference_nav", "base_link", T))
+				return false;
+			geometry_msgs::Twist tw;
+			error_x = robot_configuration.pose_x_ - T.at<double>(0,3);
+			error_y = robot_configuration.pose_y_ - T.at<double>(1,3);
+			if ((fabs(error_x) < 0.01 && fabs(error_y) < 0.01) || !ros::ok())
+				break;
+//			std::cout << "error_x: " << error_x << std::endl;
+//			std::cout << "error_y: " << error_y << std::endl;
+			tw.linear.x = std::min(0.05, error_x);
+			tw.linear.y = std::min(0.05, error_y);
+			base_controller_.publish(tw);
+			ros::Rate(20).sleep();
+		}
 
-	// control robot angle
-	error_phi = 10;
-	do
-	{
-		cv::Mat T;
-		if (!getTransform("checkerboard_reference_nav", "base_link", T))
-			return false;
-		Eigen::Matrix3f rot;
-		for (int i=0; i<3; ++i)
-			for (int j=0; j<3; ++j)
-				rot(i,j) = T.at<double>(i,j);
-		Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
-		double robot_yaw = euler_angles(0);
-		geometry_msgs::Twist tw;
-		error_phi = robot_configuration.pose_phi_ - robot_yaw;
-		while (error_phi < -CV_PI*0.5)
-			error_phi += CV_PI;
-		while (error_phi > CV_PI*0.5)
-			error_phi -= CV_PI;
-		tw.angular.z = std::min(0.2, error_phi);
-		ros::Rate(20).sleep();
-		base_controller_.publish(tw);
-	} while (fabs(error_phi) > 0.025 && ros::ok());
+		// control robot angle
+		while (true)
+		{
+			if (!getTransform("checkerboard_reference_nav", "base_link", T))
+				return false;
+			Eigen::Matrix3f rot;
+			for (int i=0; i<3; ++i)
+				for (int j=0; j<3; ++j)
+					rot(i,j) = T.at<double>(i,j);
+			Eigen::Vector3f euler_angles = rot.eulerAngles(2,1,0);
+			double robot_yaw = euler_angles(0);
+			geometry_msgs::Twist tw;
+			error_phi = robot_configuration.pose_phi_ - robot_yaw;
+			while (error_phi < -CV_PI*0.5)
+				error_phi += CV_PI;
+			while (error_phi > CV_PI*0.5)
+				error_phi -= CV_PI;
+			if (fabs(error_phi) < 0.02 || !ros::ok())
+				break;
+			tw.angular.z = std::min(0.05, error_phi);
+			base_controller_.publish(tw);
+			ros::Rate(20).sleep();
+		}
+	}
 
-//
-//	move_base_msgs::MoveBaseGoal goal;
-//
-//	//we'll send a goal to the robot to move 1 meter forward
-//	goal.target_pose.header.frame_id = "checkerboard_reference_nav";
-//	goal.target_pose.header.stamp = ros::Time::now();
-//
-//	goal.target_pose.pose.position.x = robot_configuration.pose_x_;
-//	goal.target_pose.pose.position.y = robot_configuration.pose_y_;
-//	goal.target_pose.pose.position.z = robot_configuration.pose_phi_;
-//	goal.target_pose.pose.orientation.w = 1.0;
-//
-//
-//	std_msgs::Float64 msg;
-//	msg.data = robot_configuration.pan_angle_;
-//	pan_controller_.publish(msg);
-//	msg.data = robot_configuration.tilt_angle_;
-//	tilt_controller_.publish(msg);
-//
-//	ros::Duration(2).sleep();
-//
-	return result;
+	std_msgs::Float64 msg;
+	msg.data = robot_configuration.pan_angle_;
+	pan_controller_.publish(msg);
+	msg.data = robot_configuration.tilt_angle_;
+	tilt_controller_.publish(msg);
+
+	ros::Duration(3).sleep();
+
+	std::cout << "Positioning successful: x=" << robot_configuration.pose_x_ << ", y=" << robot_configuration.pose_y_
+			<< ", phi=" << robot_configuration.pose_phi_ << ", pan=" << robot_configuration.pan_angle_
+			<< ", tilt=" << robot_configuration.tilt_angle_ << std::endl;
+
+	return true;
 }
 
 bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& image_height,
@@ -342,15 +383,40 @@ bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& imag
 	// capture images from different perspectives
 	// todo: define pan/tilt unit positions and robot base locations relative to checkerboard
 	std::vector<RobotConfiguration> robot_configurations;
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, 0.15, 0));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.05, 0));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.3, 0));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, 0.15, -0.15));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.05, -0.15));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.3, -0.15));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, 0.15, -0.35));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.05, -0.35));
-	robot_configurations.push_back(RobotConfiguration(-1.0, -0.1, 0, -0.3, -0.35));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, 0.15, 0.25));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, 0.0, 0.3));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.15, 0.3));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.3, 0.3));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.5, 0.3));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, 0.15, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, 0.0, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.15, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.3, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.5, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, 0.15, -0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, 0.0, -0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.15, -0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.35, -0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.5, -0.17, 0, -0.5, -0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, 0.0, 0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, -0.2, 0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, -0.45, 0.2));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, 0.0, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, -0.2, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, -0.45, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, 0.0, -0.15));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, -0.2, -0.15));
+	robot_configurations.push_back(RobotConfiguration(-1.0, -0.17, 0, -0.45, -0.15));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, 0.0, 0.15));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, -0.15, 0.15));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, -0.35, 0.2));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, 0.0, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, -0.15, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, -0.35, 0.05));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, 0.0, -0.1));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, -0.15, -0.1));
+	robot_configurations.push_back(RobotConfiguration(-0.85, -0.17, 0, -0.35, -0.1));
+
 	const int number_images_to_capture = (int)robot_configurations.size();
 	for (int image_counter = 0; image_counter < number_images_to_capture; ++image_counter)
 	{
@@ -386,8 +452,8 @@ bool CameraBaseCalibration::acquireCalibrationImages(int& image_width, int& imag
 		else
 		{
 			bool result = true;
-			result &= getTransform(checkerboard_frame_, base_frame_, T_base_to_checkerboard);
-			result &= getTransform(torso_upper_frame_, torso_lower_frame_, T_torso_lower_to_torso_upper);
+			result &= getTransform(base_frame_, checkerboard_frame_, T_base_to_checkerboard);
+			result &= getTransform(torso_lower_frame_, torso_upper_frame_, T_torso_lower_to_torso_upper);
 			result &= getTransform(camera_frame_, camera_optical_frame_, T_camera_to_camera_optical);
 
 			if (result == false)
@@ -428,17 +494,26 @@ int CameraBaseCalibration::acquireCalibrationImage(int& image_width, int& image_
 	cv::Mat image;
 	if (load_images == false)
 	{
-		// retrieve image from camera
-		boost::mutex::scoped_lock lock(camera_data_mutex_);
+		ros::Duration(3).sleep();
+		capture_image_ = true;
+		ros::spinOnce();
+		ros::Duration(2).sleep();
 
-		if ((ros::Time::now() - latest_image_time_).toSec() < 2.0)
+		// retrieve image from camera
 		{
-			image = camera_image_.clone();
-		}
-		else
-		{
-			ROS_WARN("Did not receive camera images recently.");
-			return -1;		// -1 = no fresh image available
+			boost::mutex::scoped_lock lock(camera_data_mutex_);
+
+			std::cout << "Time diff: " << (ros::Time::now() - latest_image_time_).toSec() << std::endl;
+
+			if ((ros::Time::now() - latest_image_time_).toSec() < 20.0)
+			{
+				image = camera_image_.clone();
+			}
+			else
+			{
+				ROS_WARN("Did not receive camera images recently.");
+				return -1;		// -1 = no fresh image available
+			}
 		}
 	}
 	else
@@ -448,6 +523,8 @@ int CameraBaseCalibration::acquireCalibrationImage(int& image_width, int& image_
 		ss << camera_calibration_path_ << image_counter;
 		std::string image_name = ss.str() + ".png";
 		image = cv::imread(image_name.c_str(), 0);
+		if (image.empty())
+			return -2;
 	}
 	image_width = image.cols;
 	image_height = image.rows;
@@ -534,30 +611,103 @@ void CameraBaseCalibration::extrinsicCalibrationTorsoUpperToCamera(std::vector< 
 		std::vector<cv::Mat>& T_camera_to_checkerboard_vector)
 {
 	// transform 3d chessboard points to respective coordinates systems (camera and torso_upper)
-	std::vector<cv::Point3f> points_3d_camera, points_3d_torso_upper;
+	std::vector<cv::Point3d> points_3d_camera, points_3d_torso_upper;
 	for (size_t i=0; i<pattern_points_3d.size(); ++i)
 	{
 		cv::Mat T_torso_upper_to_checkerboard = T_torso_lower_to_torso_upper_vector[i].inv() * T_base_to_torso_lower_.inv() * T_base_to_checkerboard_vector[i];
+//		std::cout << "T_camera_to_checkerboard_vector[i]:\n" << T_camera_to_checkerboard_vector[i] << std::endl;
+//		std::cout << "T_torso_upper_to_checkerboard:\n" << T_torso_upper_to_checkerboard << std::endl;
 		for (size_t j=0; j<pattern_points_3d[i].size(); ++j)
 		{
-			cv::Mat point = cv::Mat_<double>(4,1) << (pattern_points_3d[i][j].x, pattern_points_3d[i][j].y, pattern_points_3d[i][j].z, 1.0);
+			cv::Mat point = cv::Mat(cv::Vec4d(pattern_points_3d[i][j].x, pattern_points_3d[i][j].y, pattern_points_3d[i][j].z, 1.0));
 
 			// to camera coordinate system
 			cv::Mat point_camera = T_camera_to_checkerboard_vector[i] * point;
-			points_3d_camera.push_back(cv::Point3f(point_camera.at<double>(0), point_camera.at<double>(1), point_camera.at<double>(2)));
+			//std::cout << "point_camera=" << point_camera << std::endl;
+			points_3d_camera.push_back(cv::Point3d(point_camera.at<double>(0), point_camera.at<double>(1), point_camera.at<double>(2)));
 
 			// to torso_upper coordinate
 			cv::Mat point_torso_upper = T_torso_upper_to_checkerboard * point;
-			points_3d_torso_upper.push_back(cv::Point3f(point_torso_upper.at<double>(0), point_torso_upper.at<double>(1), point_torso_upper.at<double>(2)));
+			//std::cout << "point_torso_upper=" << point_torso_upper << std::endl;
+			points_3d_torso_upper.push_back(cv::Point3d(point_torso_upper.at<double>(0), point_torso_upper.at<double>(1), point_torso_upper.at<double>(2)));
 		}
 	}
 
-	// estimate transform
-	cv::Mat transform, inliers;
-	cv::estimateAffine3D(cv::Mat(points_3d_torso_upper), cv::Mat(points_3d_camera), transform, inliers);
-	T_torso_upper_to_camera_ = transform;
-	cv::Mat last_row = cv::Mat_<double>(1,4) << (0., 0., 0., 1.);
-	T_torso_upper_to_camera_.push_back(last_row);
+	// from: http://nghiaho.com/?page_id=671 : ‘A Method for Registration of 3-D Shapes’, by Besl and McKay, 1992.
+	cv::Point3d centroid_torso_upper, centroid_camera;
+	for (size_t i=0; i<points_3d_torso_upper.size(); ++i)
+	{
+		centroid_torso_upper += points_3d_torso_upper[i];
+		centroid_camera += points_3d_camera[i];
+	}
+	centroid_torso_upper *= 1.0/(double)points_3d_torso_upper.size();
+	centroid_camera *= 1.0/(double)points_3d_camera.size();
+
+	cv::Mat M = cv::Mat::zeros(3,3,CV_64FC1);
+	for (size_t i=0; i<points_3d_torso_upper.size(); ++i)
+		M += cv::Mat(points_3d_camera[i] - centroid_camera)*cv::Mat(points_3d_torso_upper[i] - centroid_torso_upper).t();
+
+	cv::Mat w, u, vt;
+	cv::SVD::compute(M, w, u, vt, cv::SVD::FULL_UV);
+
+	cv::Mat R = vt.t()*u.t();
+
+	if (cv::determinant(R) < 0)
+		for (int r=0; r<3; ++r)
+			R.at<double>(r,2) *= -1;
+
+	cv::Mat t = -R*cv::Mat(centroid_camera) + cv::Mat(centroid_torso_upper);
+
+	std::cout << "R:\n" << R << "t:\n" << t << std::endl;
+
+	T_torso_upper_to_camera_ = makeTransform(R, t);
+
+//	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_camera(new pcl::PointCloud<pcl::PointXYZ>);
+//	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_torso_upper(new pcl::PointCloud<pcl::PointXYZ>);
+//
+//	// Fill in the CloudIn data
+//	cloud_camera->width = points_3d_camera.size();
+//	cloud_camera->height = 1;
+//	cloud_camera->is_dense = false;
+//	cloud_camera->points.resize(cloud_camera->width * cloud_camera->height);
+//	for (size_t i = 0; i < cloud_camera->points.size(); ++i)
+//	{
+//		cloud_camera->points[i].x = points_3d_camera[i].x;
+//		cloud_camera->points[i].y = points_3d_camera[i].y;
+//		cloud_camera->points[i].z = points_3d_camera[i].z;
+//	}
+//
+//	// Fill in the CloudIn data
+//	cloud_torso_upper->width = points_3d_torso_upper.size();
+//	cloud_torso_upper->height = 1;
+//	cloud_torso_upper->is_dense = false;
+//	cloud_torso_upper->points.resize(cloud_torso_upper->width * cloud_torso_upper->height);
+//	for (size_t i = 0; i < cloud_torso_upper->points.size(); ++i)
+//	{
+//		cloud_torso_upper->points[i].x = points_3d_torso_upper[i].x;
+//		cloud_torso_upper->points[i].y = points_3d_torso_upper[i].y;
+//		cloud_torso_upper->points[i].z = points_3d_torso_upper[i].z;
+//	}
+//
+//	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+//	icp.setInputSource(cloud_camera);
+//	icp.setInputTarget(cloud_torso_upper);
+//	pcl::PointCloud<pcl::PointXYZ> final;
+//	icp.align(final);
+//	std::cout << "has converged:" << icp.hasConverged() << " score: " << icp.getFitnessScore() << std::endl;
+//	std::cout << icp.getFinalTransformation() << std::endl;
+//
+//	Eigen::Matrix4f T = icp.getFinalTransformation();
+//	for (int r=0; r<4; ++r)
+//		for (int c=0; c<4; ++c)
+//			T_torso_upper_to_camera_.at<double>(r,c) = T(r,c);
+
+//	// estimate transform
+//	cv::Mat transform, inliers;
+//	cv::estimateAffine3D(cv::Mat(points_3d_camera), cv::Mat(points_3d_torso_upper), transform, inliers);
+//	T_torso_upper_to_camera_ = transform;
+//	cv::Mat last_row = cv::Mat(cv::Vec4d(0., 0., 0., 1.)).t();
+//	T_torso_upper_to_camera_.push_back(last_row);
 }
 
 void CameraBaseCalibration::extrinsicCalibrationBaseToTorsoLower(std::vector< std::vector<cv::Point3f> >& pattern_points_3d,
@@ -565,30 +715,108 @@ void CameraBaseCalibration::extrinsicCalibrationBaseToTorsoLower(std::vector< st
 		std::vector<cv::Mat>& T_camera_to_checkerboard_vector)
 {
 	// transform 3d chessboard points to respective coordinates systems (base and torso_lower)
-	std::vector<cv::Point3f> points_3d_base, points_3d_torso_lower;
+	std::vector<cv::Point3d> points_3d_base, points_3d_torso_lower;
 	for (size_t i=0; i<pattern_points_3d.size(); ++i)
 	{
 		cv::Mat T_torso_lower_to_checkerboard = T_torso_lower_to_torso_upper_vector[i] * T_torso_upper_to_camera_ * T_camera_to_checkerboard_vector[i];
+//		std::cout << "T_base_to_checkerboard_vector[" << i << "]:\n" << T_base_to_checkerboard_vector[i] << std::endl;
+//		std::cout << "T_torso_lower_to_checkerboard:\n" << T_torso_lower_to_checkerboard << std::endl;
+//		std::cout << "T_torso_lower_to_torso_upper_vector[i]:\n" << T_torso_lower_to_torso_upper_vector[i] << std::endl;
+//		std::cout << "T_torso_upper_to_camera_:\n" << T_torso_upper_to_camera_ << std::endl;
+//		std::cout << "T_camera_to_checkerboard_vector[i]:\n" << T_camera_to_checkerboard_vector[i] << std::endl;
 		for (size_t j=0; j<pattern_points_3d[i].size(); ++j)
 		{
-			cv::Mat point = cv::Mat_<double>(4,1) << (pattern_points_3d[i][j].x, pattern_points_3d[i][j].y, pattern_points_3d[i][j].z, 1.0);
+			cv::Mat point = cv::Mat(cv::Vec4d(pattern_points_3d[i][j].x, pattern_points_3d[i][j].y, pattern_points_3d[i][j].z, 1.0));
 
 			// to camera coordinate system
 			cv::Mat point_base = T_base_to_checkerboard_vector[i] * point;
-			points_3d_base.push_back(cv::Point3f(point_base.at<double>(0), point_base.at<double>(1), point_base.at<double>(2)));
+			//std::cout << "point_base: " << pattern_points_3d[i][j].x <<", "<< pattern_points_3d[i][j].y <<", "<< pattern_points_3d[i][j].z << " --> " << point_base.at<double>(0,0) <<", "<< point_base.at<double>(1,0) << ", " << point_base.at<double>(2,0) << std::endl;
+			points_3d_base.push_back(cv::Point3d(point_base.at<double>(0), point_base.at<double>(1), point_base.at<double>(2)));
 
 			// to torso_upper coordinate
 			cv::Mat point_torso_lower = T_torso_lower_to_checkerboard * point;
-			points_3d_torso_lower.push_back(cv::Point3f(point_torso_lower.at<double>(0), point_torso_lower.at<double>(1), point_torso_lower.at<double>(2)));
+			//std::cout << "point_torso_lower: " << pattern_points_3d[i][j].x <<", "<< pattern_points_3d[i][j].y <<", "<< pattern_points_3d[i][j].z << " --> " << point_torso_lower.at<double>(0) <<", "<< point_torso_lower.at<double>(1) << ", " << point_torso_lower.at<double>(2) << std::endl;
+			points_3d_torso_lower.push_back(cv::Point3d(point_torso_lower.at<double>(0), point_torso_lower.at<double>(1), point_torso_lower.at<double>(2)));
 		}
 	}
 
-	// estimate transform
-	cv::Mat transform, inliers;
-	cv::estimateAffine3D(cv::Mat(points_3d_base), cv::Mat(points_3d_torso_lower), transform, inliers);
-	T_base_to_torso_lower_ = transform;
-	cv::Mat last_row = cv::Mat_<double>(1,4) << (0., 0., 0., 1.);
-	T_base_to_torso_lower_.push_back(last_row);
+	// from: http://nghiaho.com/?page_id=671 : ‘A Method for Registration of 3-D Shapes’, by Besl and McKay, 1992.
+	cv::Point3d centroid_base, centroid_torso_lower;
+	for (size_t i=0; i<points_3d_base.size(); ++i)
+	{
+		centroid_base += points_3d_base[i];
+		centroid_torso_lower += points_3d_torso_lower[i];
+	}
+	centroid_base *= 1.0/(double)points_3d_base.size();
+	centroid_torso_lower *= 1.0/(double)points_3d_torso_lower.size();
+
+	cv::Mat M = cv::Mat::zeros(3,3,CV_64FC1);
+	for (size_t i=0; i<points_3d_base.size(); ++i)
+		M += cv::Mat(points_3d_torso_lower[i] - centroid_torso_lower)*cv::Mat(points_3d_base[i] - centroid_base).t();
+
+	cv::Mat w, u, vt;
+	cv::SVD::compute(M, w, u, vt, cv::SVD::FULL_UV);
+
+	cv::Mat R = vt.t()*u.t();
+
+	if (cv::determinant(R) < 0)
+		for (int r=0; r<3; ++r)
+			R.at<double>(r,2) *= -1;
+
+	cv::Mat t = -R*cv::Mat(centroid_torso_lower) + cv::Mat(centroid_base);
+
+	std::cout << "R:\n" << R << "t:\n" << t << std::endl;
+
+	T_base_to_torso_lower_ = makeTransform(R, t);
+
+
+
+//	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_base(new pcl::PointCloud<pcl::PointXYZ>);
+//	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_torso_lower(new pcl::PointCloud<pcl::PointXYZ>);
+//
+//	// Fill in the CloudIn data
+//	cloud_base->width = points_3d_base.size();
+//	cloud_base->height = 1;
+//	cloud_base->is_dense = false;
+//	cloud_base->points.resize(cloud_base->width * cloud_base->height);
+//	for (size_t i = 0; i < cloud_base->points.size(); ++i)
+//	{
+//		cloud_base->points[i].x = points_3d_base[i].x;
+//		cloud_base->points[i].y = points_3d_base[i].y;
+//		cloud_base->points[i].z = points_3d_base[i].z;
+//	}
+//
+//	// Fill in the CloudIn data
+//	cloud_torso_lower->width = points_3d_torso_lower.size();
+//	cloud_torso_lower->height = 1;
+//	cloud_torso_lower->is_dense = false;
+//	cloud_torso_lower->points.resize(cloud_torso_lower->width * cloud_torso_lower->height);
+//	for (size_t i = 0; i < cloud_torso_lower->points.size(); ++i)
+//	{
+//		cloud_torso_lower->points[i].x = points_3d_torso_lower[i].x;
+//		cloud_torso_lower->points[i].y = points_3d_torso_lower[i].y;
+//		cloud_torso_lower->points[i].z = points_3d_torso_lower[i].z;
+//	}
+//
+//	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+//	icp.setInputSource(cloud_base);
+//	icp.setInputTarget(cloud_torso_lower);
+//	pcl::PointCloud<pcl::PointXYZ> final;
+//	icp.align(final);
+//	std::cout << "has converged:" << icp.hasConverged() << " score: " << icp.getFitnessScore() << std::endl;
+//	std::cout << icp.getFinalTransformation() << std::endl;
+//
+//	Eigen::Matrix4f T = icp.getFinalTransformation();
+//	for (int r=0; r<4; ++r)
+//		for (int c=0; c<4; ++c)
+//			T_base_to_torso_lower_.at<double>(r,c) = T(r,c);
+
+//	// estimate transform
+//	cv::Mat transform, inliers;
+//	cv::estimateAffine3D(cv::Mat(points_3d_torso_lower), cv::Mat(points_3d_base), transform, inliers);
+//	T_base_to_torso_lower_ = transform;
+//	cv::Mat last_row = cv::Mat(cv::Vec4d(0., 0., 0., 1.)).t();
+//	T_base_to_torso_lower_.push_back(last_row);
 }
 
 bool CameraBaseCalibration::saveCalibration()
