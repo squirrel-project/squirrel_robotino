@@ -14,6 +14,20 @@
 
   <xacro:body name="base"/>
 
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>base_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>base_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
