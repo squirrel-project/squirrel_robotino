@@ -38,10 +38,20 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
-  <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
-    <param name="hostname" value="$(arg hostname)" />
-    <param name="cameraNumber" value="0" />
-  </node>
+  <group ns="rotatory_controller">
+      <rosparam  file="$(find robotino_bringup)/$(arg robot)/config/rotatory_controller.yaml" command="load" />
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
+      <node name="joint_state_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true" />  
+      <node name="rotatory_controller_spawner" pkg="controller_manager" type="spawner" args="joint_trajectory_controller" respawn="true" />
+  </group>
+
+  <group ns="base_rot_controller">
+      <remap from="robot_description" to="/robot_description" />
+      <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen">
+      </node>
+      <rosparam  file="$(find robotino_bringup)/$(arg robot)/config/rotatory_controller.yaml" command="load" />
+      <node name="rotatory_controller_spawner" pkg="controller_manager" type="spawner" args="joint_trajectory_controller" respawn="true" />
+  </group>
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
@@ -77,5 +87,25 @@
     <param name="tilt_status_topic" value="/tilt_controller/state" />
     <param name="startup_angle" value="0.6" />
   </node>
+
+  <group ns="arm_controller">
+    <remap from="pause" to="/robotino/bumper" />
+    <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_bringup)/$(arg robot)/config/arm_controllers_velocity.yaml" />
+    <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_arm_bringup)/config/arm_controllers_position.yaml" />
+
+    <include file="$(find cf_control)/launch/controller_manager.launch">
+      <arg name="publish_robot_state" value="false" />
+      <arg name="controllers" value="joint_state_controller joint_trajectory_controller" />
+    </include>
+  </group>
+
+  <group ns="base_rot_controller">
+      <remap from="robot_description" to="/robot_description" />
+      <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen">
+        <remap from="pause" to="/robotino/bumper" />
+      </node>
+      <rosparam  file="$(find robotino_controller_configuration_gazebo)/controller/rotatory_controller.yaml" command="load" />
+      <node name="rotatory_controller_spawner" pkg="controller_manager" type="spawner" args="rotatory_trajectory_controller" respawn="true" />
+  </group>
 
 </launch>
