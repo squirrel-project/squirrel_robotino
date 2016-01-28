@@ -15,21 +15,21 @@
 
 class RobotinoOdometryNode
 {
-public:
-	RobotinoOdometryNode();
-	~RobotinoOdometryNode();
+ public:
+  RobotinoOdometryNode();
+  ~RobotinoOdometryNode();
 
-	bool spin();
+  bool spin();
 
-private:
-	ros::NodeHandle nh_;
+ private:
+  ros::NodeHandle nh_;
 
-	std::string hostname_;
+  std::string hostname_;
 
-	ComROS com_;
-	OdometryROS odometry_;
-
-	void initModules();
+  ComROS com_;
+  OdometryROS odometry_;
+  
+  void initModules();
 };
 
 #endif /* ROBOTINOODOMETRYNODE_H_ */
