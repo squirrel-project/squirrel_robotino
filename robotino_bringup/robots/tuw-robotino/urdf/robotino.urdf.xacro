@@ -6,8 +6,6 @@
   <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/camera.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/angle_bracket.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/pan_tilt_axis.urdf.xacro" />
   
@@ -16,14 +14,6 @@
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
-    
-  <!--kinect name="kinect" parent="base_link">
-    <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
-  </kinect-->
-
-  <!--anglebracketusb name="anglebracketusb" parent="base_link">
-    <origin xyz="${anglebracketusb_x} ${anglebracketusb_y} ${anglebracketusb_z}" rpy="${anglebracketusb_roll} ${anglebracketusb_pitch} ${anglebracketusb_yaw}"/>
-  </anglebracketusb-->
 
   <pan_tilt_axis parent="base_link">
     <origin xyz="${pan_tilt_x} ${pan_tilt_y} ${pan_tilt_z}" rpy="${pan_tilt_roll} ${pan_tilt_pitch} ${pan_tilt_yaw}"/>
@@ -39,9 +29,5 @@
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
-
-  <!--anglebracketusb name="anglebracketusb" parent="base_link">
-      <origin xyz="${anglebracketusb_x} ${anglebracketusb_y} ${anglebracketusb_z}" rpy="${anglebracketusb_roll} ${anglebracketusb_pitch} ${anglebracketusb_yaw}"/>
-  </anglebracketusb-->
   
 </robot>

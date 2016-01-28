@@ -3,7 +3,7 @@
 
   <arg name="paused" default="false"/>
   <arg name="kinect_name" default="kinect"/>
-  <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+  <arg name="robot" default="robotino_6dof"/>
 
   <!-- send cob urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
@@ -15,11 +15,6 @@
     <param name="publish_frequency" type="double" value="50.0" />
     <param name="tf_prefix" type="string" value="" />
   </node>
-
-    <!--node name="joint_state_publisher_fake" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
-        <remap from="robot_description" to="/robot_description" />
-        <rosparam param="source_list">[/arm_controller/joint_states, /base_controller/joint_states, /rotatory_controller/joint_states]</rosparam>
-    </node-->
 
   <node name="tf_odomp" pkg="robotino_bringup_sim" type="odomp_frame.py" respawn="false" output="screen" />
 

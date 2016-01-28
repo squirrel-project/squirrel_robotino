@@ -38,6 +38,11 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
+  <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
+    <param name="hostname" value="$(arg hostname)" />
+    <param name="cameraNumber" value="0" />
+  </node>
+
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
     <!-- Set the port to connect to here -->
@@ -46,16 +51,31 @@
     <param name="intensity" type="bool" value="false"/>
   </node>
 
-  <group ns="arm_controller">
-    <remap from="robot_description" to="/robot_description" />
-    <remap from="pause" to="/robotino/bumper" />
-    <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_bringup)/$(arg robot)/config/arm_controller.yaml" />
-    <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_arm_bringup)/config/arm_controllers_position.yaml" />
+  <!-- kinect -->
+  <include file="$(find openni2_launch)/launch/openni2.launch" >
+    <arg name="camera" value="kinect"/>
+    <!-- <arg name="rgb_frame_id" value="/kinect_link" /> -->
+    <!-- <arg name="depth_frame_id" value="/kinect_frame" /> -->
+    <arg name="publish_tf" value="true" />
+    <arg name="depth_registration" value="true"/>
+  </include>
 
-    <include file="$(find cf_control)/launch/controller_manager.launch">
-      <arg name="publish_robot_state" value="false" />
-      <arg name="controllers" value="joint_state_controller joint_trajectory_controller" />
-    </include>
-  </group>
+  <!-- Dynamixel servo based (pan)/tilt unit -->
+  <!-- Start the meta controller for all connected servos -->
+  <include file="$(find robotino_bringup)/launch/dynamixel_controller_manager.launch" >
+  </include>
+  <!-- Spawn a new controller instance in the meta controller.
+       NOTE: This starter exits after having spawned the controller! -->
+  <include file="$(find robotino_bringup)/launch/start_tilt_controller.launch" >
+    <arg name="robot" value="$(arg robot)" />
+  </include>
+
+  <!-- Simple node to move the kinect in the default position on robot's startup
+       It also exposes a service /tilt_controller/resetPosition -->
+  <node name="robotino_tilt_controller" pkg="robotino_driver" type="robotino_tilt_controller" output="screen">
+    <param name="tilt_command_topic" value="/tilt_controller/command" />
+    <param name="tilt_status_topic" value="/tilt_controller/state" />
+    <param name="startup_angle" value="0.6" />
+  </node>
 
 </launch>

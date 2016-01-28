@@ -3,7 +3,7 @@
 
   <arg name="paused" default="false"/>
   <arg name="kinect_name" default="kinect"/>
-  <arg name="robot" default="robotino"/>
+  <arg name="robot" default="tuw-robotino2"/>
 
   <!-- send cob urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
@@ -22,8 +22,16 @@
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" />
 
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/rotatory_controller.launch" />
+
   <include file="$(find robotino_controller_configuration_gazebo)/launch/arm_controller.launch" >
     <arg name="use_velocity_controller" value="true"/>
   </include>
+
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/hand_controller.launch" />
+
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/pan_tilt_controller.launch" />
+
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/kinect_controller.launch" />
 
 </launch>
