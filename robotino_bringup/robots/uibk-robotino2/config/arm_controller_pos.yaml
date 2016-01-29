@@ -8,9 +8,12 @@ max_command_silence: 0.5
 joint_state_controller:
     type: joint_state_controller/JointStateController
     publish_rate: 50
-#
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 10
 joint_trajectory_controller:
-  type: "velocity_controllers/JointTrajectoryController"
+  type: "position_controllers/JointTrajectoryController"
   joints:
     - joint1
     - joint2
@@ -20,43 +23,21 @@ joint_trajectory_controller:
   constraints:
     goal_time: 10.0
     stopped_velocity_tolerance: 0.1
-  gains:
-    joint1: {p: 30, d: 0.5, i: 0, i_clamp: 1}
-    joint2: {p: 30, d: 0.5, i: 0, i_clamp: 1}
-    joint3: {p: 30, d: 0.5, i: 0, i_clamp: 1}
-    joint4: {p: 30, d: 0.5, i: 0, i_clamp: 1}
-    joint5: {p: 30, d: 0.5, i: 0, i_clamp: 1}
-
-
-#joint_state_controller:
-#  type: joint_state_controller/JointStateController
-#  publish_rate: 10
-#joint_trajectory_controller:
-#  type: "position_controllers/JointTrajectoryController"
-#  joints:
-#    - joint1
-#    - joint2
-#    - joint3
-#    - joint4
-#    - joint5
-#  constraints:
-#    goal_time: 10.0
-#    stopped_velocity_tolerance: 0.1
-#    joint1:
-#      trajectory: 0.5
-#      goal: 0.2
-#    joint2:
-#      trajectory: 0.5
-#      goal: 0.2
-#    joint3:
-#      trajectory: 0.5
-#      goal: 0.2
-#    joint4:
-#      trajectory: 0.5
-#      goal: 0.2
-#    joint5:
-#      trajectory: 0.5
-#      goal: 0.2
+    joint1:
+      trajectory: 0.5
+      goal: 0.2
+    joint2:
+      trajectory: 0.5
+      goal: 0.2
+    joint3:
+      trajectory: 0.5
+      goal: 0.2
+    joint4:
+      trajectory: 0.5
+      goal: 0.2
+    joint5:
+      trajectory: 0.5
+      goal: 0.2
 
 ## position controller
 #joint_group_position_controller:

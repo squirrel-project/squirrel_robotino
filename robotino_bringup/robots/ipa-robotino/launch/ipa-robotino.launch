@@ -46,7 +46,7 @@
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
     <!-- Set the port to connect to here -->
-    <param name="port" type="string" value="/dev/ttyScan"/> 
+    <param name="port" type="string" value="/dev/ttyACM0"/> 
     <param name="frame_id" type="string" value="hokuyo_link"/> 
     <param name="intensity" type="bool" value="false"/>
   </node>
@@ -62,20 +62,9 @@
 
   <!-- Dynamixel servo based (pan)/tilt unit -->
   <!-- Start the meta controller for all connected servos -->
-  <include file="$(find robotino_bringup)/launch/dynamixel_controller_manager.launch" >
-  </include>
+  <!--include file="$(find robotino_bringup)/launch/dynamixel_controller_manager.launch" >
+  </include-->
   <!-- Spawn a new controller instance in the meta controller.
        NOTE: This starter exits after having spawned the controller! -->
-  <include file="$(find robotino_bringup)/launch/start_tilt_controller.launch" >
-    <arg name="robot" value="$(arg robot)" />
-  </include>
-
-  <!-- Simple node to move the kinect in the default position on robot's startup
-       It also exposes a service /tilt_controller/resetPosition -->
-  <node name="robotino_tilt_controller" pkg="robotino_driver" type="robotino_tilt_controller" output="screen">
-    <param name="tilt_command_topic" value="/tilt_controller/command" />
-    <param name="tilt_status_topic" value="/tilt_controller/state" />
-    <param name="startup_angle" value="0.6" />
-  </node>
 
 </launch>
