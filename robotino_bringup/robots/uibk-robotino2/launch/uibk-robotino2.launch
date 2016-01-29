@@ -91,8 +91,6 @@
     <remap from="pause" to="/bumper" />
     <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_vel.yaml" />
     <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_pos.yaml" />
-      <!--rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller.yaml" command="load" /-->
-
     <include file="$(find cf_control)/launch/controller_manager.launch">
       <arg name="publish_robot_state" value="false" />
       <arg name="controllers" value="joint_state_controller joint_trajectory_controller" />
