@@ -16,5 +16,5 @@ joint_trajectory_controller:
     rotatory:
       goal: 0.1
   gains:
-    rotatory: {p: 1, d: 0.01, i: 0.01, i_clamp: 1}
+    rotatory: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 1}
 

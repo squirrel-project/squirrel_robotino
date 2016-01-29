@@ -10,7 +10,7 @@
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/$(arg robot).urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
   <!-- state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
     <param name="publish_frequency" type="double" value="5.0" />
@@ -96,6 +96,8 @@
       <arg name="controllers" value="joint_state_controller joint_trajectory_controller" />
       <arg name="robot_ip_address" value="localhost" />
     </include>
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
+
   </group>
 
 </launch>
