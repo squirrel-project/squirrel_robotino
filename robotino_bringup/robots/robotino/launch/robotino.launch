@@ -5,6 +5,8 @@
   <arg name="use_robotino_safety" value="true" />
   <arg name="hostname" default="127.0.0.1" />
   <param name="use_sim_time" value="false" />
+  <arg name="use_velocity_controller" value="false" />
+
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
@@ -48,13 +50,15 @@
 
   <group ns="arm_controller">
     <remap from="robot_description" to="/robot_description" />
-    <remap from="pause" to="/robotino/bumper" />
-    <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_bringup)/$(arg robot)/config/arm_controller.yaml" />
-    <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_arm_bringup)/config/arm_controllers_position.yaml" />
+    <remap from="pause" to="/bumper" />
+    <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_vel.yaml" />
+    <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_pos.yaml" />
+      <!--rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller.yaml" command="load" /-->
 
     <include file="$(find cf_control)/launch/controller_manager.launch">
       <arg name="publish_robot_state" value="false" />
       <arg name="controllers" value="joint_state_controller joint_trajectory_controller" />
+      <arg name="robot_ip_address" value="localhost" />
     </include>
   </group>
 

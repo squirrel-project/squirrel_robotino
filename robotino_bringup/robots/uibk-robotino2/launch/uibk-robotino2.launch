@@ -40,13 +40,6 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
-  <!--group ns="rotatory_controller">
-      <rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/rotatory_controller.yaml" command="load" />
-      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
-      <node name="joint_state_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true" />  
-      <node name="rotatory_controller_spawner" pkg="controller_manager" type="spawner" args="joint_trajectory_controller" respawn="true" />
-  </group-->
-
   <group ns="rotatory_controller">
       <remap from="robot_description" to="/robot_description" />
       <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen">
@@ -59,6 +52,7 @@
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+    <!-- Set the port to connect to here -->
     <param name="port" type="string" value="/dev/ttyScan"/> 
     <param name="frame_id" type="string" value="hokuyo_link"/> 
     <param name="intensity" type="bool" value="false"/>
@@ -104,6 +98,5 @@
       <arg name="robot_ip_address" value="localhost" />
     </include>
   </group>
-
 
 </launch>
