@@ -25,7 +25,7 @@ class OdometryROS: public rec::robotino::api2::Odometry
   void setTimeStamp(ros::Time stamp);
 
   bool publish_tf;
-  std::string child_frame;
+  std::string child_frame, position_child_frame;
   
  private:
   ros::NodeHandle nh_;

@@ -37,7 +37,9 @@
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
     <param name="hostname" value="$(arg hostname)" />
     <param name="publish_tf" value="true"/>
-    <param name="child_frame" value="/odom_encoders"/>
+    <param name="position_child_frame" value="/odomp_encoders"/>
+    <param name="child_frame" value="/base_link_encoder"/>
+    <remap from="/odom" to="/odom_encoder"/>
   </node>
 
   <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
