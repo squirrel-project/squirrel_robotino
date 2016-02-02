@@ -61,8 +61,11 @@ int main(int argc, char** argv)
 	// Create a handle for this node, initialize node
 	ros::NodeHandle nh("~");
 
+	bool load_images = false;
+	nh.param("load_images", load_images, false);
+
 	CameraBaseCalibration cb(nh);
-	cb.calibrateCameraToBase(false);
+	cb.calibrateCameraToBase(load_images);
 
 	return 0;
 }

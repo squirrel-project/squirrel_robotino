@@ -79,23 +79,21 @@
 #include <boost/thread/mutex.hpp>
 
 
-//// ROS
-//#include <ros/ros.h>
-//#include <cv_bridge/cv_bridge.h>
-//#include <sensor_msgs/Image.h>
-//#include <image_transport/image_transport.h>
-//#include <image_transport/subscriber_filter.h>
-
 // compute rotation matrix from roll, pitch, yaw
 // (w, p, r) = (yaW, Pitch, Roll) with
 // 1. rotation = roll around z
 // 2. rotation = pitch around y'
 // 3. rotation = yaw around x''
+// ATTENTION: this definition does not match with the ROS definition (1. yaw around z, 2. pitch around y', 3. roll around x'') -> swap roll and yaw in function call
 cv::Mat rotationMatrixFromRPY(double roll, double pitch, double yaw);
+
+// computes roll, pitch, yaw angles from rotation matrix rot (can also be a 4x4 transformation matrix with rotation matrix at upper left corner)
+cv::Vec3d RPYFromRotationMatrix(const cv::Mat& rot);
 
 cv::Mat makeTransform(const cv::Mat& R, const cv::Mat& t);
 
 
+// struct for the configuration (x,y location + base rotation, torso links) of the robot
 struct RobotConfiguration
 {
 	double pose_x_;
@@ -122,6 +120,7 @@ public:
 
 	~CameraBaseCalibration();
 
+	// starts the calibration between camera and base including data acquisition
 	bool calibrateCameraToBase(const bool load_images);
 
 	void setCalibrationStatus(bool calibrated)
@@ -129,6 +128,7 @@ public:
 		calibrated_ = calibrated;
 	}
 
+	// load/save calibration data from/to file
 	bool saveCalibration();
 	bool loadCalibration();
 
@@ -138,36 +138,46 @@ public:
 
 protected:
 
-	bool moveRobot(const RobotConfiguration& robot_configuration);
+	bool convertImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image);
 
-	// acquires images manually until user interrupts
-	bool acquireCalibrationImages(int& jai_width, int& jai_height, std::vector< std::vector<cv::Point2f> >& points_2d_per_image,
+	void imageCallback(const sensor_msgs::ImageConstPtr& color_image_msg);
+
+	// acquires images automatically from all set up robot configurations and detects the checkerboard points
+	// @param load_images loads calibration images and transformations from hard disk if set to true (images and transformations are stored automatically during recording from a real camera)
+	// retrieves the image size, checkerboard points per image as well as all relevant transformations
+	bool acquireCalibrationImages(const std::vector<RobotConfiguration>& robot_configurations, const cv::Size pattern_size, const bool load_images,
+			int& image_width, int& image_height, std::vector< std::vector<cv::Point2f> >& points_2d_per_image,
 			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
-			std::vector<cv::Mat>& T_camera_to_camera_optical_vector, const cv::Size pattern_size, const bool load_images);
+			std::vector<cv::Mat>& T_camera_to_camera_optical_vector);
 
-	// acquire a single image, can be used within automatic image capture
+	// acquire a single image and detect checkerboard points
 	int acquireCalibrationImage(int& image_width, int& image_height, std::vector<cv::Point2f>& points_2d_per_image,
 			const cv::Size pattern_size, const bool load_images, int& image_counter);
 
+	// moves the robot to a desired location and adjusts the torso joints
+	bool moveRobot(const RobotConfiguration& robot_configuration);
+
+	// generates the 3d coordinates of the checkerboard in local checkerboard frame coordinates
 	void computeCheckerboard3dPoints(std::vector< std::vector<cv::Point3f> >& pattern_points, const cv::Size pattern_size, const double chessboard_cell_size, const int number_images);
 
+	// intrinsic camera calibration (+ distortion coefficients)
 	void intrinsicCalibration(const std::vector< std::vector<cv::Point3f> >& pattern_points, const std::vector< std::vector<cv::Point2f> >& camera_points_2d_per_image, const cv::Size& image_size, std::vector<cv::Mat>& rvecs_jai, std::vector<cv::Mat>& tvecs_jai);
-
-	void extrinsicCalibrationTorsoUpperToCamera(std::vector< std::vector<cv::Point3f> >& pattern_points_3d,
-			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
-			std::vector<cv::Mat>& T_camera_to_checkerboard_vector);
 
 	void extrinsicCalibrationBaseToTorsoLower(std::vector< std::vector<cv::Point3f> >& pattern_points_3d,
 			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
 			std::vector<cv::Mat>& T_camera_to_checkerboard_vector);
 
+	void extrinsicCalibrationTorsoUpperToCamera(std::vector< std::vector<cv::Point3f> >& pattern_points_3d,
+			std::vector<cv::Mat>& T_base_to_checkerboard_vector, std::vector<cv::Mat>& T_torso_lower_to_torso_upper_vector,
+			std::vector<cv::Mat>& T_camera_to_checkerboard_vector);
 
-	bool convertImageMessageToMat(const sensor_msgs::Image::ConstPtr& image_msg, cv_bridge::CvImageConstPtr& image_ptr, cv::Mat& image);
+	// computes the rigid transform between two sets of corresponding 3d points measured in different coordinate systems
+	// the resulting 4x4 transformation matrix converts point coordinates from the target system into the source coordinate system
+	cv::Mat computeExtrinsicTransform(const std::vector<cv::Point3d>& points_3d_source, const std::vector<cv::Point3d>& points_3d_target);
 
 	// computes the transform from target_frame to source_frame (i.e. transform arrow is pointing from target_frame to source_frame)
 	bool getTransform(const std::string& target_frame, const std::string& source_frame, cv::Mat& T);
 
-	void imageCallback(const sensor_msgs::ImageConstPtr& color_image_msg);
 
 	ros::NodeHandle node_handle_;
 	image_transport::ImageTransport* it_;
@@ -204,6 +214,10 @@ protected:
 
 	double chessboard_cell_size_;	// cell side length in [m]
 	cv::Size chessboard_pattern_size_;		// number of checkerboard corners in x and y direction
+
+	int optimization_iterations_;	// number of iterations for optimization
+
+	std::vector<RobotConfiguration> robot_configurations_;	// list of robot configurations for observing the checkerboard
 };
 
 #endif // __CAMERA_BASE_CALIBRATION_H__

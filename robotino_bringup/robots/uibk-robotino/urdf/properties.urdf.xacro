@@ -32,7 +32,7 @@
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="-0.0536545473"/>
 
-   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
+  <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
   <property name="pan_tilt_x" value="0.25"/>
   <property name="pan_tilt_y" value="0.0"/>
   <property name="pan_tilt_z" value="0.5"/>
