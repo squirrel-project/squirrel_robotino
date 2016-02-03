@@ -47,13 +47,6 @@
   <property name="kinect_roll" value="-1.57"/>
   <property name="kinect_pitch" value="0"/>
   <property name="kinect_yaw" value="0.0"/>
-  
-  <!-- anglebracketusb mount positions | handeye calibration | relative to base_link -->
-  <property name="anglebracketusb_x" value="0.008"/>
-  <property name="anglebracketusb_y" value="0.0"/>
-  <property name="anglebracketusb_z" value="0.137"/>
-  <property name="anglebracketusb_roll" value="0.0"/>
-  <property name="anglebracketusb_pitch" value="0.0"/>
-  <property name="anglebracketusb_yaw" value="0.0"/>
+
 
 </robot>

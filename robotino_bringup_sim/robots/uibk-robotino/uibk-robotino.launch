@@ -3,7 +3,7 @@
 
 	<arg name="paused" default="false"/>
 	<arg name="kinect_name" default="kinect"/>
-	<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+	<arg name="robot" default="uibk-robotino"/>
 
 	<!-- send cob urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
