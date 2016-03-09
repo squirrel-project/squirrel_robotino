@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+<group ns="rotatory_controller">
+  <node name="rotatory_controller_spawner" pkg="controller_manager" type="spawner" args="rotatory_trajectory_controller" respawn="false" />
+  <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen" />
+</group>
+
+</launch>

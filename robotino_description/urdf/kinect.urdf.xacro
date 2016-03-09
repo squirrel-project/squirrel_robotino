@@ -50,6 +50,7 @@
       <sensor type="depth" name="${name}_frame_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
+        <visualize>true</visualize>
         <camera>
           <horizontal_fov>${62.0*M_PI/180.0}</horizontal_fov>
           <image>
@@ -64,7 +65,7 @@
           <noise>
             <type>gaussian</type>
             <mean>0.0</mean>
-            <stddev>0.0</stddev>
+            <stddev>0.005</stddev>
           </noise>
         </camera>
         <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">

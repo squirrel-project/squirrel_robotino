@@ -1,0 +1,20 @@
+joint_names: [rotatory]
+max_command_silence: 0.5
+
+## joint_state_controller
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+joint_trajectory_controller:
+  type: velocity_controllers/JointTrajectoryController
+  joints:
+    - rotatory
+  constraints:
+    goal_time: 10.0
+    stopped_velocity_tolerance: 0.1
+    rotatory:
+      goal: 0.1
+  gains:
+    rotatory: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 1}
+
