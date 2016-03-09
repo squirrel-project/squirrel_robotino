@@ -144,7 +144,7 @@ if __name__ == "__main__":
 		except: 
 			try:
 				file_localition = roslib.packages.get_pkg_dir('robotino_gazebo_worlds') + '/objects/' + model + '.' + model_type
-				print "getting locaton "+file_localition
+				print "getting location "+file_localition
 				if model_type == "urdf":
 					srv_spawn_model = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
 					file_xml = open(file_localition)
