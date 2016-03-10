@@ -382,4 +382,22 @@ simple_blue_box:
   position: [0.37, 0, 0.03]
   orientation: [0, 0, 1.2]
 
+simple_red_box:
+  model: simple_red_box
+  model_type: urdf
+  position: [0.37, 0, 0.03]
+  orientation: [0, 0, 0]
+
+orange_cylinder:
+  model: orange_cylinder
+  model_type: urdf
+  position: [0.37, 0, 0.03]
+  orientation: [0, 0, 0]
+
+white_ball:
+  model: white_ball
+  model_type: urdf
+  position: [0.37, 0, 0.03]
+  orientation: [0, 0, 0]
+
 
