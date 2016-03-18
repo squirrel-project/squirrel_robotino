@@ -1,4 +1,4 @@
-1. Conduct a laser scanner to base calibration.
+1. Conduct a laser scanner to base calibration, see README.md in https://github.com/federico-b/squirrel_nav/tree/laser_odom_calibration/laser_odom_calibration.
 
 2. Measure laser scanner height and put in the number into the properties.urdf.xacro file of your robot which is located, e.g., at squirrel_robotino/robotino_bringup/robots/uibk-robotino/urdf/properties.urdf.xacro.
 There search for the block:
