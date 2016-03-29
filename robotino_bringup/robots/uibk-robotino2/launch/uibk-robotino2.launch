@@ -97,7 +97,11 @@
       <arg name="robot_ip_address" value="localhost" />
     </include>
       <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
-
   </group>
 
+  <group ns="hand_controller">
+    <remap from="robot_description" to="/robot_description" />
+    <include file="$(find robotino_bringup)/launch/kclhand.launch" />
+    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
+  </group>
 </launch>
