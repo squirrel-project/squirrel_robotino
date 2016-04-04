@@ -32,20 +32,20 @@
   <property name="hokuyo_yaw" value="0.0"/>
 
   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
-  <property name="pan_tilt_x" value="0.142355"/>
-  <property name="pan_tilt_y" value="0.0508101"/>
-  <property name="pan_tilt_z" value="0.583959"/>
-  <property name="pan_tilt_roll" value="0.0870705"/>
-  <property name="pan_tilt_pitch" value="0.263353"/>
-  <property name="pan_tilt_yaw" value="0.33492"/>
+  <property name="pan_tilt_x" value="0.19098"/>
+  <property name="pan_tilt_y" value="0.0476169"/>
+  <property name="pan_tilt_z" value="0.689697"/>
+  <property name="pan_tilt_roll" value="0.0178039"/>
+  <property name="pan_tilt_pitch" value="0.0281118"/>
+  <property name="pan_tilt_yaw" value="0.15265"/>
 
   <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
-  <property name="kinect_x" value="0.0521788"/>
-  <property name="kinect_y" value="0.174338"/>
-  <property name="kinect_z" value="-0.064193"/>
-  <property name="kinect_roll" value="1.57128"/>
-  <property name="kinect_pitch" value="-3.08083"/>
-  <property name="kinect_yaw" value="3.01699"/>   
+  <property name="kinect_x" value="0.0433003"/>
+  <property name="kinect_y" value="0.0504105"/>
+  <property name="kinect_z" value="-0.0560785"/>
+  <property name="kinect_roll" value="-1.56564"/>
+  <property name="kinect_pitch" value="-0.0484763"/>
+  <property name="kinect_yaw" value="0.0198051"/>
   
    <!-- arm mount positions | handeye calibration | relative to base_link -->
   <property name="arm_x" value="0.0"/>
