@@ -13,6 +13,6 @@
 
   <!-- node name="motor_move_velocity" pkg="kclhand_control" type="motor_move_velocity" -->
   
-  <node name="metahand_controller" pkg="kclhand_control" type="controller_metahand" />
+  <node name="metahand_controller" pkg="kclhand_control" type="controller_metahand_review" />
 
 </launch>
