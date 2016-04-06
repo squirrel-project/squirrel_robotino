@@ -4,7 +4,7 @@
   <xacro:macro name="pan_tilt_axis" params="parent *origin">
   
     <joint name="profile_joint" type="fixed">
-			<origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${parent}"/>
       <child link="profile_link" />
     </joint>
@@ -45,10 +45,36 @@
     </joint>
 
     <link name="base_pan_link">
+      <inertial>
+        <mass value="0.00001" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+          iyy="1.0" iyz="0.0"
+          izz="1.0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Black"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
     </link>
 
+    <gazebo reference="base_pan_link">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <material>Gazebo/Black</material>
+    </gazebo>
+
     <joint name="pan_joint" type="revolute">
-      <origin xyz="0 0 0" rpy="0 0 0"/>      
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="base_pan_link"/>
       <child link="pan_link" />      
       <axis xyz="0 0 1" />

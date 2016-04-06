@@ -10,7 +10,7 @@
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/pan_tilt_tuw_axis.urdf.xacro" />
   <xacro:include filename="$(find robotino_arm_description)/xacro/arm_model.urdf.xacro" />
-  <xacro:include filename="$(find kclhand_description)/urdf/kclhand.urdf.xacro" />
+  <xacro:include filename="$(find kclhand_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
 
   <xacro:body name="base"/>
 
