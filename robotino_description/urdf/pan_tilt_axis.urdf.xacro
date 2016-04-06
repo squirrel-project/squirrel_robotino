@@ -3,13 +3,13 @@
 
   <xacro:macro name="pan_tilt_axis" params="parent *origin">
   
-    <joint name="base_pan_joint" type="fixed">
+    <joint name="profile_joint" type="fixed">
 			<origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${parent}"/>
-      <child link="base_pan_link" />
+      <child link="profile_link" />
     </joint>
 
-    <link name="base_pan_link">
+    <link name="profile_link">
       <inertial>
         <mass value="0.00001" />
         <origin xyz="0 0 0" />
@@ -32,14 +32,23 @@
       </collision>
     </link>
 
-    <gazebo reference="base_pan_link">
+    <gazebo reference="profile_link">
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <material>Gazebo/Black</material>
     </gazebo>
 
-    <joint name="pan_joint" type="revolute">
+    <joint name="base_pan_joint" type="fixed">
       <insert_block name="origin" />
+      <parent link="profile_link"/>
+      <child link="base_pan_link" />
+    </joint>
+
+    <link name="base_pan_link">
+    </link>
+
+    <joint name="pan_joint" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0"/>      
       <parent link="base_pan_link"/>
       <child link="pan_link" />      
       <axis xyz="0 0 1" />
