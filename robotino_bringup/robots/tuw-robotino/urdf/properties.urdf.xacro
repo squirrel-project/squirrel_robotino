@@ -38,36 +38,8 @@
   <property name="pan_tilt_roll" value="0.0"/>
   <property name="pan_tilt_pitch" value="0.0"/>
   <property name="pan_tilt_yaw" value="1.0472"/>
-
-  <!-- <property name="pan_tilt_x" value="0.163"/> -->
-  <!-- <property name="pan_tilt_y" value="0.125"/> -->
-  <!-- <property name="pan_tilt_z" value="0.573"/> -->
-  <!-- <property name="pan_tilt_roll" value="0.0"/> -->
-  <!-- <property name="pan_tilt_pitch" value="0.0"/> -->
-  <!-- <property name="pan_tilt_yaw" value="1.0472"/> -->
-
-  <!-- <property name="pan_tilt_x" value="0.157"/> -->
-  <!-- <property name="pan_tilt_y" value="0.17"/> -->
-  <!-- <property name="pan_tilt_z" value="0.64"/> -->
-  <!-- <property name="pan_tilt_roll" value="0.030897"/> -->
-  <!-- <property name="pan_tilt_pitch" value="0.0174498"/>  -->
-  <!-- <property name="pan_tilt_yaw" value="1.11926"/> -->
 	
-  <!-- kinect mount positions | handeye calibration | relative to tilt_link -->
-  <!-- <property name="kinect_x" value="0.03129"/> -->
-  <!-- <property name="kinect_y" value="0.0579456"/> -->
-  <!-- <property name="kinect_z" value="0.000183902"/> -->
-  <!-- <property name="kinect_roll" value="-1.56905"/> -->
-  <!-- <property name="kinect_pitch" value="0.00434565"/> -->
-  <!-- <property name="kinect_yaw" value="0.00667917"/> -->
-
-  <!-- <property name="kinect_x" value="0.05"/> -->
-  <!-- <property name="kinect_y" value="0.14"/> -->
-  <!-- <property name="kinect_z" value="-0.05"/> -->
-  <!-- <property name="kinect_roll" value="-1.5707963268"/> -->
-  <!-- <property name="kinect_pitch" value="0.0628318530718"/> -->
-  <!-- <property name="kinect_yaw" value="-0.025"/> -->
-
+  <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
   <property name="kinect_x" value="0.1"/>
   <property name="kinect_y" value="0.0"/>
   <property name="kinect_z" value="-0.0"/>
@@ -75,13 +47,5 @@
   <property name="kinect_pitch" value="0.075"/>
   <property name="kinect_yaw" value="0.0"/>
 
-  
-  <!-- anglebracketusb mount positions | handeye calibration | relative to base_link -->
-  <property name="anglebracketusb_x" value="0.008"/>
-  <property name="anglebracketusb_y" value="0.0"/>
-  <property name="anglebracketusb_z" value="0.137"/>
-  <property name="anglebracketusb_roll" value="0.0"/>
-  <property name="anglebracketusb_pitch" value="0.0"/>
-  <property name="anglebracketusb_yaw" value="0.0"/>
 
 </robot>
