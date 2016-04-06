@@ -40,12 +40,11 @@
   <property name="pan_tilt_yaw" value="1.0472"/>
 	
   <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
-  <property name="kinect_x" value="0.1"/>
-  <property name="kinect_y" value="0.0"/>
+  <property name="kinect_x" value="0.03129"/>
+  <property name="kinect_y" value="0.058"/>
   <property name="kinect_z" value="-0.0"/>
-  <property name="kinect_roll" value="-1.5707963268"/>
-  <property name="kinect_pitch" value="0.075"/>
-  <property name="kinect_yaw" value="0.0"/>
-
+  <property name="kinect_roll" value="-1.56905"/>
+  <property name="kinect_pitch" value="0.0434565"/>
+  <property name="kinect_yaw" value="0.00667917"/>
 
 </robot>
