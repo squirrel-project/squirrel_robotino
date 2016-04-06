@@ -14,8 +14,6 @@
 
   <run_depend>gazebo_ros</run_depend>
   <run_depend>xacro</run_depend>
-  <run_depend>soft_hand_description</run_depend>
-
 
   <export>
   </export>
