@@ -26,19 +26,19 @@ void ComROS::errorEvent( const char* errorString )
 	std::ostringstream os;
 	os << name_ << " : " << errorString;
 
-	ROS_ERROR( os.str().c_str() );
+	ROS_ERROR_STREAM( os.str() );
 }
 
 void ComROS::connectedEvent()
 {
 	std::ostringstream os;
 	os << name_ << " connected to Robotino.";
-	ROS_INFO( os.str().c_str() );
+	ROS_INFO_STREAM( os.str() );
 }
 
 void ComROS::connectionClosedEvent()
 {
 	std::ostringstream os;
 	os << name_ << " disconnected from Robotino.";
-	ROS_INFO( os.str().c_str() );
+	ROS_INFO_STREAM( os.str() );
 }

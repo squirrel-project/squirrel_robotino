@@ -20,14 +20,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotino_description/meshes/pan_tilt.stl"/>
+          <mesh filename="package://robotino_description/meshes/pan_tilt_tuw.stl"/>
         </geometry>
         <material name="Black"/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotino_description/meshes/pan_tilt.stl"/>
+          <mesh filename="package://robotino_description/meshes/pan_tilt_tuw.stl"/>
         </geometry>
       </collision>
     </link>
