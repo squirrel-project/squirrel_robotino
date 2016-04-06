@@ -168,6 +168,17 @@ target_link_libraries(
 )
 
 add_executable(
+  robotino_view_controller
+  src/view_controller_node.cpp
+  src/ViewControllerNode.cpp
+)
+
+target_link_libraries(
+  robotino_view_controller
+  ${catkin_LIBRARIES}
+)
+
+add_executable(
   robotino_odometry_node
   src/robotino_odometry_node.cpp
   src/ComROS.cpp
