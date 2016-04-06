@@ -10,7 +10,7 @@
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/$(arg robot).urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
   <!-- state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
     <param name="publish_frequency" type="double" value="5.0" />
@@ -20,9 +20,9 @@
   <node name="robotino_node" pkg="robotino_driver" type="robotino_driver" output="screen">
     <param name="hostname" value="$(arg hostname)" />
     <param name="max_linear_vel" value="0.5" />
-    <param name="min_linear_vel" value="0.05" />
+    <param name="min_linear_vel" value="0.00001" />
     <param name="max_angular_vel" value="3.0" />
-    <param name="min_angular_vel" value="0.1" />
+    <param name="min_angular_vel" value="0.00001" />
     <param name="downsample_kinect" value="true" />
     <param name="leaf_size_kinect" value="0.04" />
     <remap from="robotino_joint_states" to="joint_states" />
@@ -74,8 +74,9 @@
   </include>
   <!-- Spawn a new controller instance in the meta controller.
        NOTE: This starter exits after having spawned the controller! -->
-  <include file="$(find robotino_bringup)/launch/start_tilt_controller.launch" >
-    <arg name="robot" value="$(arg robot)" />
+  <!-- <include file="$(find robotino_bringup)/launch/start_tilt_controller.launch" > --> 
+  <include file="$(find robotino_bringup)/launch/start_pan_tilt_controller.launch">
+    <arg name="robot" value="$(arg robot)" /> 
   </include>
 
   <!-- Simple node to move the kinect in the default position on robot's startup
@@ -83,7 +84,7 @@
   <node name="robotino_tilt_controller" pkg="robotino_driver" type="robotino_tilt_controller" output="screen">
     <param name="tilt_command_topic" value="/tilt_controller/command" />
     <param name="tilt_status_topic" value="/tilt_controller/state" />
-    <param name="startup_angle" value="0.6" />
+    <param name="startup_angle" value="0.7" />
   </node>
 
   <group ns="arm_controller">
@@ -98,6 +99,12 @@
       <arg name="controllers" value="joint_state_controller joint_trajectory_controller" />
       <arg name="robot_ip_address" value="localhost" />
     </include>
+  </group>
+
+  <group ns="hand_controller">
+    <remap from="robot_description" to="/robot_description" />
+    <include file="$(find robotino_bringup)/launch/kclhand.launch" />
+    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
 
 
