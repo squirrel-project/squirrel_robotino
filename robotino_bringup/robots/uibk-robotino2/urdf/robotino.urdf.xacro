@@ -5,6 +5,7 @@
   <xacro:include filename="$(find robotino_bringup)/robots/uibk-robotino2/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/base_case.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/rotatory.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
@@ -21,9 +22,20 @@
     </plugin>
   </gazebo>
 
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>base_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
+
+  <case name="case" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </case>
 
   <xacro:rotatory />
   <gazebo>
