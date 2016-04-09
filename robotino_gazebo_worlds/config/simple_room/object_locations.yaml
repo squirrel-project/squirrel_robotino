@@ -16,5 +16,8 @@ chair:
   position: [0.7, 1.2, 0.0]
   orientation: [0, 0, 1.5708]
 
-
-
+zwieback:
+  model: zwieback
+  model_type: urdf
+  position: [0.22, -0.37 , 0.0]
+  orientation: [0, 0, 0.0]
