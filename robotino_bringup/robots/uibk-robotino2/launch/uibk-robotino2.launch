@@ -44,6 +44,7 @@
       <remap from="robot_description" to="/robot_description" />
       <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen">
         <remap from="pause" to="/bumper" />
+        <remap from="/cmd_vel" to="/cmd_rotatory" />
       </node>
       <rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/rotatory_controller.yaml" command="load" />
       <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
@@ -104,4 +105,8 @@
     <include file="$(find robotino_bringup)/launch/kclhand.launch" />
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
+
+  <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
+    <arg name="robot" value="$(arg robot)" />
+  </include>
 </launch>
