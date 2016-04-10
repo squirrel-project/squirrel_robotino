@@ -13,6 +13,7 @@
 
   <run_depend>gazebo_ros</run_depend>
   <run_depend>geometry_msgs</run_depend>
+  <run_depend>twist_mux</run_depend>
   <run_depend>nav_msgs</run_depend>
   <run_depend>robotino_gazebo_worlds</run_depend>
   <run_depend>rospy</run_depend>
