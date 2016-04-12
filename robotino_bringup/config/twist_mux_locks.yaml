@@ -13,14 +13,14 @@ locks:
   name    : pause_navigation
   topic   : twist_mux/locks/pause_navigation
   timeout : 0.0
-  priority: 21
+  priority: 101
 -
   name    : pause_pushing 
   topic   : twist_mux/locks/pause_pushing
   timeout : 0.0
-  priority: 101
+  priority: 91
 -
-  name    : pause_all 
-  topic   : twist_mux/locks/pause_all
+  name    : pause_rotatory
+  topic   : twist_mux/locks/pause_rotatory
   timeout : 0.0
-  priority: 255
+  priority: 81
