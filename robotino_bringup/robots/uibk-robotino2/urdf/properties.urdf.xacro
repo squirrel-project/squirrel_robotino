@@ -34,7 +34,7 @@
   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
   <property name="pan_tilt_x" value="0.257201"/>
   <property name="pan_tilt_y" value="0.0587815"/>
-  <property name="pan_tilt_z" value="0.637117"/>
+  <property name="pan_tilt_z" value="0.687117"/>
   <property name="pan_tilt_roll" value="0.012045"/>
   <property name="pan_tilt_pitch" value="-0.0565489"/>
   <property name="pan_tilt_yaw" value="0.0113182"/>
