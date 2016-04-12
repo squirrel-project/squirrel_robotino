@@ -46,31 +46,4 @@
   <property name="kinect_pitch" value="0.00219856"/>
   <property name="kinect_yaw" value="0.00966127"/>
 
-  <!-- Federicos paramters-->
-  <!-- pan_tilt mount positions | handeye calibration | relative to base_pan_link -->
-  <!--<property name="pan_tilt_x" value="0.145"/>
-  <property name="pan_tilt_y" value="0.194"/>
-  <property name="pan_tilt_z" value="0.64"/>
-  <property name="pan_tilt_roll" value="0.0"/>
-  <property name="pan_tilt_pitch" value="0.0"/>
-  <property name="pan_tilt_yaw" value="1.0472"/> -->
-	
-  <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
-  <!-- good for 0.75 -->
-  <!--<property name="kinect_x" value="0.03129"/>
-  <property name="kinect_y" value="0.038"/>
-  <property name="kinect_z" value="-0.0"/>
-  <property name="kinect_roll" value="-1.56905"/>
-  <property name="kinect_pitch" value="0.0434565"/>
-  <property name="kinect_yaw" value="0.00767917"/> -->
-
-  <!-- good for 0.75 -->
-  <!-- <property name="kinect_x" value="0.03129"/> -->
-  <!-- <property name="kinect_y" value="0.038"/> -->
-  <!-- <property name="kinect_z" value="-0.0"/> -->
-  <!-- <property name="kinect_roll" value="-1.56905"/> -->
-  <!-- <property name="kinect_pitch" value="0.0434565"/> -->
-  <!-- <property name="kinect_yaw" value="0.00667917"/> -->
-
-
 </robot>
