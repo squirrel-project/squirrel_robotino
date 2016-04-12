@@ -17,9 +17,9 @@
   <!-- robotino node -->
   <node name="robotino_node" pkg="robotino_driver" type="robotino_driver" output="screen">
     <param name="hostname" value="$(arg hostname)" />
-    <param name="max_linear_vel" value="0.5" />
+    <param name="max_linear_vel" value="0.3" />
     <param name="min_linear_vel" value="0.00001" />
-    <param name="max_angular_vel" value="3.0" />
+    <param name="max_angular_vel" value="2.0" />
     <param name="min_angular_vel" value="0.00001" />
     <param name="downsample_kinect" value="true" />
     <param name="leaf_size_kinect" value="0.04" />
@@ -38,6 +38,11 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
+  <!-- we are not using a webcam
+  <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
+    <param name="hostname" value="$(arg hostname)" />
+    <param name="cameraNumber" value="0" />
+  </node> -->
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
@@ -73,7 +78,7 @@
   <node name="robotino_tilt_controller" pkg="robotino_driver" type="robotino_tilt_controller" output="screen">
     <param name="tilt_command_topic" value="/tilt_controller/command" />
     <param name="tilt_status_topic" value="/tilt_controller/state" />
-    <param name="startup_angle" value="0.7" />
+    <param name="startup_angle" value="0.75" />
   </node>
 
 </launch>
