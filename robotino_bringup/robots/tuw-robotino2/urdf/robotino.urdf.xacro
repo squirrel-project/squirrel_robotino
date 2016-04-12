@@ -33,9 +33,9 @@
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
-  <case name="case" parent="base_link">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </case>
+  <!--case name="case" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 -0.5"/>
+  </case-->
 
   <xacro:rotatory />
   <gazebo>
