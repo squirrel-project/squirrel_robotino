@@ -20,9 +20,9 @@
   <node name="robotino_node" pkg="robotino_driver" type="robotino_driver" output="screen">
     <param name="hostname" value="$(arg hostname)" />
     <param name="max_linear_vel" value="0.5" />
-    <param name="min_linear_vel" value="0.05" />
+    <param name="min_linear_vel" value="0.00000000001" />
     <param name="max_angular_vel" value="3.0" />
-    <param name="min_angular_vel" value="0.1" />
+    <param name="min_angular_vel" value="0.0000000001" />
     <param name="downsample_kinect" value="true" />
     <param name="leaf_size_kinect" value="0.04" />
     <remap from="robotino_joint_states" to="joint_states" />
@@ -44,6 +44,7 @@
       <remap from="robot_description" to="/robot_description" />
       <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen">
         <remap from="pause" to="/bumper" />
+        <remap from="/cmd_vel" to="/cmd_rotatory" />
       </node>
       <rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/rotatory_controller.yaml" command="load" />
       <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
@@ -104,4 +105,8 @@
     <include file="$(find robotino_bringup)/launch/kclhand.launch" />
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
+
+  <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
+    <arg name="robot" value="$(arg robot)" />
+  </include>
 </launch>
