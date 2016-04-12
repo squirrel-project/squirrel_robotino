@@ -20,9 +20,9 @@
   <node name="robotino_node" pkg="robotino_driver" type="robotino_driver" output="screen">
     <param name="hostname" value="$(arg hostname)" />
     <param name="max_linear_vel" value="0.5" />
-    <param name="min_linear_vel" value="0.00000000001" />
-    <param name="max_angular_vel" value="3.0" />
-    <param name="min_angular_vel" value="0.0000000001" />
+    <param name="min_linear_vel" value="0.00005" />
+    <param name="max_angular_vel" value="0.5" />
+    <param name="min_angular_vel" value="0.00001" />
     <param name="downsample_kinect" value="true" />
     <param name="leaf_size_kinect" value="0.04" />
     <remap from="robotino_joint_states" to="joint_states" />
