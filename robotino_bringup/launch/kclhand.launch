@@ -2,7 +2,7 @@
 <launch>
 
   <node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
-    <param name="~port" value="/dev/ttyACM0" />
+    <param name="~port" value="/dev/ttyHand" />
   </node>
    
   <node name="get_joint_angle_sensor" pkg="kclhand_control" type="get_joint_angle_sensor_hand2.py" />
@@ -13,6 +13,6 @@
 
   <!-- node name="motor_move_velocity" pkg="kclhand_control" type="motor_move_velocity" -->
   
-  <node name="metahand_controller" pkg="kclhand_control" type="controller_metahand" />
+  <node name="metahand_controller" pkg="kclhand_control" type="controller_metahand_review" />
 
 </launch>

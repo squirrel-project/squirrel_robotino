@@ -16,6 +16,7 @@
 
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>robotino_driver</run_depend>
+  <run_depend>robotino_safety</run_depend>
   <run_depend>dynamixel_controllers</run_depend>
   <run_depend>openni2_launch</run_depend>
   <run_depend>image_proc</run_depend>
@@ -35,8 +36,10 @@
   <run_depend>position_controllers</run_depend>
   <run_depend>joint_trajectory_controller</run_depend>
   <run_depend>cob_gazebo_ros_control</run_depend>
+  <run_depend>twist_mux</run_depend>
 
-  <!--run_depend>robotino_arm_description</run_depend-->
+  <!--run_depend>robotino_arm_description</run_depend>
+  <run_depend>kclhand_description</run_depend-->
 
   <export>
   </export>
