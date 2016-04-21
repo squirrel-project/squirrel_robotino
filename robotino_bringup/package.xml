@@ -29,6 +29,7 @@
   <run_depend>topic_tools</run_depend>
 
   <!--control dependencies -->
+  <run_depend>airskin</run_depend>
   <run_depend>controller_manager</run_depend>
   <run_depend>cob_trajectory_controller</run_depend>
   <run_depend>joint_state_publisher</run_depend>
