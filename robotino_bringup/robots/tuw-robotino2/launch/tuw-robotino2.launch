@@ -36,6 +36,10 @@
     <arg name="scan_topic" value="/scan" />
   </include>
 
+  <include file="$(find airskin)/launch/startup.launch">
+   <arg name="device" value="/dev/ttyAirskin" />
+  </include>
+
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
     <param name="hostname" value="$(arg hostname)" />
   </node>
@@ -43,7 +47,7 @@
   <group ns="rotatory_controller">
       <remap from="robot_description" to="/robot_description" />
       <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen">
-        <remap from="pause" to="/bumper" />
+        <remap from="pause" to="/airskin/arm_bumper" />
         <remap from="/cmd_vel" to="/cmd_rotatory" />
       </node>
       <rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/rotatory_controller.yaml" command="load" />
@@ -90,7 +94,7 @@
 
   <group ns="arm_controller">
     <remap from="robot_description" to="/robot_description" />
-    <remap from="pause" to="/bumper" />
+    <remap from="pause" to="/airskin/arm_bumper" />
     <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_vel.yaml" />
     <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_pos.yaml" />
       <!--rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller.yaml" command="load" /-->
