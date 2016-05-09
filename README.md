@@ -6,7 +6,15 @@ Technical Maintainer: ipa-nhg (Nadia Hammoudeh Garcia, Fraunhofer IPA)
 
 This repository holds packages for hardware launch files and configuration, as well as the simulation model for starting up the basic layer for operating Robotino
 
-Install the package dependencies:
+It requires the installation of the robotino-api2 packages:
+```
+wget -qO - http://packages.openrobotino.org/keyFile | sudo apt-key add -
+sudo su
+echo "deb http://packages.openrobotino.org/trusty trusty main" > /etc/apt/sources.list.d/openrobotino.list
+apt-get update
+apt-get install robotino-common robotino-api2 robotino-examples
+```
+And install the package dependencies:
 ```
 rosdep install --from-path squirrel_robotino -i -y
 ```
