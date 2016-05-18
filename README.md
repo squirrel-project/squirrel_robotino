@@ -1,17 +1,59 @@
-squirrel_robotino
-=================
-[![Build Status](https://magnum.travis-ci.com/squirrel-project/squirrel_robotino.svg?token=3yXoCRsCegowgzzpPuqw)](https://magnum.travis-ci.com/squirrel-project/squirrel_robotino)
+#squirrel_robotino
 
-Technical Maintainer: ipa-nhg (Nadia Hammoudeh Garcia, Fraunhofer IPA)
+Technical Maintainer: ipa-nhg (Nadia Hammoudeh Garcia, Fraunhofer IPA) - nadia.hammoudeh.garcia@ipa.fraunhofer.de
 
 This repository holds packages for hardware launch files and configuration, as well as the simulation model for starting up the basic layer for operating Robotino
 
-Install the package dependencies:
+Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-project/squirrel_robotino)
+
+##Contents
+
+1. <a href="#1--installation-requirements">Installation Requirements</a>
+2. <a href="#2--execution">Execution</a>
+3. <a href="#3--software-architecture">Software architecture</a>
+4. <a href="#4--dynamixel-servos">Dynamixel servos</a>
+
+
+
+
+##1. Installation Requirements:
+
+###Debian packages
+The robotino-api2 has to be installed to compile the robotino_driver package: [robotino-api2](http://wiki.openrobotino.org/index.php?title=Install_daemons_v3)
+
+###Squirrel packages
+This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common)], and the private ones *squirrel_robotino_arm*, *squirrel_kclhand* and *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)]
+
+###ROS packages
+The ROS packages dependencies can be installed with the command:
 ```
 rosdep install --from-path squirrel_robotino -i -y
 ```
+##2. Execution:
+###Real robot:
+```
+roslaunch robotino_bringup robot.launch robot:='robot_name'
+```
+###Simulation:
+```
+roslaunch robotino_bringup_sim robot.launch robot:='robot_name'
+```
+Available robots:
 
-# Dynamixel servos
+* alufr-robotino: robotino base + tilt axis
+* ipa-robotino: robotino base + tilt axis
+* robotino: robotino base + arm
+* tuw-robotino: robotino base + pan/tilt axis
+* tuw-robotino2: robotino base + pan/tilt axis + arm + hand
+* uibk-robotino: robotino base + pan/tilt axis
+* uibk-robotino2: robotino base + pan/tilt axis + arm + hand
+
+##3. Software architecture
+
+robotino_node: [robotino_node](https://raw.githubusercontent.com/squirrel-project/squirrel_recommender/master/software_architecture/robotino_node.png)
+
+##4. Dynamixel servos
+
 We are using Dynamixel servos in the pan/tilt unit. The ROS package for these is `dynamixel_driver`. To see if servos are connected, powered and generally ok, call `info_dump` with a specific baud rate (`57142`) and with the servo IDs, which should be 1 and 2. If you do not find the servos, you can try up to 254.
 ```
 > rosrun dynamixel_driver info_dump.py -b 57142 1 2
