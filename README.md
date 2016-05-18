@@ -1,8 +1,9 @@
+<a id="top"/> 
 #squirrel_robotino
 
-Technical Maintainer: ipa-nhg (Nadia Hammoudeh Garcia, Fraunhofer IPA) - nadia.hammoudeh.garcia@ipa.fraunhofer.de
-
 This repository holds packages for hardware launch files and configuration, as well as the simulation model for starting up the basic layer for operating Robotino
+
+Technical Maintainer: [ipa-nhg](https://github.com/ipa-nhg/) (Nadia Hammoudeh Garcia, Fraunhofer IPA) - nadia.hammoudeh.garcia@ipa.fraunhofer.de
 
 Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-project/squirrel_robotino)
 
@@ -14,7 +15,7 @@ Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-proje
 4. <a href="#4--dynamixel-servos">Dynamixel servos</a>
 
 
-## 1. Installation Requirements: <a id="#1--installation-requirements"/> 
+## 1. Installation Requirements: <a id="1--installation-requirements"/> 
 
 ####Debian packages
 The robotino-api2 has to be installed to compile the robotino_driver package: [robotino-api2](http://wiki.openrobotino.org/index.php?title=Install_daemons_v3)
@@ -27,7 +28,7 @@ The ROS packages dependencies can be installed with the command:
 ```
 rosdep install --from-path squirrel_robotino -i -y
 ```
-## 2. Execution: <a id="#2--execution"/> 
+## 2. Execution: <a id="2--execution"/> 
 ###Real robot:
 ```
 roslaunch robotino_bringup robot.launch robot:='robot_name'
@@ -46,11 +47,11 @@ Available robots:
 * uibk-robotino: robotino base + pan/tilt axis
 * uibk-robotino2: robotino base + pan/tilt axis + arm + hand
 
-## 3. Software architecture <a id="#3--software-architecture"/> 
+## 3. Software architecture <a id="3--software-architecture"/> 
 
 robotino_node: [robotino_node](https://raw.githubusercontent.com/squirrel-project/squirrel_recommender/master/software_architecture/robotino_node.png)
 
-## 4. Dynamixel servos <a id="#4--dynamixel-servos"/> 
+## 4. Dynamixel servos <a id="4--dynamixel-servos"/> 
 
 We are using Dynamixel servos in the pan/tilt unit. The ROS package for these is `dynamixel_driver`. To see if servos are connected, powered and generally ok, call `info_dump` with a specific baud rate (`57142`) and with the servo IDs, which should be 1 and 2. If you do not find the servos, you can try up to 254.
 ```
@@ -70,7 +71,6 @@ Pinging motors:
         Moving ------------------ False
 ...
 ```
-
 If you get a new servo, its ID will be set to 1. Use `change_id`, e.g. to 2:
 ```
 > rosrun dynamixel_driver change_id.py -b 57142 1 2
@@ -78,3 +78,5 @@ Changing motor id from 1 to 2...  done
 Verifying new id... ERROR: The motor did not respond to a ping to its new id.
 ```
 Never mind the error. Just call `info_dump` again to see that the servo now is set correctly.
+
+<a href="#top">top</a>
