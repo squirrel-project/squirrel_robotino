@@ -49,7 +49,7 @@ Available robots:
 
 ## 3. Software architecture <a id="3--software-architecture"/> 
 
-robotino_node: [robotino_node](https://raw.githubusercontent.com/squirrel-project/squirrel_recommender/master/software_architecture/robotino_node.png)
+robotino_node: ![robotino_node](https://github.com/squirrel-project/squirrel_robotino/blob/indigo_dev/robotino_node.png "Architecture")
 
 ## 4. Dynamixel servos <a id="4--dynamixel-servos"/> 
 
