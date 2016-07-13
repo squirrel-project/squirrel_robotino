@@ -68,11 +68,11 @@ RobotinoController::RobotinoController(ros::NodeHandle& nh) :
 	x_(0.f), y_(0.f), phi_(0.f),
 	vx_(0.f), vy_(0.f), omega_(0.f),
 	current_time_(ros::Time::now()), last_time_(ros::Time::now()), 
-    gear_(32.0),	//16
-    rw_(0.06),  //40),
-    rb_(0.175) //132)
+    gear_(16.0),	//16
+    rw_(0.04),  //40),
+    rb_(0.132) //132)
 {
-	//odometry_publisher_ = nh_.advertise<nav_msgs::Odometry>("odom", 10);
+	odometry_publisher_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
 
 	cmd_vel_sub_ = nh_.subscribe("/cmd_vel", 10, &RobotinoController::setVelocity, this);
 	w0_pub_ = nh_.advertise<std_msgs::Float64>("wheel0", 10);
@@ -101,7 +101,7 @@ void RobotinoController::spin( void )
    w0_pub_.publish(w0_);
    w1_pub_.publish(w1_);
    w2_pub_.publish(w2_);
-
+   
    //UpdateOdometry();
 
    ros::spinOnce();
@@ -125,10 +125,11 @@ void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_ve
 	
 	// scale omega with the radius of the robot
 	double v_omega_scaled = rb_ * (double)omega_ ;
+	double k = 1 / rw_ ;
 	
-	w0_.data = ( v0[0] * (double)vx_ + v0[1] * (double)vy_ + v_omega_scaled ) * gear_;
-	w1_.data = ( v1[0] * (double)vx_ + v1[1] * (double)vy_ + v_omega_scaled ) * gear_;
-	w2_.data = ( v2[0] * (double)vx_ + v2[1] * (double)vy_ + v_omega_scaled ) * gear_;
+	w0_.data = ( v0[0] * (double)vx_ + v0[1] * (double)vy_ + v_omega_scaled ) * k;
+	w1_.data = ( v1[0] * (double)vx_ + v1[1] * (double)vy_ + v_omega_scaled ) * k;
+	w2_.data = ( v2[0] * (double)vx_ + v2[1] * (double)vy_ + v_omega_scaled ) * k;
 
 	w0_pub_.publish(w0_);
 	w1_pub_.publish(w1_);
@@ -137,7 +138,7 @@ void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_ve
 
 void RobotinoController::UpdateOdometry()
 {
-	//boost::mutex::scoped_lock lock(velocity_mutex_);
+	boost::mutex::scoped_lock lock(velocity_mutex_);
 
 	//compute odometry in a typical way given the velocities of the robot
 	current_time_ = ros::Time::now();

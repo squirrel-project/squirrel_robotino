@@ -11,6 +11,10 @@
       <remap from="wheel1" to="wheel1_joint_velocity_controller/command" />
       <remap from="wheel2" to="wheel2_joint_velocity_controller/command" />
     </node>
+    <node pkg="robotino_controller_configuration_gazebo" name="odometry_controller" type="base_sim_odometry" output="screen">
+      <remap from="odom" to="/odom" />
+    </node>
+
   </group>
 
 </launch>

@@ -53,7 +53,16 @@ add_executable(base_sim_controller
   src/RobotinoController.cpp
 )
 
+add_executable(base_sim_odometry
+  src/OdometryController.cpp
+)
+
 target_link_libraries(base_sim_controller
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
+
+target_link_libraries(base_sim_odometry
   ${catkin_LIBRARIES}
   ${Boost_LIBRARIES}
 )
