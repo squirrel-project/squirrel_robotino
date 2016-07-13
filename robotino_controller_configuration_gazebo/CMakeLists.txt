@@ -48,12 +48,12 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
 )
 
-add_executable(robotino_controller_configuration_gazebo_node
+add_executable(base_sim_controller
   src/RobotinoControllerNode.cpp
   src/RobotinoController.cpp
 )
 
-target_link_libraries(robotino_controller_configuration_gazebo_node
+target_link_libraries(base_sim_controller
   ${catkin_LIBRARIES}
   ${Boost_LIBRARIES}
 )
@@ -79,7 +79,6 @@ install(DIRECTORY include/${PROJECT_NAME}
 )
 
 install(TARGETS 
-  robotino_controller_configuration_gazebo_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

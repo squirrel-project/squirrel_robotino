@@ -20,28 +20,3 @@ joint_group_position_controller:
      - arm_joint5
   required_drive_mode: 2
 
-arm_base_joint_position_controller:
-  type: position_controllers/JointPositionController
-  joint: arm_base_joint
-  required_drive_mode: 2
-arm_joint1_position_controller:
-  type: position_controllers/JointPositionController
-  joint: arm_joint1
-  required_drive_mode: 2
-arm_joint2_position_controller:
-  type: position_controllers/JointPositionController
-  joint: arm_joint2
-  required_drive_mode: 2
-arm_joint3_position_controller:
-  type: position_controllers/JointPositionController
-  joint: arm_joint3
-  required_drive_mode: 2
-arm_joint4_position_controller:
-  type: position_controllers/JointPositionController
-  joint: arm_joint4
-  required_drive_mode: 2
-arm_joint5_position_controller:
-  type: position_controllers/JointPositionController
-  joint: arm_joint5
-  required_drive_mode: 2
-

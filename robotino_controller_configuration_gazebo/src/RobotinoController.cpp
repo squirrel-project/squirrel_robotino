@@ -72,12 +72,12 @@ RobotinoController::RobotinoController(ros::NodeHandle& nh) :
     rw_(0.06),  //40),
     rb_(0.175) //132)
 {
-	//odometry_publisher_ = nh_.advertise<nav_msgs::Odometry>("odom", 50);
+	//odometry_publisher_ = nh_.advertise<nav_msgs::Odometry>("odom", 10);
 
-	cmd_vel_sub_ = nh_.subscribe("/cmd_vel", 1000, &RobotinoController::setVelocity, this);
-	w0_pub_ = nh_.advertise<std_msgs::Float64>("/wheel0", 1000);
-	w1_pub_ = nh_.advertise<std_msgs::Float64>("/wheel1", 1000);
-	w2_pub_ = nh_.advertise<std_msgs::Float64>("/wheel2", 1000);
+	cmd_vel_sub_ = nh_.subscribe("/cmd_vel", 10, &RobotinoController::setVelocity, this);
+	w0_pub_ = nh_.advertise<std_msgs::Float64>("wheel0", 10);
+	w1_pub_ = nh_.advertise<std_msgs::Float64>("wheel1", 10);
+	w2_pub_ = nh_.advertise<std_msgs::Float64>("wheel2", 10);
 }
 
 RobotinoController::~RobotinoController( void )
@@ -90,16 +90,28 @@ void RobotinoController::spin( void )
 	ros::Rate lr(10);
 	current_time_ = ros::Time::now();
 	last_time_ = ros::Time::now();
+
 	while ( ros::ok() )
 	{
-		//UpdateOdometry();	// --> done by the "libgazebo_ros_planar_move.so" plugin for gazebo in gazebo.urdf.xacro
-		ros::spinOnce();
-		lr.sleep();
+
+   w0_.data = 0.0;
+   w1_.data = 0.0;
+   w2_.data = 0.0;
+
+   w0_pub_.publish(w0_);
+   w1_pub_.publish(w1_);
+   w2_pub_.publish(w2_);
+
+   //UpdateOdometry();
+
+   ros::spinOnce();
+   lr.sleep();
 	}  
 }
 
 void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_vel_msg )
 {
+
 	boost::mutex::scoped_lock lock(velocity_mutex_);
 	vx_ = cmd_vel_msg->linear.x;
 	vy_ = cmd_vel_msg->linear.y;
@@ -110,13 +122,6 @@ void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_ve
 	double v0[2] = { -0.5 * sqrt( 3.0 ),  0.5 };
 	double v1[2] = {  0.0              , -1.0 };
 	double v2[2] = {  0.5 * sqrt( 3.0 ),  0.5 };
-
-	// ROS_INFO("v0[0] = %f", v0[0]);
-	// ROS_INFO("v0[1] = %f", v0[1]);
-	// ROS_INFO("v1[0] = %f", v1[0]);
-	// ROS_INFO("v1[1] = %f", v0[1]);
-	// ROS_INFO("v2[0] = %f", v2[0]);
-	// ROS_INFO("v2[1] = %f", v2[1]);
 	
 	// scale omega with the radius of the robot
 	double v_omega_scaled = rb_ * (double)omega_ ;
@@ -125,8 +130,6 @@ void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_ve
 	w1_.data = ( v1[0] * (double)vx_ + v1[1] * (double)vy_ + v_omega_scaled ) * gear_;
 	w2_.data = ( v2[0] * (double)vx_ + v2[1] * (double)vy_ + v_omega_scaled ) * gear_;
 
-	// ROS_INFO("output velocities: (%f, %f, %f)", w0_.data, w1_.data, w2_.data);
-	
 	w0_pub_.publish(w0_);
 	w1_pub_.publish(w1_);
 	w2_pub_.publish(w2_);
@@ -134,7 +137,7 @@ void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_ve
 
 void RobotinoController::UpdateOdometry()
 {
-	boost::mutex::scoped_lock lock(velocity_mutex_);
+	//boost::mutex::scoped_lock lock(velocity_mutex_);
 
 	//compute odometry in a typical way given the velocities of the robot
 	current_time_ = ros::Time::now();
@@ -186,6 +189,7 @@ void RobotinoController::UpdateOdometry()
 	
 	last_time_ = current_time_;
 }
+
 
 }	// namespace robotino_controller_configuration_gazebo //
 

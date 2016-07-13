@@ -2,7 +2,6 @@
 <launch>
 
   <arg name="paused" default="false"/>
-  <arg name="kinect_name" default="kinect"/>
   <arg name="robot" default="tuw-robotino2"/>
 
   <!-- send cob urdf to param server -->
