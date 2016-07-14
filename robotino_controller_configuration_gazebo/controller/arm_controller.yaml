@@ -8,7 +8,7 @@ joint_state_controller:
     type: joint_state_controller/JointStateController
     publish_rate: 50
 
-## velocity controller
+## position controller
 joint_group_position_controller:
   type: position_controllers/JointGroupPositionController
   joints:

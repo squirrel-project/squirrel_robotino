@@ -54,9 +54,8 @@
 // Code:
 
 #include "robotino_controller_configuration_gazebo/RobotinoController.h"
-
 #include <ros/ros.h>
-
+#include <std_msgs/Float64MultiArray.h>
 #include <geometry_msgs/TransformStamped.h>
 
 #define PI 3.14159265358979
@@ -73,11 +72,9 @@ RobotinoController::RobotinoController(ros::NodeHandle& nh) :
     rb_(0.132) //132)
 {
 	odometry_publisher_ = nh_.advertise<nav_msgs::Odometry>("/odom", 10);
-
+	command_w_.data.assign(3,0);
 	cmd_vel_sub_ = nh_.subscribe("/cmd_vel", 10, &RobotinoController::setVelocity, this);
-	w0_pub_ = nh_.advertise<std_msgs::Float64>("wheel0", 10);
-	w1_pub_ = nh_.advertise<std_msgs::Float64>("wheel1", 10);
-	w2_pub_ = nh_.advertise<std_msgs::Float64>("wheel2", 10);
+	w_pub_ = nh_.advertise<std_msgs::Float64MultiArray>("joint_group_velocity_controller/command", 10);
 }
 
 RobotinoController::~RobotinoController( void )
@@ -91,16 +88,15 @@ void RobotinoController::spin( void )
 	current_time_ = ros::Time::now();
 	last_time_ = ros::Time::now();
 
+
 	while ( ros::ok() )
 	{
 
-   w0_.data = 0.0;
-   w1_.data = 0.0;
-   w2_.data = 0.0;
+	command_w_.data[0] = 0.0;
+	command_w_.data[1] = 0.0;
+	command_w_.data[2] = 0.0;
 
-   w0_pub_.publish(w0_);
-   w1_pub_.publish(w1_);
-   w2_pub_.publish(w2_);
+	w_pub_.publish(command_w_);
    
    //UpdateOdometry();
 
@@ -116,24 +112,23 @@ void RobotinoController::setVelocity( const geometry_msgs::TwistConstPtr& cmd_ve
 	vx_ = cmd_vel_msg->linear.x;
 	vy_ = cmd_vel_msg->linear.y;
 	omega_ = cmd_vel_msg->angular.z; 
-	
+
 	// ROS_INFO("input velocities: (%f, %f, %f)", vx_, vy_, omega_);
  
 	double v0[2] = { -0.5 * sqrt( 3.0 ),  0.5 };
-	double v1[2] = {  0.0              , -1.0 };
+	double v1[2] = {  0.0              , -0.5 * sqrt( 3.0 ) };
 	double v2[2] = {  0.5 * sqrt( 3.0 ),  0.5 };
 	
 	// scale omega with the radius of the robot
 	double v_omega_scaled = rb_ * (double)omega_ ;
 	double k = 1 / rw_ ;
 	
-	w0_.data = ( v0[0] * (double)vx_ + v0[1] * (double)vy_ + v_omega_scaled ) * k;
-	w1_.data = ( v1[0] * (double)vx_ + v1[1] * (double)vy_ + v_omega_scaled ) * k;
-	w2_.data = ( v2[0] * (double)vx_ + v2[1] * (double)vy_ + v_omega_scaled ) * k;
+	command_w_.data[0] = ( v0[0] * (double)vx_ + v0[1] * (double)vy_ + v_omega_scaled ) * k;
+	command_w_.data[1] = ( v1[0] * (double)vx_ + v1[1] * (double)vy_ + v_omega_scaled ) * k;
+	command_w_.data[2] = ( v2[0] * (double)vx_ + v2[1] * (double)vy_ + v_omega_scaled ) * k;
 
-	w0_pub_.publish(w0_);
-	w1_pub_.publish(w1_);
-	w2_pub_.publish(w2_);
+	w_pub_.publish(command_w_);
+
 }
 
 void RobotinoController::UpdateOdometry()
