@@ -45,7 +45,6 @@
   <run_depend>tf</run_depend>
   <run_depend>nav_msgs</run_depend>
   <run_depend>boost</run_depend>
-
   <run_depend>kclhand_control</run_depend>
 
   <export>

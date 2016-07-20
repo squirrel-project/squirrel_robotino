@@ -21,7 +21,7 @@
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/arm_controller.launch" />
 
-  <!--include file="$(find robotino_controller_configuration_gazebo)/launch/hand_controller.launch" /-->
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/hand_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/pan_tilt_controller.launch" />
 

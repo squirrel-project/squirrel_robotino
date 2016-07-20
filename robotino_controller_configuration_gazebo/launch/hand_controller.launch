@@ -12,7 +12,7 @@
       
     </group> 
 
-      <node name="hand_joint_state_pub_sim" pkg="kclhand_control" type="hand_joint_state_pub_sim.py" cwd="node" respawn="true">
+      <node name="hand_sim_controller" pkg="kclhand_control" type="hand_joint_state_pub_sim.py" cwd="node" respawn="true">
         <remap from="hand_joint_state_pub" to="motor_value_pub"/>
       </node>    
 

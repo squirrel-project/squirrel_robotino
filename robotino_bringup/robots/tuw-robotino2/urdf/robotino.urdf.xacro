@@ -5,13 +5,12 @@
   <xacro:include filename="$(find robotino_bringup)/robots/tuw-robotino2/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/base_case.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/rotatory.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/pan_tilt_tuw_axis.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/arm.urdf.xacro" />
-  <xacro:include filename="$(find kclhand_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
 
   <xacro:body name="base"/>
 
