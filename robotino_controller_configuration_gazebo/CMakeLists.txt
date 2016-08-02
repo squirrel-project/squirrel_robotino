@@ -17,7 +17,6 @@ find_package(catkin REQUIRED COMPONENTS
 	effort_controllers
 	tf
 	nav_msgs
-#	uibk_robot_driver
 )
 
 find_package(Boost REQUIRED COMPONENTS thread)
@@ -39,7 +38,6 @@ catkin_package(
 	effort_controllers
 	tf
 	nav_msgs
-#	uibk_robot_driver
 )
 
 ## Building the executables
@@ -63,6 +61,9 @@ add_executable(base_sim_odometry
 #  src/ArmController.cpp
 #)
 
+#add_executable(rotatory_sim_control
+#src/RotatorySimControl.cpp)
+
 target_link_libraries(base_sim_controller
   ${catkin_LIBRARIES}
   ${Boost_LIBRARIES}
@@ -74,6 +75,11 @@ target_link_libraries(base_sim_odometry
 )
 
 #target_link_libraries(arm_sim_controller
+#  ${catkin_LIBRARIES}
+#  ${Boost_LIBRARIES}
+#)
+
+#target_link_libraries(rotatory_sim_control
 #  ${catkin_LIBRARIES}
 #  ${Boost_LIBRARIES}
 #)

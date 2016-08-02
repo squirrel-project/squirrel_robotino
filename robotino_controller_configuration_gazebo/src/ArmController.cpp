@@ -54,7 +54,6 @@
 #include <std_msgs/Float64.h>
 #include <geometry_msgs/Twist.h>
 #include <tf/transform_listener.h>
-#include <uibk_robot_driver/base_controller.hpp>
 
 using namespace std;
 
@@ -67,17 +66,6 @@ public:
 };
 
 void ArmController::PosCommandSub_cb(const std_msgs::Float64MultiArray msg){
-  BaseController robotino(nh_, 20.0, 0.6, 1, 1);
-
-  double target = robotino.getCurrentState();
-  vector<double> current_pose = robotino.getCurrentPose();
-  double cx = current_pose.at(0);
-  double cy = current_pose.at(1);
-    
-
-  vector<double> current_pose = robotino.getCurrentPose();
-  robotino.move(target+msg.data[0] , cx+0.80, cy+0.80);
-
   ArmPosCommandPub_ = nh_.advertise<std_msgs::Float64MultiArray>("arm_controller/group_position_controller/cmd", 1);
   std_msgs::Float64MultiArray joint_pos;
   joint_pos.data.resize(msg.data.size()-1);

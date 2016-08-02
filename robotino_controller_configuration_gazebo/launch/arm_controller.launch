@@ -4,7 +4,8 @@
       <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/arm_controller.yaml" />
       <node name="joint_state_arm_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true"/>
       <node name="arm_controller_spawner_pos" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_group_position_controller"/>
-      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>   
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/> 
+        <node name="arm_controller_sim_node" pkg="uibk_arm_controller" type="arm_controller_sim" respawn="true" output="screen" />
       <!--node name="command_mux" pkg="topic_tools" type="mux" args="arm_joint_position_controller/command command" cwd="node" respawn="true" output="screen"/-->
     </group> 
 </launch>
