@@ -1,25 +1,58 @@
-squirrel_robotino
-=================
-[![Build Status](https://magnum.travis-ci.com/squirrel-project/squirrel_robotino.svg?token=3yXoCRsCegowgzzpPuqw)](https://magnum.travis-ci.com/squirrel-project/squirrel_robotino)
-
-Technical Maintainer: ipa-nhg (Nadia Hammoudeh Garcia, Fraunhofer IPA)
+<a id="top"/> 
+#squirrel_robotino
 
 This repository holds packages for hardware launch files and configuration, as well as the simulation model for starting up the basic layer for operating Robotino
 
-It requires the installation of the robotino-api2 packages:
-```
-wget -qO - http://packages.openrobotino.org/keyFile | sudo apt-key add -
-sudo su
-echo "deb http://packages.openrobotino.org/trusty trusty main" > /etc/apt/sources.list.d/openrobotino.list
-apt-get update
-apt-get install robotino-common robotino-api2 robotino-examples
-```
-And install the package dependencies:
+Technical Maintainer: [ipa-nhg](https://github.com/ipa-nhg/) (Nadia Hammoudeh Garcia, Fraunhofer IPA) - nadia.hammoudeh.garcia@ipa.fraunhofer.de
+
+Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-project/squirrel_robotino)
+
+##Contents
+
+1. <a href="#1--installation-requirements">Installation Requirements</a>
+2. <a href="#2--execution">Execution</a>
+3. <a href="#3--software-architecture">Software architecture</a>
+4. <a href="#4--dynamixel-servos">Dynamixel servos</a>
+
+
+## 1. Installation Requirements: <a id="1--installation-requirements"/> 
+
+####Debian packages
+The robotino-api2 has to be installed to compile the robotino_driver package: [robotino-api2](http://wiki.openrobotino.org/index.php?title=Install_daemons_v3)
+
+####Squirrel packages
+This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private ones *squirrel_robotino_arm*, *squirrel_kclhand* and *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
+
+####ROS packages
+The ROS packages dependencies can be installed with the command:
 ```
 rosdep install --from-path squirrel_robotino -i -y
 ```
+## 2. Execution: <a id="2--execution"/> 
+###Real robot:
+```
+roslaunch robotino_bringup robot.launch robot:='robot_name'
+```
+###Simulation:
+```
+roslaunch robotino_bringup_sim robot.launch robot:='robot_name'
+```
+Available robots:
 
-# Dynamixel servos
+* alufr-robotino: robotino base + tilt axis
+* ipa-robotino: robotino base + tilt axis
+* robotino: robotino base + arm
+* tuw-robotino: robotino base + pan/tilt axis
+* tuw-robotino2: robotino base + pan/tilt axis + arm + hand
+* uibk-robotino: robotino base + pan/tilt axis
+* uibk-robotino2: robotino base + pan/tilt axis + arm + hand
+
+## 3. Software architecture <a id="3--software-architecture"/> 
+
+robotino_node: ![robotino_node](https://github.com/squirrel-project/squirrel_robotino/blob/indigo_dev/robotino_node.png "Architecture")
+
+## 4. Dynamixel servos <a id="4--dynamixel-servos"/> 
+
 We are using Dynamixel servos in the pan/tilt unit. The ROS package for these is `dynamixel_driver`. To see if servos are connected, powered and generally ok, call `info_dump` with a specific baud rate (`57142`) and with the servo IDs, which should be 1 and 2. If you do not find the servos, you can try up to 254.
 ```
 > rosrun dynamixel_driver info_dump.py -b 57142 1 2
@@ -38,7 +71,6 @@ Pinging motors:
         Moving ------------------ False
 ...
 ```
-
 If you get a new servo, its ID will be set to 1. Use `change_id`, e.g. to 2:
 ```
 > rosrun dynamixel_driver change_id.py -b 57142 1 2
@@ -46,3 +78,5 @@ Changing motor id from 1 to 2...  done
 Verifying new id... ERROR: The motor did not respond to a ping to its new id.
 ```
 Never mind the error. Just call `info_dump` again to see that the servo now is set correctly.
+
+<a href="#top">top</a>

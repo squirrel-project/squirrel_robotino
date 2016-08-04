@@ -11,7 +11,7 @@
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
   <!-- state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
-    <param name="publish_frequency" type="double" value="5.0" />
+    <param name="publish_frequency" type="double" value="50.0" />
   </node>
 
   <!-- robotino node -->
@@ -37,9 +37,9 @@
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
     <param name="hostname" value="$(arg hostname)" />
     <param name="publish_tf" value="true"/>
-    <param name="position_child_frame" value="/odomp_encoder"/>
-    <param name="child_frame" value="/base_link_encoder"/>
-    <remap from="/odom" to="/odom_encoder"/>
+    <param name="position_child_frame" value="/odomp"/>
+    <param name="child_frame" value="/base_link"/>
+    <!-- <remap from="/odom" to="/odom_encoder"/> -->
   </node>
 
   <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
