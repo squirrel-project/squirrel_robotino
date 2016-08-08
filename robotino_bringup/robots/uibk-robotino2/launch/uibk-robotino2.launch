@@ -40,17 +40,6 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
-  <group ns="rotatory_controller">
-      <remap from="robot_description" to="/robot_description" />
-      <node name="robotino_arm_base_control_node" pkg="robotino_arm_base_control" type="robotino_arm_base_control_node" output="screen">
-        <remap from="pause" to="/bumper" />
-        <remap from="/cmd_vel" to="/cmd_rotatory" />
-      </node>
-      <rosparam  file="$(find robotino_bringup)/robots/$(arg robot)/config/rotatory_controller.yaml" command="load" />
-      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
-      <node name="joint_state_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true" />
-      <node name="rotatory_controller_spawner" pkg="controller_manager" type="spawner" args="joint_trajectory_controller" respawn="true" /> 
- </group>
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
@@ -87,17 +76,11 @@
     <param name="startup_angle" value="0.6" />
   </node>
 
-  <group ns="arm_controller">
-    <remap from="robot_description" to="/robot_description" />
-    <remap from="pause" to="/bumper" />
-    <rosparam     if="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_vel.yaml" />
-    <rosparam unless="$(arg use_velocity_controller)" file="$(find robotino_bringup)/robots/$(arg robot)/config/arm_controller_pos.yaml" />
-    <include file="$(find cf_control)/launch/controller_manager.launch">
-      <arg name="publish_robot_state" value="false" />
-      <arg name="controllers" value="joint_state_controller joint_trajectory_controller" />
-      <arg name="robot_ip_address" value="localhost" />
-    </include>
-      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
+  <group ns="real/robotino">
+	  <node name="robot_controller_node" pkg="uibk_robot_driver" type="robot_controller_node" output="screen">
+			<remap from="cmd_rotatory" to="/cmd_rotatory"/>
+	  </node>
+    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
 
   <group ns="hand_controller">
@@ -110,5 +93,4 @@
     <arg name="robot" value="$(arg robot)" />
   </include>
 
-  <include file="$(find robotino_bringup)/launch/cmd_rotatory_locker.launch" />
 </launch>
