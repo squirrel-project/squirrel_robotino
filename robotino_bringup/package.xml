@@ -21,7 +21,7 @@
   <run_depend>openni2_launch</run_depend>
   <run_depend>image_proc</run_depend>
   <run_depend>hokuyo_node</run_depend>
-
+  <run_depend>robotino_decription</run_depend>
   <!--run_depend>camera1394</run_depend-->
   <run_depend>nodelet</run_depend>
   <run_depend>joy</run_depend>
@@ -39,6 +39,7 @@
   <run_depend>cob_gazebo_ros_control</run_depend>
   <run_depend>twist_mux</run_depend>
   <run_depend>rosserial_python</run_depend>
+  <run_depend>uibk_robot_driver</run_depend>
 
   <run_depend>cf_control</run_depend>
   <run_depend>kclhand_control</run_depend>

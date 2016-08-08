@@ -51,6 +51,8 @@ Available robots:
 
 robotino_node: ![robotino_node](https://github.com/squirrel-project/squirrel_robotino/blob/indigo_dev/robotino_node.png "Architecture")
 
+robotino_simulation: ![robotino_simulation](https://github.com/squirrel-project/squirrel_robotino/blob/indigo_dev/squirrel_simulation.png "Architecture")
+
 ## 4. Dynamixel servos <a id="4--dynamixel-servos"/> 
 
 We are using Dynamixel servos in the pan/tilt unit. The ROS package for these is `dynamixel_driver`. To see if servos are connected, powered and generally ok, call `info_dump` with a specific baud rate (`57142`) and with the servo IDs, which should be 1 and 2. If you do not find the servos, you can try up to 254.
