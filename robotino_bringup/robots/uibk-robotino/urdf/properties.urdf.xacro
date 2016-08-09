@@ -48,5 +48,4 @@
   <property name="kinect_pitch" value="0"/>
   <property name="kinect_yaw" value="0.0"/>
 
-
 </robot>
