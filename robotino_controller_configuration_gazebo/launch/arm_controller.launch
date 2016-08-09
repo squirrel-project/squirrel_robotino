@@ -5,7 +5,7 @@
 		<node name="joint_state_arm_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true"/>
 		<node name="arm_controller_spawner_pos" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="joint_group_position_controller"/>
 		<node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/> 
-		<node name="arm_controller_sim_node" pkg="uibk_arm_controller" type="arm_controller_sim" respawn="true" output="screen">
+		<node name="arm_controller_sim_node" pkg="uibk_robot_driver" type="arm_controller_sim" respawn="true" output="screen">
 			<remap from="cmd_rotatory" to="/cmd_rotatory"/>
 			<!--remap from="robotino_arm/joint_control/move" to="/sim/robotino_arm/joint_control/move"/-->
 		</node>
