@@ -70,7 +70,7 @@
   <property name="arm_z" value="0.32"/>
   <property name="arm_roll" value="0.0"/>
   <property name="arm_pitch" value="0.0"/>
-  <property name="arm_yaw" value="0.0"/>
+  <property name="arm_yaw" value="-1"/>
 	
    <!-- arm calibration-->
   <property name="arm_1_ref" value="0.0"/>
