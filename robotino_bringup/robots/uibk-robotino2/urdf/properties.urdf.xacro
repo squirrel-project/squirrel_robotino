@@ -49,8 +49,8 @@
   
    <!-- arm mount positions | handeye calibration | relative to base_link -->
   <property name="arm_x" value="0.0"/>
-  <property name="arm_y" value="0.0"/>
-  <property name="arm_z" value="0.35"/>
+  <property name="arm_y" value="-0.01591"/>
+  <property name="arm_z" value="0.32"/>
   <property name="arm_roll" value="0.0"/>
   <property name="arm_pitch" value="0.0"/>
   <property name="arm_yaw" value="0.0"/>
@@ -62,5 +62,4 @@
   <property name="arm_4_ref" value="0.0"/>
   <property name="arm_5_ref" value="0.0"/>
   <property name="arm_6_ref" value="0.0"/>
-
 </robot>
