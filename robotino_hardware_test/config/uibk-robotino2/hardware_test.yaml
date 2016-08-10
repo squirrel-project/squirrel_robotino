@@ -1,0 +1,19 @@
+actuators:
+  pan:
+    name: "pan"
+  tilt:
+    name: "tilt"
+sensors:
+  scan:
+    name: "scan"
+    topic: /scan
+    msg_type: LaserScan
+  kinect_depth:
+    name: "kinect_depth_points"
+    topic: /kinect/depth_registered/points
+    msg_type: PointCloud2
+  kinect_image:
+    name: "kinect_image"
+    topic: /kinect/rgb/image_raw
+    msg_type: Image
+
