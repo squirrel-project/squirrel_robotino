@@ -10,7 +10,10 @@ from sensor_msgs.msg import *
 
 def run():
 	test = HardwareTest('robotino_hardware_test')
-	#dialog_client(0, 'START the test? ''OK''')
+	if dialog_client(0, 'START the test?'):
+		test.log_file.write('\n  ROBOTINO TEST: ')
+	else:
+		return
 	
 	#### MOVE TEST 1 ###
 	test.log_file.write('\n\n[MOVE_TEST] [%s]' %(time.strftime('%H:%M:%S')))
@@ -48,6 +51,7 @@ def run():
 	
 	
 	test.log_file.close()
+	dialog_client(0, 'The test finished, please see the result on \n %s' %(test.complete_name))
 
 
 class HardwareTest:
