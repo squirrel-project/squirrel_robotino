@@ -15,19 +15,16 @@ def run():
 	else:
 		return
 	
-	#### MOVE TEST 1 ###
+	#### MOVE TEST  ###
 	test.log_file.write('\n\n[MOVE_TEST] [%s]' %(time.strftime('%H:%M:%S')))
 
-		# Move base
-	test.log_file.write('\n  base: ')
-	if test.move_base() and dialog_client(1,'Did the robot move?'):
-		test.log_file.write('\t<<OK>>')
-	else:
-		test.log_file.write('\t<<FAIL>>')
-	
-	# Move pan_tilt
 	for component in test.actuators:
 		test.log_file.write('\n  %s: ' %(component['name']))
+		if component['name'] == 'base' :
+				if test.move_base() and test.dialog(component['name']):
+					test.log_file.write('\t<<OK>>')
+				else:
+					test.log_file.write('\t<<FAIL>>')					
 		if component['name'] == 'pan' :
 				if test.move_pan() and test.dialog(component['name']):
 					test.log_file.write('\t<<OK>>')
@@ -110,8 +107,8 @@ class HardwareTest:
 			log_dir = '/tmp'
 			
 		# Create and prepare logfile
-		complete_name = '%s/hardware_test_%s.txt' %(log_dir, time.strftime("%Y%m%d_%H-%M"))
-		self.log_file = open(complete_name,'w')
+		self.complete_name = '%s/hardware_test_%s.txt' %(log_dir, time.strftime("%Y%m%d_%H-%M"))
+		self.log_file = open(self.complete_name,'w')
 		
 		
 		self.log_file.write('Robotino Hardware test')
@@ -192,8 +189,8 @@ class HardwareTest:
 		return False
 
 
-	def dialog(self, component, goal):
-		if dialog_client(1, 'Did component <<%s>> move to position <<%s>>?' %(component, goal)):
+	def dialog(self, component):
+		if dialog_client(1, 'Did component <<%s>> move ?' %(component)):
 			return True
 		return False
 	
@@ -237,7 +234,6 @@ class HardwareTest:
 
 
 if __name__ == '__main__':
-	
 	try:
 		run()
 	except KeyboardInterrupt, e:

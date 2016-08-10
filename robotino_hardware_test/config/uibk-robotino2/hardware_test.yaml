@@ -1,4 +1,6 @@
 actuators:
+  base:
+    name: "base"
   pan:
     name: "pan"
   tilt:
