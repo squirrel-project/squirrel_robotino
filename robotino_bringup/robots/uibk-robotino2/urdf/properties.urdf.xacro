@@ -26,7 +26,7 @@
   <!-- hokuyo mount positions | relative to base_link -->
   <property name="hokuyo_x" value="0.208610627"/>
   <property name="hokuyo_y" value="0.0"/>
-  <property name="hokuyo_z" value="0.15"/>
+  <property name="hokuyo_z" value="0.095"/>
   <property name="hokuyo_roll" value="0.0"/>
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="0.0"/>
