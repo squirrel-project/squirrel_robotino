@@ -8,6 +8,24 @@ import wx
 from robotino_hardware_test.srv import *
 
 def handle_dialog(req):
+
+    if req.type == 0:
+            print "Confirm: %s" % (req.message)
+            ex = wx.App()
+            dial = wx.MessageDialog(None, req.message, 'Confirm',
+                            wx.OK | wx.ICON_WARNING)
+            ret = dial.ShowModal()
+            if ret == wx.ID_OK:
+                    answer = True
+            else:
+                    answer = False
+
+        #TODO exit properly
+        #self.Destroy()
+        #ex.Destroy()        
+        #dial.Destroy()
+            return DialogResponse(answer)
+
     if req.type == 1:
             print "Asking: %s" % (req.message)
             ex = wx.App()
@@ -25,11 +43,12 @@ def handle_dialog(req):
         #dial.Destroy()
             return DialogResponse(answer)
 
-    if req.type == 0:
+
+    if req.type == 2:
             print "Confirm: %s" % (req.message)
             ex = wx.App()
             dial = wx.MessageDialog(None, req.message, 'Confirm',
-                            wx.OK | wx.ICON_WARNING)
+                            wx.OK | wx.ICON_INFORMATION)
             ret = dial.ShowModal()
             if ret == wx.ID_OK:
                     answer = True

@@ -48,7 +48,7 @@ def run():
 	
 	
 	test.log_file.close()
-	dialog_client(0, 'The test finished, please see the result on \n %s' %(test.complete_name))
+	dialog_client(2, 'The test finished, please see the result on \n %s' %(test.complete_name))
 
 
 class HardwareTest:
