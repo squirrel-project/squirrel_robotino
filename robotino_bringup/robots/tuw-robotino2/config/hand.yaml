@@ -1,0 +1,14 @@
+---
+##Vienna hand config parameters 
+
+##motor direction 
+motor_direction: [1, -1, -1, -1, 1]
+
+joint_sensor_calibration:
+  palm_sensor1: 773.0
+  palm_sensor2: 786.0
+  finger_sensor3: 501.0
+  finger_sensor4: 500.0
+  finger_sensor5: 507.0
+
+left_finger_sensor_direction: -1
