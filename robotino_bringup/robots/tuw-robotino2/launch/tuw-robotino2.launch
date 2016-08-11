@@ -80,11 +80,14 @@
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
 
-  <!--group ns="hand_controller">
+  <group ns="hand_controller">
     <remap from="robot_description" to="/robot_description" />
-    <include file="$(find robotino_bringup)/launch/kclhand_$(arg robot).launch" />
+    <include file="$(find robotino_bringup)/launch/kclhand.launch" >
+	  	  <arg name="robot" value="$(arg robot)" />
+	  	  <arg name="port" value="/dev/ttyHand"/>
+    </include>
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
-  </group-->
+  </group>
 
   <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
     <arg name="robot" value="$(arg robot)" />

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="robot">
+  
+  <xacro:include filename="$(find robotino_bringup)/robots/kcl-hand/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
+  <xacro:include filename="$(find kclhand_description)/urdf/kclhand.urdf.xacro" />
+
+  <link name="world"/>
+
+  <!-- hand -->
+  <xacro:kclhand name="hand" parent="world">
+    <origin xyz="0 0 0.25" rpy="1.57 0 0" />
+  </xacro:kclhand>
+
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>hand_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
+</robot>
