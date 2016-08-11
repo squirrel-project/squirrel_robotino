@@ -13,7 +13,7 @@ def handle_dialog(req):
             print "Confirm: %s" % (req.message)
             ex = wx.App()
             dial = wx.MessageDialog(None, req.message, 'Confirm',
-                            wx.OK | wx.ICON_WARNING)
+                            wx.OK | wx.ICON_INFORMATION)
             ret = dial.ShowModal()
             if ret == wx.ID_OK:
                     answer = True

@@ -19,22 +19,31 @@ def run():
 	test.log_file.write('\n\n[MOVE_TEST] [%s]' %(time.strftime('%H:%M:%S')))
 
 	for component in test.actuators:
-		test.log_file.write('\n  %s: ' %(component['name']))
-		if component['name'] == 'base' :
-				if test.move_base() and test.dialog(component['name']):
-					test.log_file.write('\t<<OK>>')
-				else:
-					test.log_file.write('\t<<FAIL>>')					
-		if component['name'] == 'pan' :
-				if test.move_pan() and test.dialog(component['name']):
-					test.log_file.write('\t<<OK>>')
-				else:
-					test.log_file.write('\t<<FAIL>>')					
-		if component['name'] == 'tilt' :
-				if test.move_tilt() and test.dialog(component['name']):
-					test.log_file.write('\t<<OK>>')
-				else:
-					test.log_file.write('\t<<FAIL>>')		
+		if dialog_client(1, 'Move %s?' %(component['name'])):
+			test.log_file.write('\n %s: ' %(component['name']))
+
+			if component['name'] == 'base' :
+					if test.move_base() and test.dialog(component['name']):
+						test.log_file.write('\t<<OK>>')
+					else:
+						test.log_file.write('\t<<FAIL>>')					
+			if component['name'] == 'pan' :
+					if test.move_pan() and test.dialog(component['name']):
+						test.log_file.write('\t<<OK>>')
+					else:
+						test.log_file.write('\t<<FAIL>>')					
+			if component['name'] == 'tilt' :
+					if test.move_tilt() and test.dialog(component['name']):
+						test.log_file.write('\t<<OK>>')
+					else:
+						test.log_file.write('\t<<FAIL>>')
+			if component['name'] == 'arm' :
+					if test.move_arm() and test.dialog(component['name']):
+						test.log_file.write('\t<<OK>>')
+					else:
+						test.log_file.write('\t<<FAIL>>')	
+		else:
+			test.log_file.write('\n  %s: not tested' %(component['name']))
 
 	# Sensor test
 	test.log_file.write('\n\n[SENSOR_TEST] [%s]' %(time.strftime('%H:%M:%S')))
@@ -65,7 +74,7 @@ class HardwareTest:
 		rospy.init_node('hardware_test')
 		
 		### INTERNAL PARAMETERS
-		self.wait_time = 1		# waiting time (in seconds) before trying initialization again
+		self.wait_time = 5		# waiting time (in seconds) before trying initialization again
 		self.wait_time_recover = 1
 		self.wait_time_diag = 3
 		###
@@ -114,8 +123,6 @@ class HardwareTest:
 		self.log_file.write('Robotino Hardware test')
 		self.log_file.write('\n%s \n%s' %(time.strftime('%d.%m.%Y'), time.strftime('%H:%M:%S')))
 		self.print_topic('TESTED COMPONENTS')
-		if self.base_params:
-			self.log_file.write('\n  base')
 		if self.actuators:
 			for actuator in self.actuators:
 				self.log_file.write('\n  ' + actuator['name'])
@@ -131,13 +138,14 @@ class HardwareTest:
 				for key_3, value in params_3.iteritems():
 					self.log_file.write('\n    %s: %s' %(key_3, value))
 					
-		self.print_topic('TEST LOG')
+		self.print_topic('!!!!!!!!!!!!!!!!!!!!TEST LOG!!!!!!!!!!!!!!!!!!!!')
 
 	def move_pan(self):
 		try:
-			pub = rospy.Publisher('/pan_controller/command', Float64, queue_size=1)
+			pub = rospy.Publisher('/pan_controller/command', Float64, queue_size=10)
+			rospy.sleep(2.0)
 			pos = Float64()
-			pos.data = 0.5
+			pos.data = 1.5
 			pub.publish(pos)
 		except rospy.ROSException, e:
 			return(False,0)
@@ -145,9 +153,10 @@ class HardwareTest:
 
 	def move_tilt(self):
 		try:
-			pub = rospy.Publisher('/tilt_controller/command', Float64, queue_size=1)
+			pub = rospy.Publisher('/tilt_controller/command', Float64, queue_size=10)
+			rospy.sleep(2.0)
 			pos = Float64()
-			pos.data = 0.5
+			pos.data = 1.5
 			pub.publish(pos)
 		except rospy.ROSException, e:
 			return(False,0)
@@ -168,12 +177,28 @@ class HardwareTest:
 		except rospy.ROSException, e:
 			return(False,0)
 		return(True, 0)
+
+	def move_arm(self):
+		try:
+			mode_pub = rospy.Publisher('/real/robotino/settings/switch_mode', Int32, queue_size=10, latch=True)
+			pub = rospy.Publisher('/real/robotino/joint_control/ptp', Float64MultiArray, queue_size=10)
+			rospy.sleep(2)
+
+			mode_pub.publish(data=10)
+			ptp_command = Float64MultiArray()
+			ptp_command.data = [float('nan'),float('nan'),float('nan'),float('nan'),float('nan'),float('nan'),0,float('nan')]
+			pub.publish(ptp_command)
+
+		except rospy.ROSException, e:
+			return(False,0)
+		return(True, 0)
 	
 	def check_sensor(self, topic, msg_type):
 		self.msg_received = False
 		if msg_type == "LaserScan": cb_func = self.cb_scanner
 		elif msg_type == "PointCloud2": cb_func = self.cb_point_cloud
 		elif msg_type == "Image": cb_func = self.cb_camera
+		elif msg_type == "Bool": cb_func = self.cb_bumper
 		else: raise NameError('Unknown message! No callback function defined for message type <<%s>>' %(msg_type))
 		
 		sub_topic = rospy.Subscriber(topic, eval(msg_type), cb_func)
@@ -231,6 +256,9 @@ class HardwareTest:
 		self.camera_msg = msg.data
 		self.msg_received = True
 		
+	def cb_bumper(self, msg):
+		self.bumper_msg = msg.data
+		self.msg_received = True
 
 
 if __name__ == '__main__':
