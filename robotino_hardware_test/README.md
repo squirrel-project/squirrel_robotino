@@ -26,10 +26,12 @@ rosdep install --from-path squirrel_robotino -i -y
 ```
 roslaunch robotino_hardware_test robot.launch robot:='robot_name' result_dir:='/tmp'
 ```
-By default the result will be saved on /tmp file, on the folder robotino_hardware_config/config/'robot_name'/ you can add new sensors or actuators to be tested.
-
+By default the result will be saved on /tmp file.
+On the folder robotino_hardware_config/config/'robot_name'/ you can add new sensors or actuators to be tested.
 Available robots:
 
 * tuw-robotino2: robotino base + pan/tilt axis + arm
 * uibk-robotino2: robotino base + pan/tilt axis + arm
+
+
 <a href="#top">top</a>
