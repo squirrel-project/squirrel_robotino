@@ -21,7 +21,7 @@ Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-proje
 The robotino-api2 has to be installed to compile the robotino_driver package: [robotino-api2](http://wiki.openrobotino.org/index.php?title=Install_daemons_v3)
 
 ####Squirrel packages
-This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private ones *squirrel_robotino_arm*, *squirrel_kclhand* and *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
+This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private ones *squirrel_kclhand* and *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
 
 ####ROS packages
 The ROS packages dependencies can be installed with the command:
