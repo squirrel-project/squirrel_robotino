@@ -13,7 +13,7 @@
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
   <!-- state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
-    <param name="publish_frequency" type="double" value="10.0" />
+    <param name="publish_frequency" type="double" value="50.0" />
   </node>
 
   <!-- robotino node -->
@@ -109,4 +109,6 @@
   <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
     <arg name="robot" value="$(arg robot)" />
   </include>
+
+  <include file="$(find robotino_bringup)/launch/cmd_rotatory_locker.launch" />
 </launch>
