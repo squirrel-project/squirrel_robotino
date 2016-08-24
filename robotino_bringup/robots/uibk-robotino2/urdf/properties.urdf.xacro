@@ -14,14 +14,6 @@
   <property name="KINECT_LENGTH" value="0.18"/>
   <property name="KINECT_WIDTH" value="0.035"/>
   <property name="KINECT_HEIGHT" value="0.02"/>
-
-  <!-- camera mount positions | handeye calibration | relative to base_link -->
-  <property name="camera_x" value="0.0"/>
-  <property name="camera_y" value="0.0"/>
-  <property name="camera_z" value="0.2"/>
-  <property name="camera_roll" value="0.0"/>
-  <property name="camera_pitch" value="0.0"/>
-  <property name="camera_yaw" value="-${M_PI/2}"/>
 	
   <!-- hokuyo mount positions | relative to base_link -->
   <property name="hokuyo_x" value="0.208610627"/>
