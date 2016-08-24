@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
-  name="robotino">
+  name="robot">
   
   <xacro:include filename="$(find robotino_bringup)/robots/alufr-robotino/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/tilt_axis.urdf.xacro" />
-  
-  <xacro:body name="base"/>
+  <xacro:include filename="$(find robotino_description)/urdf/arm.urdf.xacro" />
+
+  <xacro:base name="base"/>
 
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
@@ -21,8 +22,19 @@
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
-  
-  <tilt_axis name="tilt" parent="base_link">
+
+  <xacro:arm name="arm_" parent="base_link">
+    <origin xyz="${arm_x} ${arm_y} ${arm_z}" rpy="${arm_roll} ${arm_pitch} ${arm_yaw}"/>
+  </xacro:arm>
+
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>arm_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
+  <!--tilt_axis name="tilt" parent="base_link">
     <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/>
   </tilt_axis>
   
@@ -35,6 +47,6 @@
       <robotNamespace>tilt_controller</robotNamespace>
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
-  </gazebo>
+  </gazebo-->
   
 </robot>

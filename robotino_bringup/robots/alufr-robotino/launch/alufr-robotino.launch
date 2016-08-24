@@ -3,13 +3,12 @@
 
   <arg name="robot" default="alufr-robotino"/>
   <arg name="use_robotino_safety" value="true" />
-  <arg name="hostname" default="127.0.0.1" />
+  <arg name="hostname" default="127.0.1.1" />
   <param name="use_sim_time" value="false" />
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
-  <!-- state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
     <param name="publish_frequency" type="double" value="50.0" />
   </node>
@@ -49,7 +48,6 @@
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
-    <!-- Set the port to connect to here -->
     <param name="port" type="string" value="/dev/ttyScan"/> 
     <param name="frame_id" type="string" value="hokuyo_link"/> 
     <param name="intensity" type="bool" value="false"/>
@@ -66,7 +64,6 @@
   </include>
 
   <!-- Dynamixel servo based (pan)/tilt unit -->
-  <!-- Start the meta controller for all connected servos -->
   <include file="$(find robotino_bringup)/launch/dynamixel_controller_manager.launch" >
   </include>
   <!-- Spawn a new controller instance in the meta controller.
@@ -82,5 +79,16 @@
     <param name="tilt_status_topic" value="/tilt_controller/state" />
     <param name="startup_angle" value="0.6" />
   </node>
+
+  <group ns="real/robotino">
+	  <node name="robot_controller_node" pkg="uibk_robot_driver" type="robot_controller_node" output="screen">
+	  	  <remap from="cmd_rotatory" to="/cmd_rotatory"/>
+	  </node>
+    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>  
+  </group>
+
+  <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
+    <arg name="robot" value="$(arg robot)" />
+  </include>
 
 </launch>
