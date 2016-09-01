@@ -14,14 +14,6 @@
   <property name="KINECT_LENGTH" value="0.18"/>
   <property name="KINECT_WIDTH" value="0.035"/>
   <property name="KINECT_HEIGHT" value="0.02"/>
-
-  <!-- camera mount positions | handeye calibration | relative to base_link -->
-  <property name="camera_x" value="0.0"/>
-  <property name="camera_y" value="0.0"/>
-  <property name="camera_z" value="0.2"/>
-  <property name="camera_roll" value="0.0"/>
-  <property name="camera_pitch" value="0.0"/>
-  <property name="camera_yaw" value="-${M_PI/2}"/>
 	
   <!-- hokuyo mount positions | relative to base_link -->
   <property name="hokuyo_x" value="0.184"/>
@@ -31,12 +23,13 @@
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="-0.015"/>
 
-  <property name="pan_tilt_x" value="0.191663"/>
-  <property name="pan_tilt_y" value="0.175084"/>
-  <property name="pan_tilt_z" value="0.616622"/>
-  <property name="pan_tilt_roll" value="0.01724"/>
-  <property name="pan_tilt_pitch" value="0.0135072"/>
-  <property name="pan_tilt_yaw" value="1.09491"/>
+  <!-- pan-tilt mount positions | relative to base_link -->
+  <property name="pan_tilt_x" value="0.193"/> <!--base_radius+0.013-->
+  <property name="pan_tilt_y" value="0.005"/>
+  <property name="pan_tilt_z" value="0.61"/>
+  <property name="pan_tilt_roll" value="0.0"/>
+  <property name="pan_tilt_pitch" value="0.0"/>
+  <property name="pan_tilt_yaw" value="0.0"/>
 
   <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
   <property name="kinect_x" value="-0.031924"/>
@@ -45,32 +38,6 @@
   <property name="kinect_roll" value="-1.56948"/>
   <property name="kinect_pitch" value="0.00219856"/>
   <property name="kinect_yaw" value="0.00966127"/>
-
-  <!-- Federicos paramters-->
-  <!-- pan_tilt mount positions | handeye calibration | relative to base_pan_link -->
-  <!--<property name="pan_tilt_x" value="0.145"/>
-  <property name="pan_tilt_y" value="0.194"/>
-  <property name="pan_tilt_z" value="0.64"/>
-  <property name="pan_tilt_roll" value="0.0"/>
-  <property name="pan_tilt_pitch" value="0.0"/>
-  <property name="pan_tilt_yaw" value="1.0472"/> -->
-	
-  <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
-  <!-- good for 0.75 -->
-  <!--<property name="kinect_x" value="0.03129"/>
-  <property name="kinect_y" value="0.038"/>
-  <property name="kinect_z" value="-0.0"/>
-  <property name="kinect_roll" value="-1.56905"/>
-  <property name="kinect_pitch" value="0.0434565"/>
-  <property name="kinect_yaw" value="0.00767917"/> -->
-
-  <!-- good for 0.75 -->
-  <!-- <property name="kinect_x" value="0.03129"/> -->
-  <!-- <property name="kinect_y" value="0.038"/> -->
-  <!-- <property name="kinect_z" value="-0.0"/> -->
-  <!-- <property name="kinect_roll" value="-1.56905"/> -->
-  <!-- <property name="kinect_pitch" value="0.0434565"/> -->
-  <!-- <property name="kinect_yaw" value="0.00667917"/> -->
 
 
 </robot>

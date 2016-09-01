@@ -5,8 +5,6 @@
   <arg name="use_robotino_safety" value="true" />
   <arg name="hostname" default="127.0.1.1" />
   <param name="use_sim_time" value="false" />
-  <arg name="use_velocity_controller" value="false" />
-
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
@@ -38,7 +36,6 @@
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
     <param name="hostname" value="$(arg hostname)" />
   </node>
-
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
