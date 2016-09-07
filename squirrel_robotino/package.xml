@@ -14,6 +14,7 @@
   <run_depend>robotino_bringup_sim</run_depend>
   <run_depend>robotino_controller_configuration_gazebo</run_depend>
   <run_depend>robotino_gazebo_worlds</run_depend>
+  <run_depend>robotino_hardware_test</run_depend>
 
   <export>
     <metapackage/>

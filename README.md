@@ -25,7 +25,7 @@ sudo apt-get update
 sudo apt-get install robotino-api2
 ```
 ####Squirrel packages
-This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private ones *squirrel_robotino_arm*, *squirrel_kclhand* and *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
+This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private ones *squirrel_kclhand* and *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
 
 ####ROS packages
 The ROS packages dependencies can be installed with the command:
@@ -54,6 +54,8 @@ Available robots:
 ## 3. Software architecture <a id="3--software-architecture"/> 
 
 robotino_node: ![robotino_node](https://github.com/squirrel-project/squirrel_robotino/blob/indigo_dev/robotino_node.png "Architecture")
+
+robotino_simulation: ![robotino_simulation](https://github.com/squirrel-project/squirrel_robotino/blob/indigo_dev/squirrel_simulation.png "Architecture")
 
 ## 4. Dynamixel servos <a id="4--dynamixel-servos"/> 
 

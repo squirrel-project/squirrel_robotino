@@ -1,0 +1,23 @@
+---
+
+set_motor_current_value: 250
+set_motor_holding_current: 250
+
+lower_sphere_parallel_grasp: [25,25,-20,-20,-20]
+lower_sphere_cylindrical_grasp: [60,60,5,-10,5]
+lower_sphere_central_grasp: [40,40,-5,-10,-5]
+upper_sphere_parallel_grasp: [-15,-15,-20,-20,-20]
+upper_sphere_cylindrical_grasp: [-60,-60,-60,-40,-60]
+upper_sphere_central_grasp: [-30,-35,-60,-45,-60]
+
+
+
+switch_to_upper_sphere_angle:
+  - [60, 60, -20, -20, -20]
+  - [60, -10, -20, -20, -20]
+  - [-20, -20, -30, -30, -30]
+
+switch_to_lower_sphere_angle: 
+  - [-30,-30,-20,-20,-20]
+  - [70, -10, -20, -20, -20]
+  - [60, 60, -30, -30, -30]

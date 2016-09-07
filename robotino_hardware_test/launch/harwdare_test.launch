@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+    <!--arg name="sim" default="false" /-->
+    <arg name="result_dir" default="/tmp"/>
+
+    <!-- start dialog service -->
+    <node pkg="robotino_hardware_test" type="dialog.py" name="dialog_server"/>
+
+    <!-- include test -->
+    <node name="robotino_hardware_test" pkg="robotino_hardware_test" type="hardware_test.py" >
+        <rosparam command="load" ns="/hardware_test/components" file="$(find robotino_hardware_test)/config/$(arg robot)/hardware_test.yaml" />
+        <param name="result_dir" value="$(arg result_dir)" type="str" />
+        <!--param name="sim" value="$(arg sim)" /-->
+    </node>
+
+</launch>

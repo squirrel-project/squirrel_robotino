@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>robotino_hardware_test</name>
+  <version>0.0.0</version>
+  <description>The robotino_hardware_test package</description>
+
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+
+</package>

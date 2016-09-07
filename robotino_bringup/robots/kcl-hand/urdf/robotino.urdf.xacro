@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="robot">
+  
+  <xacro:include filename="$(find robotino_bringup)/robots/kcl-hand/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
+  <xacro:include filename="$(find kclhand_description)/urdf/kclhand.urdf.xacro" />
+
+  <link name="base_link">
+    <inertial>
+      <mass value="3" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.3" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.6" radius="0.1"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.3" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.6" radius="0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- hand -->
+  <xacro:kclhand name="hand" parent="base_link">
+    <origin xyz="0 0 0.55" rpy="1.57 0 0" />
+  </xacro:kclhand>
+
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>hand_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
+</robot>
