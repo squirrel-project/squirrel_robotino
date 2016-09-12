@@ -31,3 +31,6 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+robot.gv
+robot.pdf
