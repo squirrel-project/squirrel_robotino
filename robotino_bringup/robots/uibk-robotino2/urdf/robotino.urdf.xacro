@@ -12,6 +12,16 @@
   <xacro:include filename="$(find robotino_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
 
   <xacro:base name="base"/>
+  
+  <link name="origin">
+      <inertial>
+        <mass value="10" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="75.0" ixy="0.0" ixz="0.0"
+          iyy="75.0" iyz="0.0"
+          izz="75.0" />
+      </inertial>
+    </link>
 
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
@@ -20,7 +30,7 @@
     </plugin>
   </gazebo>
 
-  <hokuyo name="hokuyo" parent="base_linkz">
+  <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
@@ -46,7 +56,7 @@
     </plugin>
   </gazebo>
 
-  <pan_tilt_axis parent="base_linkz">
+  <pan_tilt_axis parent="base_link">
     <origin xyz="${pan_tilt_x} ${pan_tilt_y} ${pan_tilt_z}" rpy="${pan_tilt_roll} ${pan_tilt_pitch} ${pan_tilt_yaw}"/>
   </pan_tilt_axis>
 
