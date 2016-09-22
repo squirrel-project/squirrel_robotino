@@ -18,8 +18,12 @@ Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-proje
 ## 1. Installation Requirements: <a id="1--installation-requirements"/> 
 
 ####Debian packages
-The robotino-api2 has to be installed to compile the robotino_driver package: [robotino-api2](http://wiki.openrobotino.org/index.php?title=Install_daemons_v3)
-
+The robotino-api2 has to be installed to compile the robotino_driver package: 
+```
+echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list
+sudo apt-get update 
+sudo apt-get install robotino-api2
+```
 ####Squirrel packages
 This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private ones *squirrel_kclhand* and *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
 

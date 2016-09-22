@@ -85,5 +85,11 @@
   <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
     <arg name="robot" value="$(arg robot)" />
   </include>
+  
+  <include file="$(find airskin)/launch/startup.launch" >
+  </include>
+  
+  <include file="$(find robotino_bringup)/launch/origin_odom.launch" >
+  </include>
 
 </launch>

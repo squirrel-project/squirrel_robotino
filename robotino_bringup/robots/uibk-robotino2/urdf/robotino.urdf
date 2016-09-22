@@ -7,7 +7,6 @@
   <!-- ****************** -->
   <!-- ***** COMMON ***** -->
   <!-- ****************** -->
-  <!-- camera mount positions | handeye calibration | relative to base_link -->
   <!-- hokuyo mount positions | relative to base_link -->
   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
   <!--property name="pan_tilt_x" value="0.310911"/>
@@ -31,6 +30,13 @@
   <!-- Wheel transmission   -->
   <!--GAZEBO PLUGIN-->
   <!-- GAZEBO OPENNI PLUGIN -->
+  <joint name="origin_joint" type="prismatic">
+    <parent link="origin"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="190" lower="-10" upper="10" velocity="30"/>
+  </joint>
   <link name="base_link">
     <inertial>
       <mass value="10"/>
@@ -39,7 +45,8 @@
     </inertial>
   </link>
   <joint name="base_jointx" type="prismatic">
-    <parent link="base_link"/>
+    <!--      <parent link="${name}_link"/>-->
+    <parent link="origin"/>
     <child link="base_linkx"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="1 0 0"/>
@@ -262,6 +269,13 @@
       <fdir1>0 1 0</fdir1>
       <maxContacts>1</maxContacts>
     </gazebo-->
+  <link name="origin">
+    <inertial>
+      <mass value="10"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="75.0" ixy="0.0" ixz="0.0" iyy="75.0" iyz="0.0" izz="75.0"/>
+    </inertial>
+  </link>
   <gazebo>
     <plugin filename="libhwi_switch_gazebo_ros_control.so" name="ros_control">
       <robotNamespace>base_controller</robotNamespace>
@@ -269,8 +283,8 @@
     </plugin>
   </gazebo>
   <joint name="hokuyo_joint" type="fixed">
-    <origin rpy="0.0 0.0 0.0" xyz="0.208610627 0.0 0.15"/>
-    <parent link="base_linkz"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.208610627 0.0 0.095"/>
+    <parent link="base_link"/>
     <child link="hokuyo_link"/>
   </joint>
   <link name="hokuyo_link">
@@ -1083,7 +1097,7 @@
   </gazebo>
   <joint name="profile_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="base_linkz"/>
+    <parent link="base_link"/>
     <child link="profile_link"/>
   </joint>
   <link name="profile_link">
@@ -1112,7 +1126,7 @@
     <material>Gazebo/Black</material>
   </gazebo>
   <joint name="base_pan_joint" type="fixed">
-    <origin rpy="-0.0832053 -0.0319834 0.0585037" xyz="0.320469 0.00236992 0.658982"/>
+    <origin rpy="0.012045 -0.0565489 0.0113182" xyz="0.257201 0.0587815 0.637117"/>
     <parent link="profile_link"/>
     <child link="base_pan_link"/>
   </joint>
@@ -1202,7 +1216,7 @@
     <self_collide>false</self_collide>
   </gazebo>
   <joint name="kinect_joint" type="fixed">
-    <origin rpy="1.65 -3.05142 3.13415" xyz="0.0341998 0.117973 -0.0696038"/>
+    <origin rpy="1.57297 -3.11833 3.10173" xyz="0.0772857 0.117459 -0.0273189"/>
     <parent link="tilt_link"/>
     <child link="kinect_link"/>
   </joint>
