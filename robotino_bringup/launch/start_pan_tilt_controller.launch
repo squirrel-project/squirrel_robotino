@@ -5,11 +5,7 @@
   
   <!-- Start tilt joint controller -->
   <rosparam file="$(find robotino_bringup)/robots/$(arg robot)/config/pan_tilt.yaml" command="load"/>
-  <node name="pan_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
-          args="--manager=dxl_manager
-                --port pan_tilt_port
-                pan_controller tilt_controller"
-          output="screen"/>
+  <node name="pan_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py" args="--manager=dxl_manager --port pan_tilt_port pan_controller tilt_controller" output="screen"/>
 
   <node name="dynamixel_pan_state_publisher" pkg="robotino_bringup" type="dynamixel_joint_state_publisher.py" output="screen">
     <param name="joint_name" value="pan"/>

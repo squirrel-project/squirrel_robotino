@@ -13,7 +13,7 @@ local.properties
 .loadpath
 *~
 *.orig
-
+*.pyc
 # External tool builders
 .externalToolBuilders/
 

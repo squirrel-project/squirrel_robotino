@@ -48,15 +48,41 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
 )
 
-add_executable(robotino_controller_configuration_gazebo_node
+add_executable(base_sim_controller
   src/RobotinoControllerNode.cpp
   src/RobotinoController.cpp
 )
 
-target_link_libraries(robotino_controller_configuration_gazebo_node
+add_executable(base_sim_odometry
+  src/OdometryController.cpp
+)
+
+#add_executable(arm_sim_controller
+#  src/ArmController.cpp
+#)
+
+#add_executable(rotatory_sim_control
+#src/RotatorySimControl.cpp)
+
+target_link_libraries(base_sim_controller
   ${catkin_LIBRARIES}
   ${Boost_LIBRARIES}
 )
+
+target_link_libraries(base_sim_odometry
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
+
+#target_link_libraries(arm_sim_controller
+#  ${catkin_LIBRARIES}
+#  ${Boost_LIBRARIES}
+#)
+
+#target_link_libraries(rotatory_sim_control
+#  ${catkin_LIBRARIES}
+#  ${Boost_LIBRARIES}
+#)
 
 ## Mark cpp header files for installation
 
@@ -68,10 +94,6 @@ install(DIRECTORY controller
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(DIRECTORY robots
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
 install(DIRECTORY include/${PROJECT_NAME}
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
@@ -79,7 +101,6 @@ install(DIRECTORY include/${PROJECT_NAME}
 )
 
 install(TARGETS 
-  robotino_controller_configuration_gazebo_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
