@@ -43,6 +43,7 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
+  <include file="$(find robotino_bringup)/launch/origin_odom.launch" />
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">

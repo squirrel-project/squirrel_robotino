@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
-  name="robotino">
+  name="robot">
 
   <xacro:include filename="$(find robotino_bringup)/robots/uibk-robotino/urdf/properties.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/robotino_body.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/pan_tilt_axis.urdf.xacro" />
 
-  <xacro:body name="base"/>
+  <xacro:base name="base" has_8dof="false"/>
 
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
@@ -18,11 +17,11 @@
     </plugin>
   </gazebo>
 
-  <hokuyo name="hokuyo" parent="base_link">
+  <hokuyo name="hokuyo" parent="base_linkz">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
-  <pan_tilt_axis parent="base_link">
+  <pan_tilt_axis parent="base_linkz">
     <origin xyz="${pan_tilt_x} ${pan_tilt_y} ${pan_tilt_z}" rpy="${pan_tilt_roll} ${pan_tilt_pitch} ${pan_tilt_yaw}"/>
   </pan_tilt_axis>
 

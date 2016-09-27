@@ -17,7 +17,9 @@
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/joint_state_controller.launch" />
 
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" />
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" >
+    <arg name="has_8dof" value="true" />
+  </include>
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/arm_controller.launch" />
 

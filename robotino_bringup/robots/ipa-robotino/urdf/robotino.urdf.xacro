@@ -3,13 +3,12 @@
   name="robot">
   
   <xacro:include filename="$(find robotino_bringup)/robots/ipa-robotino/urdf/properties.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/tilt_axis.urdf.xacro" />
 
-  <xacro:base name="base"/>
+  <xacro:base name="base" has_8dof="false"/>
 
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
@@ -18,11 +17,11 @@
     </plugin>
   </gazebo>
 
-  <hokuyo name="hokuyo" parent="base_link">
+  <hokuyo name="hokuyo" parent="base_linkz">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
-  <tilt_axis name="tilt" parent="base_link">
+  <tilt_axis name="tilt" parent="base_linkz">
     <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/>
   </tilt_axis>
 
