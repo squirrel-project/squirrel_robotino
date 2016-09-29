@@ -17,11 +17,11 @@
     </plugin>
   </gazebo>
 
-  <hokuyo name="hokuyo" parent="base_linkz">
+  <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
-  <pan_tilt_axis parent="base_linkz">
+  <pan_tilt_axis parent="base_link">
     <origin xyz="${pan_tilt_x} ${pan_tilt_y} ${pan_tilt_z}" rpy="${pan_tilt_roll} ${pan_tilt_pitch} ${pan_tilt_yaw}"/>
   </pan_tilt_axis>
 
