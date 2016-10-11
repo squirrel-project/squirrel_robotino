@@ -1,0 +1,14 @@
+---
+##Innsbruck hand config parameters 
+
+##motor direction 
+motor_direction: [1, -1, -1, -1, 1]
+
+joint_sensor_calibration:
+  palm_sensor1: 761.0
+  palm_sensor2: 789.0
+  finger_sensor3: 486.0
+  finger_sensor4: 530.0
+  finger_sensor5: 508.0
+
+left_finger_sensor_direction: 1
