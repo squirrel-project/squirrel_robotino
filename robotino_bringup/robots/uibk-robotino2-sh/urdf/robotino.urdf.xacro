@@ -36,7 +36,7 @@
   </gazebo>
 
   <xacro:soft_hand name="hand" parent="arm_link5" withAdaptiveTransmission="false" useMimicTag="false" left="false">
-    <origin xyz="0 0 0" rpy="1.5707963 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:soft_hand>
 
   <gazebo>

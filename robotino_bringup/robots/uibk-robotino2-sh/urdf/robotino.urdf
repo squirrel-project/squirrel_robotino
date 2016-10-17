@@ -726,18 +726,18 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://softhand_description/meshes/wrist.stl"/>
+        <mesh filename="package://soft_hand_description/meshes/wrist.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://softhand_description/meshes/wrist.stl"/>
+        <mesh filename="package://soft_hand_description/meshes/wrist.stl"/>
       </geometry>
     </collision>
   </link>
@@ -747,31 +747,31 @@ axis momenta are :
     <child link="hand_base_link"/>
   </joint>
   <!-- Angular adapter for SoftHand -->
-  <link name="hand_base_link">
+  <link name="hand_base_link" parent="hand_wrist_link">
     <inertial>
       <mass value="0.01"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="3.14 0.7854 3.14" xyz="-0.02 -0.145 0.07"/>
       <geometry>
-        <mesh filename="package://softhand_description/meshes/robotino_softhand_adapter.stl"/>
+        <mesh filename="package://soft_hand_description/meshes/robotino_softhand_adapter_scaled.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="3.14 0.7854 3.14" xyz="-0.02 -0.145 0.07"/>
       <geometry>
-        <mesh filename="package://softhand_description/meshes/robotino_softhand_adapter.stl"/>
+        <mesh filename="package://soft_hand_description/meshes/robotino_softhand_adapter_scaled.stl"/>
       </geometry>
     </collision>
   </link>
   <!-- CLAMP -->
   <joint name="hand_base_link_hand_clamp_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.01"/>
+    <origin rpy="0 -0.7854 0" xyz="-0.02 -0.145 0.07"/>
     <parent link="hand_base_link"/>
     <child link="hand_clamp"/>
   </joint>
