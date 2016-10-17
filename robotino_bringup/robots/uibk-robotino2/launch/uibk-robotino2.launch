@@ -37,6 +37,8 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
+  <include file="$(find robotino_bringup)/launch/origin_odom.launch" />
+
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
     <param name="port" type="string" value="/dev/ttyScan"/> 
@@ -67,17 +69,17 @@
   </node>
 
   <group ns="real/robotino">
-	  <node name="robot_controller_node" pkg="uibk_robot_driver" type="robot_controller_node" output="screen">
-	  	  <remap from="cmd_rotatory" to="/cmd_rotatory"/>
-	  </node>
+    <node name="robot_controller_node" pkg="uibk_robot_driver" type="robot_controller_node" output="screen">
+       <remap from="cmd_rotatory" to="/cmd_rotatory"/>
+    </node>
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
 
   <group ns="hand_controller">
     <remap from="robot_description" to="/robot_description" />
     <include file="$(find robotino_bringup)/launch/kclhand.launch" >
-	  	  <arg name="robot" value="$(arg robot)" />
-	  	  <arg name="port" value="/dev/ttyHand"/>
+      <arg name="robot" value="$(arg robot)" />
+      <arg name="port" value="/dev/ttyHand"/>
     </include>
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
@@ -87,9 +89,6 @@
   </include>
   
   <include file="$(find airskin)/launch/startup.launch" >
-  </include>
-  
-  <include file="$(find robotino_bringup)/launch/origin_odom.launch" >
   </include>
 
 </launch>

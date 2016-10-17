@@ -3,7 +3,6 @@
   name="robot">
   
   <xacro:include filename="$(find robotino_bringup)/robots/kcl-hand/urdf/properties.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/gazebo.urdf.xacro" />
   <xacro:include filename="$(find kclhand_description)/urdf/kclhand.urdf.xacro" />
 
   <link name="base_link">

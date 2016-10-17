@@ -24,3 +24,9 @@ locks:
   topic   : twist_mux/locks/pause_rotatory
   timeout : 0.0
   priority: 81
+-
+  name    : pause_sim
+  topic   : twist_mux/locks/pause_rotatory
+  timeout : 0.0
+  priority: 1
+
