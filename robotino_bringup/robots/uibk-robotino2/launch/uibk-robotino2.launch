@@ -41,8 +41,8 @@
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
-    <param name="port" type="string" value="/dev/ttyScan"/> 
-    <param name="frame_id" type="string" value="hokuyo_link"/> 
+    <param name="port" type="string" value="/dev/ttyScan"/>
+    <param name="frame_id" type="string" value="hokuyo_link"/>
     <param name="intensity" type="bool" value="false"/>
   </node>
 
