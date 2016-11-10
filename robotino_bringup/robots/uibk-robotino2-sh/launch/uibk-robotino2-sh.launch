@@ -77,9 +77,8 @@
     <arg name="robot" value="$(arg robot)" />
   </include>
 
-<!--  <include file="$(find airskin)/launch/startup.launch" >
-  </include> -->
- 
+  <!-- <include file="$(find airskin)/launch/startup.launch" > </include> -->
+  <node pkg="rostopic" type="rostopic" name="rostopic" args='pub  -r100 /airskin/arm_bumper std_msgs/Bool "data: false"'/> 
    <node pkg="tf" type="static_transform_publisher" name="origin_odom"
     args="0 0 0 0 0 0 odom origin 20" />
 
