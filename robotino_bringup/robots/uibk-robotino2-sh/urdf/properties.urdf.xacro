@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ****************** -->
+  <!-- ***** COMMON ***** -->
+  <!-- ****************** -->
+  <property name="M_PI" value="3.14159"/>
+  <property name="M_SCALE" value="0.01"/>
+  <property name="BASE_RADIUS" value="0.18"/>
+  <property name="BASE_HEIGHT" value="0.05"/>
+  <property name="BASE_MASS" value="20"/>
+  <property name="HOKUYO_RADIUS" value="0.02"/>
+  <property name="HOKUYO_LENGTH" value="0.07"/>
+  <property name="KINECT_LENGTH" value="0.18"/>
+  <property name="KINECT_WIDTH" value="0.035"/>
+  <property name="KINECT_HEIGHT" value="0.02"/>
+	
+  <!-- hokuyo mount positions | relative to base_link -->
+  <property name="hokuyo_x" value="0.208610627"/>
+  <property name="hokuyo_y" value="0.0"/>
+  <property name="hokuyo_z" value="0.095"/>
+  <property name="hokuyo_roll" value="0.0"/>
+  <property name="hokuyo_pitch" value="0.0"/>
+  <property name="hokuyo_yaw" value="0.0"/>
+
+ <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
+  <!--property name="pan_tilt_x" value="0.310911"/>
+  <property name="pan_tilt_y" value="0.0177173"/>
+  <property name="pan_tilt_z" value="0.683637"/>
+  <property name="pan_tilt_roll" value="3.0864"/>
+  <property name="pan_tilt_pitch" value="3.08658"/>
+  <property name="pan_tilt_yaw" value="3.13856"/-->
+
+  <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
+  <!--property name="kinect_x" value="0.0162762"/>
+  <property name="kinect_y" value="0.0736591"/>
+  <property name="kinect_z" value="-0.0649505"/>
+  <property name="kinect_roll" value="-1.53"/>
+  <property name="kinect_pitch" value="-0.0315698"/>
+  <property name="kinect_yaw" value="0.0239961"/-->
+
+  <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
+  <property name="pan_tilt_x" value="0.257201"/>
+  <property name="pan_tilt_y" value="0.0587815"/>
+  <property name="pan_tilt_z" value="0.637117"/>
+  <property name="pan_tilt_roll" value="0.012045"/>
+  <property name="pan_tilt_pitch" value="-0.0565489"/>
+  <property name="pan_tilt_yaw" value="0.0113182"/>
+
+  <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
+  <property name="kinect_x" value="0.0341998"/>
+  <property name="kinect_x" value="0.0772857"/>
+  <property name="kinect_y" value="0.117459"/>
+  <property name="kinect_z" value="-0.0273189"/>
+  <property name="kinect_roll" value="1.57297"/>
+  <property name="kinect_pitch" value="-3.11833"/>
+  <property name="kinect_yaw" value="3.10173"/>
+
+   <!-- arm mount positions | handeye calibration | relative to base_link -->
+  <property name="arm_x" value="0.0"/>
+  <property name="arm_y" value="-0.01591"/>
+  <property name="arm_z" value="0.32"/>
+  <property name="arm_roll" value="0.0"/>
+  <property name="arm_pitch" value="0.0"/>
+  <property name="arm_yaw" value="-1"/>
+	
+   <!-- arm calibration-->
+  <property name="arm_1_ref" value="0.0"/>
+  <property name="arm_2_ref" value="0.0"/>
+  <property name="arm_3_ref" value="0.0"/>
+  <property name="arm_4_ref" value="0.0"/>
+  <property name="arm_5_ref" value="0.0"/>
+  <property name="arm_6_ref" value="0.0"/>
+</robot>
