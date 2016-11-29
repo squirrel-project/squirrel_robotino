@@ -173,6 +173,13 @@ axis momenta are :
   <!-- THUMB MODEL -->
   <!-- It has one joint less than rest of fingers -->
   <!-- SOFT HAND MODEL -->
+  <joint name="origin_joint" type="prismatic">
+    <parent link="origin"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="190" lower="-10" upper="10" velocity="30"/>
+  </joint>
   <link name="base_link">
     <inertial>
       <mass value="10"/>
@@ -181,7 +188,7 @@ axis momenta are :
     </inertial>
   </link>
   <joint name="base_jointx" type="prismatic">
-    <parent link="base_link"/>
+    <parent link="origin"/>
     <child link="base_linkx"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="1 0 0"/>
@@ -404,6 +411,13 @@ axis momenta are :
       <fdir1>0 1 0</fdir1>
       <maxContacts>1</maxContacts>
     </gazebo-->
+  <link name="origin">
+    <inertial>
+      <mass value="10"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="75.0" ixy="0.0" ixz="0.0" iyy="75.0" iyz="0.0" izz="75.0"/>
+    </inertial>
+  </link>
   <gazebo>
     <plugin filename="libhwi_switch_gazebo_ros_control.so" name="ros_control">
       <robotNamespace>base_controller</robotNamespace>
@@ -714,7 +728,7 @@ axis momenta are :
   </gazebo>
   <!-- PACMAN VERION ALREADY INCLUDES THE COUPLER, CLAMP AND BASE -->
   <joint name="hand_wrist_joint" type="fixed">
-    <origin rpy="1.5707963 0 0" xyz="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="arm_link5"/>
     <child link="hand_wrist_link"/>
   </joint>
