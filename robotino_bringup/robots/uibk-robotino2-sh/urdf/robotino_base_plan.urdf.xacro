@@ -12,6 +12,16 @@
 
   <xacro:base name="base" has_8dof="true"/>
 
+  <link name="origin">
+    <inertial>
+      <mass value="10" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="75.0" ixy="0.0" ixz="0.0"
+        iyy="75.0" iyz="0.0"
+        izz="75.0" />
+    </inertial>
+  </link>
+
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
       <robotNamespace>base_controller</robotNamespace>
@@ -35,7 +45,7 @@
   </gazebo>
 
   <xacro:soft_hand name="hand" parent="arm_link5" withAdaptiveTransmission="false" useMimicTag="false" left="false">
-    <origin xyz="0 0 0" rpy="1.5707963 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:soft_hand>
 
   <gazebo>

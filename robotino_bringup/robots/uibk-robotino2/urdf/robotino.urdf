@@ -30,6 +30,13 @@
   <!--GAZEBO PLUGIN-->
   <!-- GAZEBO OPENNI PLUGIN -->
   <!--###### IF 8 DOF the joints can be moved ######-->
+  <joint name="origin_joint" type="prismatic">
+    <parent link="origin"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="190" lower="-10" upper="10" velocity="30"/>
+  </joint>
   <link name="base_link">
     <inertial>
       <mass value="10"/>
