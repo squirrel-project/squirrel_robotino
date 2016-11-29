@@ -41,6 +41,8 @@
     <!-- <remap from="/odom" to="/odom_encoder"/> -->
   </node>
 
+  <include file="$(find robotino_bringup)/launch/origin_odom.launch" />
+
   <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
     <param name="hostname" value="$(arg hostname)" />
     <param name="cameraNumber" value="0" />

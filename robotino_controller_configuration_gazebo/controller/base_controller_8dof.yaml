@@ -1,0 +1,18 @@
+#all
+joint_names: [wheel0_joint, wheel1_joint, wheel2_joint, base_jointx, base_jointy, base_jointz]
+
+## control_mode_adapter
+max_command_silence: 0.5
+
+## joint_state_controller
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+joint_group_velocity_controller:
+  type: velocity_controllers/JointGroupVelocityController
+  joints:
+     - wheel0_joint
+     - wheel1_joint
+     - wheel2_joint
+  required_drive_mode: 2

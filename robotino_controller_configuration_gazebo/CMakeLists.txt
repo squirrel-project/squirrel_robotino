@@ -57,6 +57,11 @@ add_executable(base_sim_odometry
   src/OdometryController.cpp
 )
 
+add_executable(base_cmd_sim src/BaseCmdPub.cpp)
+add_dependencies(base_cmd_sim ${catkin_EXPORTED_TARGETS})
+target_link_libraries(base_cmd_sim ${catkin_LIBRARIES})
+
+
 #add_executable(arm_sim_controller
 #  src/ArmController.cpp
 #)
@@ -73,6 +78,7 @@ target_link_libraries(base_sim_odometry
   ${catkin_LIBRARIES}
   ${Boost_LIBRARIES}
 )
+
 
 #target_link_libraries(arm_sim_controller
 #  ${catkin_LIBRARIES}

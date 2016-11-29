@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <launch>
 
-	<arg name="paused" default="false"/>
-	<arg name="robot" default="uibk-robotino"/>
+  <arg name="paused" default="false"/>
+  <arg name="robot" default="uibk-robotino"/>
 
-	<!-- send cob urdf to param server -->
+  <!-- send cob urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
-	
-	<!-- push robot_description to factory and spawn robot in gazebo -->
-	<node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
+    
+   <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
 
-	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
-	  <param name="publish_frequency" type="double" value="50.0" />
-	  <param name="tf_prefix" type="string" value="" />
-	</node>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
+    <param name="publish_frequency" type="double" value="50.0" />
+    <param name="tf_prefix" type="string" value="" />
+  </node>
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/joint_state_controller.launch" />
   

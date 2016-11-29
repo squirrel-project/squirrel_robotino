@@ -7,17 +7,27 @@
 
 topics:
 -
+  name    : teleop
+  topic   : cmd_teleop
+  timeout : 0.25
+  priority: 100
+-
   name    : navigation
   topic   : cmd_navigation
   timeout : 0.25
-  priority: 100
+  priority: 90
 -
   name    : pushing
   topic   : cmd_pushing
   timeout : 0.25
-  priority: 90
+  priority: 80
 -
   name    : rotatory
   topic   : cmd_rotatory
   timeout : 0.5
-  priority: 80
+  priority: 70
+-
+  name    : simulation
+  topic   : cmd_sim
+  timeout : 0.5
+  priority: 1

@@ -38,6 +38,8 @@
     <param name="hostname" value="$(arg hostname)" />
   </node>
 
+  <include file="$(find robotino_bringup)/launch/origin_odom.launch" />
+
   <!-- we are not using a webcam
   <node name="robotino_camera_node" pkg="robotino_driver" type="robotino_camera_node" output="screen" ns="webcam">
     <param name="hostname" value="$(arg hostname)" />
