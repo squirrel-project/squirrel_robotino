@@ -283,7 +283,7 @@ axis momenta are :
       </geometry>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0.01 0 0"/>
+      <origin rpy="0 0 0" xyz="0.01 0 0.12"/>
       <geometry>
         <cylinder length="0.24" radius="0.23"/>
       </geometry>
