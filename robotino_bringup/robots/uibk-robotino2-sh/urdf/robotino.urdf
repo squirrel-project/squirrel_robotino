@@ -250,18 +250,6 @@ axis momenta are :
       <origin xyz="0 0 0"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
   </link>
   <link name="base_linky">
     <inertial>
@@ -269,18 +257,6 @@ axis momenta are :
       <origin xyz="0 0 0"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
   </link>
   <link name="base_linkz">
     <inertial>
@@ -288,18 +264,6 @@ axis momenta are :
       <origin xyz="0 0 0"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="base_body_joint" type="fixed">
     <parent link="base_linkz"/>
@@ -321,7 +285,7 @@ axis momenta are :
     <collision>
       <origin rpy="0 0 0" xyz="0.01 0 0"/>
       <geometry>
-        <mesh filename="package://robotino_description/meshes/RobotinoBody.stl"/>
+        <cylinder length="0.24" radius="0.23"/>
       </geometry>
     </collision>
   </link>
