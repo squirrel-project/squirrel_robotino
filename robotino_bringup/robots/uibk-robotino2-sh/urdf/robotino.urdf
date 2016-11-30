@@ -196,16 +196,7 @@ axis momenta are :
     <dynamics damping="1000.0" friction="1000.0"/>
     <safety_controller k_position="15" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="0.5"/>
   </joint>
-  <transmission name="base_jointx_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="base_jointx">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="base_jointx_motor">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
-      <mechanicalReduction>79.2380952381</mechanicalReduction>
-    </actuator>
-  </transmission>
+  <!--joints_transmission name="base_jointx" /-->
   <joint name="base_jointy" type="prismatic">
     <parent link="base_linkx"/>
     <child link="base_linky"/>
@@ -215,16 +206,7 @@ axis momenta are :
     <dynamics damping="1000.0" friction="1000.0"/>
     <safety_controller k_position="15" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="0.5"/>
   </joint>
-  <transmission name="base_jointy_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="base_jointy">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="base_jointy_motor">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
-      <mechanicalReduction>79.2380952381</mechanicalReduction>
-    </actuator>
-  </transmission>
+  <!--joints_transmission name="base_jointy" /-->
   <joint name="base_jointz" type="revolute">
     <parent link="base_linky"/>
     <child link="base_linkz"/>
@@ -234,16 +216,7 @@ axis momenta are :
     <dynamics damping="1000.0" friction="1000.0"/>
     <safety_controller k_position="15" k_velocity="10" soft_lower_limit="-2.0" soft_upper_limit="0.5"/>
   </joint>
-  <transmission name="base_jointz_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="base_jointz">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="base_jointz_motor">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
-      <mechanicalReduction>79.2380952381</mechanicalReduction>
-    </actuator>
-  </transmission>
+  <!--joints_transmission name="base_jointz" /-->
   <link name="base_linkx">
     <inertial>
       <mass value="0.01"/>
