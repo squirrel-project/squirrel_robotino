@@ -24,12 +24,33 @@
   <property name="kinect_yaw" value="0.0239961"/-->
   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
   <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
+  <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
+  <!--property name="pan_tilt_x" value="0.257201"/>
+  <property name="pan_tilt_y" value="0.0587815"/>
+  <property name="pan_tilt_z" value="0.637117"/>
+  <property name="pan_tilt_roll" value="0.012045"/>
+  <property name="pan_tilt_pitch" value="-0.0565489"/>
+  <property name="pan_tilt_yaw" value="0.0113182"/-->
+  <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
+  <!--property name="kinect_x" value="0.0772857"/>
+  <property name="kinect_y" value="0.117459"/>
+  <property name="kinect_z" value="-0.0273189"/>
+  <property name="kinect_roll" value="1.57297"/>
+  <property name="kinect_pitch" value="-3.11833"/>
+  <property name="kinect_yaw" value="3.10173"/-->
   <!-- arm mount positions | handeye calibration | relative to base_link -->
   <!-- arm calibration-->
   <!-- WHEEL -->
   <!--GAZEBO PLUGIN-->
   <!-- GAZEBO OPENNI PLUGIN -->
   <!--###### IF 8 DOF the joints can be moved ######-->
+  <link name="origin">
+    <inertial>
+      <mass value="10"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="75.0" ixy="0.0" ixz="0.0" iyy="75.0" iyz="0.0" izz="75.0"/>
+    </inertial>
+  </link>
   <joint name="origin_joint" type="prismatic">
     <parent link="origin"/>
     <child link="base_link"/>
@@ -1183,7 +1204,7 @@
     <material>Gazebo/Black</material>
   </gazebo>
   <joint name="base_pan_joint" type="fixed">
-    <origin rpy="0.012045 -0.0565489 0.0113182" xyz="0.257201 0.0587815 0.637117"/>
+    <origin rpy="-3.14019 3.06888 3.121" xyz="0.316119 0.00148515 0.693471"/>
     <parent link="profile_link"/>
     <child link="base_pan_link"/>
   </joint>
@@ -1273,7 +1294,7 @@
     <self_collide>false</self_collide>
   </gazebo>
   <joint name="kinect_joint" type="fixed">
-    <origin rpy="1.57297 -3.11833 3.10173" xyz="0.0772857 0.117459 -0.0273189"/>
+    <origin rpy="-1.57688 0.0102826 0.0812996" xyz="-0.0198375 0.0584679 -0.065069"/>
     <parent link="tilt_link"/>
     <child link="kinect_link"/>
   </joint>
