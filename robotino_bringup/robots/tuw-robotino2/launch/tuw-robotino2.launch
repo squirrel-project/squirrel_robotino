@@ -36,7 +36,7 @@
   </include>
 
   <include file="$(find airskin)/launch/startup.launch">
-   <arg name="device" value="/dev/ttyAirskin" />
+    <arg name="device" value="/dev/ttyAirskin" />
   </include>
 
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
