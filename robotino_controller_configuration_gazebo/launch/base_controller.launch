@@ -1,16 +1,27 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="has_8dof" default="false" />
+
   <group ns="base_controller">
-    <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/base_controller.yaml" command="load" />
+    <group if="$(arg has_8dof)">
+      <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/base_controller_8dof.yaml" command="load" />
+    </group>
+    <group unless="$(arg has_8dof)">
+      <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/base_controller.yaml" command="load" />
+    </group>
     <node name="joint_state_base_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true" />
     <node name="base_controller_vel_spawner" pkg="controller_manager" type="spawner" args="joint_group_velocity_controller" respawn="true"/>
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>   
-    <node pkg="robotino_controller_configuration_gazebo" name="robotino_controller" type="base_sim_controller" output="screen">
+    <!--node pkg="robotino_controller_configuration_gazebo" name="robotino_controller" type="base_sim_controller" output="screen">
     </node>
     <node pkg="robotino_controller_configuration_gazebo" name="odometry_controller" type="base_sim_odometry" output="screen">
       <remap from="odom" to="/odom" />
+    </node-->
+    <node pkg="robotino_controller_configuration_gazebo" name="robotino_cmd_sim" type="base_cmd_sim" output="screen">
+      <remap from="cmd_sim" to="/cmd_sim" />
     </node>
+    <include file="$(find robotino_bringup)/launch/origin_odom.launch" />
   </group>
 
 </launch>
