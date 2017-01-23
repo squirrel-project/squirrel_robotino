@@ -850,11 +850,11 @@ axis momenta are :
     </collision>
   </link>
   <!-- MOTOR JOINT -->
-  <joint name="hand_synergy_joint" type="revolute">
+  <joint name="hand_synergy_joint" type="fixed">
     <parent link="hand_palm_link"/>
     <child link="hand_invisible_wire_link"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="100" lower="0.0" upper="1.0" velocity="100000"/>
+    <!-- <axis xyz="0 0 1" />
+			<limit lower="${synergy_lb}" upper="${synergy_ub}" effort="${max_synergy_effort}" velocity="${max_synergy_velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_invisible_wire_link">
@@ -867,12 +867,12 @@ axis momenta are :
   <!-- THUMB AND FINGERS -->
   <!-- change anchor points accordingly to the leftness -->
   <!-- KNUCKLE -->
-  <joint name="hand_thumb_abd_joint" type="revolute">
+  <joint name="hand_thumb_abd_joint" type="fixed">
     <origin rpy="0.0 -0.38397275793662144 1.5707963267948966" xyz="0.00566972 0.0296160 0.0553140"/>
     <parent link="hand_palm_link"/>
     <child link="hand_thumb_knuckle_link"/>
-    <axis xyz="0 0 -1"/>
-    <limit effort="100" lower="0.0" upper="1.57079632679" velocity="100"/>
+    <!-- <axis xyz="0 0 -1" />
+				<limit lower="${thumb_abd_lb *pi/180}" upper="${thumb_abd_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_thumb_knuckle_link">
@@ -894,13 +894,13 @@ axis momenta are :
     </collision>
   </link>
   <!-- PROXIMAL PHALANGE -->
-  <joint name="hand_thumb_inner_joint" type="revolute">
+  <joint name="hand_thumb_inner_joint" type="fixed">
     <!-- <origin xyz="0.022500000 -0.003300000 0.0" rpy="0.42662757656587236 0.0 0.18131960430075023" /> -->
     <origin rpy="0.42662757656587236 0.0 0.0" xyz="0.022500000 -0.003300000 0.0"/>
     <parent link="hand_thumb_knuckle_link"/>
     <child link="hand_thumb_fake_link1"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+				<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_thumb_fake_link1">
@@ -910,13 +910,13 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_thumb_inner_joint_mimic" type="revolute">
+  <joint name="hand_thumb_inner_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_thumb_fake_link1"/>
     <child link="hand_thumb_proximal_link"/>
     <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
-    <dynamics damping="0.0" friction="0.0"/>
+    <!-- <limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/>
+			<dynamics damping="${damping}" friction="${friction}"/> -->
   </joint>
   <link name="hand_thumb_proximal_link">
     <inertial>
@@ -937,12 +937,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- DISTAL PHALANGE -->
-  <joint name="hand_thumb_outer_joint" type="revolute">
+  <joint name="hand_thumb_outer_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0.0"/>
     <parent link="hand_thumb_proximal_link"/>
     <child link="hand_thumb_fake_link3"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_thumb_fake_link3">
@@ -952,12 +952,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_thumb_outer_joint_mimic" type="revolute">
+  <joint name="hand_thumb_outer_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_thumb_fake_link3"/>
     <child link="hand_thumb_distal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_thumb_distal_link">
@@ -979,12 +979,18 @@ axis momenta are :
     </collision>
   </link>
   <!-- KNUCKLE -->
-  <joint name="hand_index_abd_joint" type="revolute">
+  <joint name="hand_index_abd_joint" type="fixed">
     <origin rpy="1.5707963267948966 -1.4835299330931884 1.5707963267948966" xyz="-0.0033 0.0195 0.0936994"/>
     <parent link="hand_palm_link"/>
     <child link="hand_index_knuckle_link"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="100" lower="-0.523598775598" upper="0.523598775598" velocity="100"/>
+    <!--
+			<xacro:if value="${left}">
+				<axis xyz="0 0 -1" />
+			</xacro:if>
+			<xacro:unless value="${left}">
+				<axis xyz="0 0 1" />
+			</xacro:unless> -->
+    <!-- <limit lower="${abd_lb *pi/180}" upper="${abd_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_index_knuckle_link">
@@ -1006,12 +1012,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- PROXIMAL PHALANGE -->
-  <joint name="hand_index_inner_joint" type="revolute">
+  <joint name="hand_index_inner_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_index_knuckle_link"/>
     <child link="hand_index_fake_link1"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_index_fake_link1">
@@ -1021,12 +1027,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_index_inner_joint_mimic" type="revolute">
+  <joint name="hand_index_inner_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_index_fake_link1"/>
     <child link="hand_index_proximal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_index_proximal_link">
@@ -1048,12 +1054,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- MIDDLE PHALANGE -->
-  <joint name="hand_index_middle_joint" type="revolute">
+  <joint name="hand_index_middle_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_index_proximal_link"/>
     <child link="hand_index_fake_link2"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_index_fake_link2">
@@ -1063,12 +1069,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_index_middle_joint_mimic" type="revolute">
+  <joint name="hand_index_middle_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_index_fake_link2"/>
     <child link="hand_index_middle_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_index_middle_link">
@@ -1090,12 +1096,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- DISTAL PHALANGE -->
-  <joint name="hand_index_outer_joint" type="revolute">
+  <joint name="hand_index_outer_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_index_middle_link"/>
     <child link="hand_index_fake_link3"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_index_fake_link3">
@@ -1105,12 +1111,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_index_outer_joint_mimic" type="revolute">
+  <joint name="hand_index_outer_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_index_fake_link3"/>
     <child link="hand_index_distal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_index_distal_link">
@@ -1132,12 +1138,18 @@ axis momenta are :
     </collision>
   </link>
   <!-- KNUCKLE -->
-  <joint name="hand_middle_abd_joint" type="revolute">
+  <joint name="hand_middle_abd_joint" type="fixed">
     <origin rpy="3.141592 -1.5707963267948966 0.0" xyz="-0.003300000 0.0 0.100699"/>
     <parent link="hand_palm_link"/>
     <child link="hand_middle_knuckle_link"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="100" lower="-0.523598775598" upper="0.523598775598" velocity="100"/>
+    <!--
+			<xacro:if value="${left}">
+				<axis xyz="0 0 -1" />
+			</xacro:if>
+			<xacro:unless value="${left}">
+				<axis xyz="0 0 1" />
+			</xacro:unless> -->
+    <!-- <limit lower="${abd_lb *pi/180}" upper="${abd_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_middle_knuckle_link">
@@ -1159,12 +1171,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- PROXIMAL PHALANGE -->
-  <joint name="hand_middle_inner_joint" type="revolute">
+  <joint name="hand_middle_inner_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_middle_knuckle_link"/>
     <child link="hand_middle_fake_link1"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_middle_fake_link1">
@@ -1174,12 +1186,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_middle_inner_joint_mimic" type="revolute">
+  <joint name="hand_middle_inner_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_middle_fake_link1"/>
     <child link="hand_middle_proximal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_middle_proximal_link">
@@ -1201,12 +1213,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- MIDDLE PHALANGE -->
-  <joint name="hand_middle_middle_joint" type="revolute">
+  <joint name="hand_middle_middle_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_middle_proximal_link"/>
     <child link="hand_middle_fake_link2"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_middle_fake_link2">
@@ -1216,12 +1228,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_middle_middle_joint_mimic" type="revolute">
+  <joint name="hand_middle_middle_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_middle_fake_link2"/>
     <child link="hand_middle_middle_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_middle_middle_link">
@@ -1243,12 +1255,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- DISTAL PHALANGE -->
-  <joint name="hand_middle_outer_joint" type="revolute">
+  <joint name="hand_middle_outer_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_middle_middle_link"/>
     <child link="hand_middle_fake_link3"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_middle_fake_link3">
@@ -1258,12 +1270,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_middle_outer_joint_mimic" type="revolute">
+  <joint name="hand_middle_outer_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_middle_fake_link3"/>
     <child link="hand_middle_distal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_middle_distal_link">
@@ -1285,12 +1297,18 @@ axis momenta are :
     </collision>
   </link>
   <!-- KNUCKLE -->
-  <joint name="hand_ring_abd_joint" type="revolute">
+  <joint name="hand_ring_abd_joint" type="fixed">
     <origin rpy="-1.5707963267948966 -1.5184364298870514 -1.5707963267948966 " xyz="-0.0033 -0.0195 0.0936994"/>
     <parent link="hand_palm_link"/>
     <child link="hand_ring_knuckle_link"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="100" lower="-0.523598775598" upper="0.523598775598" velocity="100"/>
+    <!--
+			<xacro:if value="${left}">
+				<axis xyz="0 0 -1" />
+			</xacro:if>
+			<xacro:unless value="${left}">
+				<axis xyz="0 0 1" />
+			</xacro:unless> -->
+    <!-- <limit lower="${abd_lb *pi/180}" upper="${abd_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_ring_knuckle_link">
@@ -1312,12 +1330,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- PROXIMAL PHALANGE -->
-  <joint name="hand_ring_inner_joint" type="revolute">
+  <joint name="hand_ring_inner_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_ring_knuckle_link"/>
     <child link="hand_ring_fake_link1"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_ring_fake_link1">
@@ -1327,12 +1345,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_ring_inner_joint_mimic" type="revolute">
+  <joint name="hand_ring_inner_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_ring_fake_link1"/>
     <child link="hand_ring_proximal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_ring_proximal_link">
@@ -1354,12 +1372,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- MIDDLE PHALANGE -->
-  <joint name="hand_ring_middle_joint" type="revolute">
+  <joint name="hand_ring_middle_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_ring_proximal_link"/>
     <child link="hand_ring_fake_link2"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_ring_fake_link2">
@@ -1369,12 +1387,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_ring_middle_joint_mimic" type="revolute">
+  <joint name="hand_ring_middle_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_ring_fake_link2"/>
     <child link="hand_ring_middle_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_ring_middle_link">
@@ -1396,12 +1414,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- DISTAL PHALANGE -->
-  <joint name="hand_ring_outer_joint" type="revolute">
+  <joint name="hand_ring_outer_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_ring_middle_link"/>
     <child link="hand_ring_fake_link3"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_ring_fake_link3">
@@ -1411,12 +1429,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_ring_outer_joint_mimic" type="revolute">
+  <joint name="hand_ring_outer_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_ring_fake_link3"/>
     <child link="hand_ring_distal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_ring_distal_link">
@@ -1438,12 +1456,18 @@ axis momenta are :
     </collision>
   </link>
   <!-- KNUCKLE -->
-  <joint name="hand_little_abd_joint" type="revolute">
+  <joint name="hand_little_abd_joint" type="fixed">
     <origin rpy="-1.5707963267948966 -1.4835299330931884 -1.5707963267948966" xyz="-0.0033 -0.039 0.0836994"/>
     <parent link="hand_palm_link"/>
     <child link="hand_little_knuckle_link"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="100" lower="-0.523598775598" upper="0.523598775598" velocity="100"/>
+    <!--
+			<xacro:if value="${left}">
+				<axis xyz="0 0 -1" />
+			</xacro:if>
+			<xacro:unless value="${left}">
+				<axis xyz="0 0 1" />
+			</xacro:unless> -->
+    <!-- <limit lower="${abd_lb *pi/180}" upper="${abd_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_little_knuckle_link">
@@ -1465,12 +1489,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- PROXIMAL PHALANGE -->
-  <joint name="hand_little_inner_joint" type="revolute">
+  <joint name="hand_little_inner_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_little_knuckle_link"/>
     <child link="hand_little_fake_link1"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_little_fake_link1">
@@ -1480,12 +1504,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_little_inner_joint_mimic" type="revolute">
+  <joint name="hand_little_inner_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_little_fake_link1"/>
     <child link="hand_little_proximal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${inner_lb *pi/180}" upper="${inner_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_little_proximal_link">
@@ -1507,12 +1531,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- MIDDLE PHALANGE -->
-  <joint name="hand_little_middle_joint" type="revolute">
+  <joint name="hand_little_middle_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_little_proximal_link"/>
     <child link="hand_little_fake_link2"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_little_fake_link2">
@@ -1522,12 +1546,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_little_middle_joint_mimic" type="revolute">
+  <joint name="hand_little_middle_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_little_fake_link2"/>
     <child link="hand_little_middle_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${middle_lb *pi/180}" upper="${middle_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_little_middle_link">
@@ -1549,12 +1573,12 @@ axis momenta are :
     </collision>
   </link>
   <!-- DISTAL PHALANGE -->
-  <joint name="hand_little_outer_joint" type="revolute">
+  <joint name="hand_little_outer_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.009 0 0"/>
     <parent link="hand_little_middle_link"/>
     <child link="hand_little_fake_link3"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_little_fake_link3">
@@ -1564,12 +1588,12 @@ axis momenta are :
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="hand_little_outer_joint_mimic" type="revolute">
+  <joint name="hand_little_outer_joint_mimic" type="fixed">
     <origin rpy="0 0 0" xyz="0.013 0 0"/>
     <parent link="hand_little_fake_link3"/>
     <child link="hand_little_distal_link"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="100" lower="0.0" upper="0.785398163397" velocity="100"/>
+    <!-- <axis xyz="0 -1 0" />
+			<limit lower="${outer_lb *pi/180}" upper="${outer_ub *pi/180}" effort="${effort}" velocity="${velocity}"/> -->
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="hand_little_distal_link">
