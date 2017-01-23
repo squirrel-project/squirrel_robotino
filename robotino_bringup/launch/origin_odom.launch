@@ -1,0 +1,7 @@
+<launch>
+
+  <node pkg="tf" type="static_transform_publisher" name="origin_odom"
+    args="0 0 0 0 0 0 odom origin 20" />  
+  
+</launch>
+

@@ -1,22 +1,23 @@
 <?xml version="1.0"?>
 <launch>
 
-	<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
-	<arg name="port" default="/dev/ttyACM0"/>
+<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+<arg name="port" default="/dev/ttyACM0"/>
 
-	<rosparam command= "load" file="$(find robotino_bringup)/robots/$(arg robot)/config/hand.yaml" />
-	<rosparam command= "load" file="$(find robotino_bringup)/config/hand_config_param.yaml" />
+<rosparam command= "load" file="$(find robotino_bringup)/robots/$(arg robot)/config/hand.yaml" />
+<rosparam command= "load" file="$(find robotino_bringup)/config/hand_config_param.yaml" />
 
-	<node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
-		<param name="~port" value="$(arg port)" />
-	</node>
+<!-- Note: there is also a state publisher in kclhand_control. No idea if we should use that.
+<node name="state_publisher" pkg="kclhand_control" type="state_publisher" />
+-->
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
-	<node name="get_joint_angle_sensor" pkg="kclhand_control" type="get_joint_angle_sensor_value.py" />
+<node pkg="rosserial_python" type="serial_node.py" name="serial_node">
+  <param name="~port" value="$(arg port)" />
+  <param name="~baud" value="57600" />
+</node>
 
-	<node name="get_fingertip_state" pkg="kclhand_control" type="get_fingertip_state.py" />
-
-	<node name="state_publisher" pkg="kclhand_control" type="state_publisher" />
-
-	<node name="squirrel_kclhand_controller"  pkg="kclhand_control" type="squirrel_kclhand_controller" />
+<node name="kclhand_controller"  pkg="kclhand_control" type="kclhand_controller" output="screen"/>
 
 </launch>
+
