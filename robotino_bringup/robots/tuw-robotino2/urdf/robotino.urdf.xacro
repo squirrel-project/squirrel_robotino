@@ -4,13 +4,14 @@
   
   <xacro:include filename="$(find robotino_bringup)/robots/tuw-robotino2/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/base_shell.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/pan_tilt_tuw_axis.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/arm.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
 
-  <xacro:base name="base" has_8dof="true"/>
+  <xacro:base name="base" has_8dof="false"/>
 
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
@@ -18,6 +19,10 @@
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
+
+  <xacro:shell name="base_shell" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:shell>
 
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
