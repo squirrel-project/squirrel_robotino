@@ -145,7 +145,10 @@ class HardwareTest:
 			pub = rospy.Publisher('/pan_controller/command', Float64, queue_size=10)
 			rospy.sleep(2.0)
 			pos = Float64()
-			pos.data = 1.5
+			pos.data = 1.0
+			pub.publish(pos)
+			rospy.sleep(2.0)
+			pos.data = 0.0
 			pub.publish(pos)
 		except rospy.ROSException, e:
 			return(False,0)
@@ -156,7 +159,10 @@ class HardwareTest:
 			pub = rospy.Publisher('/tilt_controller/command', Float64, queue_size=10)
 			rospy.sleep(2.0)
 			pos = Float64()
-			pos.data = 1.5
+			pos.data = 1.0
+			pub.publish(pos)
+			rospy.sleep(2.0)
+			pos.data = 0.0
 			pub.publish(pos)
 		except rospy.ROSException, e:
 			return(False,0)
@@ -181,12 +187,12 @@ class HardwareTest:
 	def move_arm(self):
 		try:
 			mode_pub = rospy.Publisher('/real/robotino/settings/switch_mode', Int32, queue_size=10, latch=True)
-			pub = rospy.Publisher('/real/robotino/joint_control/ptp', Float64MultiArray, queue_size=10)
+			pub = rospy.Publisher('/real/robotino/joint_control/move', Float64MultiArray, queue_size=10)
 			rospy.sleep(2)
 
 			mode_pub.publish(data=10)
 			ptp_command = Float64MultiArray()
-			ptp_command.data = [float('nan'),float('nan'),float('nan'),float('nan'),float('nan'),float('nan'),0,float('nan')]
+			ptp_command.data = [float('nan'),float('nan'),float('nan')+0.1,float('nan'),float('nan'),float('nan')+0.02,float('nan'),float('nan')-0.02]
 			pub.publish(ptp_command)
 
 		except rospy.ROSException, e:
