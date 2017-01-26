@@ -38,7 +38,7 @@
   <run_depend>rosserial_python</run_depend>
   <run_depend>uibk_robot_driver</run_depend>
   <run_depend>kclhand_control</run_depend>
-  <run_depend>soft_hand_description</run_depend>
+  <run_depend>softhand_description</run_depend>
 
   <export>
   </export>
