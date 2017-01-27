@@ -7,11 +7,6 @@
 <rosparam command= "load" file="$(find robotino_bringup)/robots/$(arg robot)/config/hand.yaml" />
 <rosparam command= "load" file="$(find robotino_bringup)/config/hand_config_param.yaml" />
 
-<!-- Note: there is also a state publisher in kclhand_control. No idea if we should use that.
-<node name="state_publisher" pkg="kclhand_control" type="state_publisher" />
--->
-<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
-
 <node pkg="rosserial_python" type="serial_node.py" name="serial_node">
   <param name="~port" value="$(arg port)" />
   <param name="~baud" value="57600" />
