@@ -10,7 +10,7 @@
 	<arg name="robot_env" default="simple_room"/>
 	
 	<!-- start gazebo with empty world -->
-	<include file="$(find robotino_gazebo_worlds)/launch/empty.launch">
+	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
 		<arg name="world_name" value="$(find robotino_gazebo_worlds)/worlds/empty.world"/>
 		<arg name="debug" value="$(arg debug)" />
 		<arg name="headless" value="$(arg headless)"/>
