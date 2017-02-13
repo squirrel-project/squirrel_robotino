@@ -10,5 +10,7 @@
 			<!--remap from="robotino_arm/joint_control/move" to="/sim/robotino_arm/joint_control/move"/-->
 		</node>
 		<node name="joint_states_relay_base" pkg="topic_tools" type="relay" args="/base/joint_states /joint_states" cwd="node" respawn="true" output="screen"/> 
+		<node pkg="rostopic" type="rostopic" args="pub /arm_controller/joint_group_position_controller/command std_msgs/Float64MultiArray '{layout: {dim: [{label: , size: 0, stride: 0}], data_offset: 0}, data: [-0.7,1.9,0,1.7,0]}'" name="arm_to_init_pos" output="screen"/>
+
 	</group> 
 </launch>
