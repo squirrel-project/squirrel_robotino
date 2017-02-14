@@ -6,9 +6,14 @@
 	<arg name="use_sim_time" default="true"/>
 	<arg name="gui" default="true"/>
 	<arg name="throttled" default="false"/>
-	
+	<arg name="marker"/>
 	<arg name="robot_env" default="simple_room"/>
-	
+
+  <!-- upload default configuration parameters -->
+  <include file="$(find robotino_gazebo_worlds)/launch/upload_object_locations.launch">
+    <arg name="robot_env" value="$(arg robot_env)" />
+  </include>
+
 	<!-- start gazebo with empty world -->
 	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
 		<arg name="world_name" value="$(find robotino_gazebo_worlds)/worlds/empty.world"/>
