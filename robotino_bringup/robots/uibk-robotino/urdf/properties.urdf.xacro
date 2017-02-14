@@ -27,15 +27,15 @@
   <!-- hokuyo mount positions | relative to base_link -->
   <property name="hokuyo_x" value="0.185"/>
   <property name="hokuyo_y" value="0.013"/>
-  <property name="hokuyo_z" value="0.102"/> <!-- not used, apprx -->
+  <property name="hokuyo_z" value="0.14"/> <!-- not used, apprx (0.102) -->
   <property name="hokuyo_roll" value="0.0"/>
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="-0.12"/>
 
   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
-  <property name="pan_tilt_x" value="0.25"/>
+  <property name="pan_tilt_x" value="0.3"/>
   <property name="pan_tilt_y" value="0.0"/>
-  <property name="pan_tilt_z" value="0.5"/>
+  <property name="pan_tilt_z" value="0.69"/>
   <property name="pan_tilt_roll" value="0"/>
   <property name="pan_tilt_pitch" value="0"/>
   <property name="pan_tilt_yaw" value="0"/>
