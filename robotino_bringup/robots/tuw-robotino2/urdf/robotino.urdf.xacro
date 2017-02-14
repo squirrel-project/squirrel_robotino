@@ -10,7 +10,7 @@
   <xacro:include filename="$(find robotino_description)/urdf/arm.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
 
-  <xacro:base name="base" has_8dof="true"/>
+  <xacro:base name="base" has_8dof="false"/>
 
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
