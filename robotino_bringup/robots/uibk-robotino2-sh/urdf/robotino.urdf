@@ -62,7 +62,7 @@
   <!-- I couldn't make the simulation work with realistic values, so I tweaked the conversion values -->
   <!-- not so negligible, otherwise simulation fails -->
   <!-- MESHLAB RESULT 
-Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/soft_hand_description/meshes/knuckle.stl in 9 msec
+Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/softhand_description/meshes/knuckle.stl in 9 msec
 All files opened in 1398 msec
 Enabled Decorate mode Show Axis
 Mesh Bounding Box Size 34.382004 14.000006 24.628571
@@ -83,7 +83,7 @@ axis momenta are :
 | 158254.859375 311858.250000 251804.656250 |
 -->
   <!-- MESHLAB RESULT 
-Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/soft_hand_description/meshes/thumb_knuckle.stl in 6 msec
+Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/softhand_description/meshes/thumb_knuckle.stl in 6 msec
 All files opened in 1493 msec
 Enabled Decorate mode Show Axis
 Mesh Bounding Box Size 38.298431 21.449932 21.967697
@@ -104,7 +104,7 @@ axis momenta are :
 | 118667.312500 342509.062500 330812.125000 |
 -->
   <!-- MESHLAB RESULT 
-Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/soft_hand_description/meshes/phalanx.stl in 8 msec
+Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/softhand_description/meshes/phalanx.stl in 8 msec
 All files opened in 1240 msec
 Mesh Bounding Box Size 25.158094 14.000006 18.515181
 Mesh Bounding Box Diag 34.230713 
@@ -124,7 +124,7 @@ axis momenta are :
 | 78687.148438 121398.343750 123771.585938 |
 -->
   <!-- MESHLAB RESULT 
-Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/soft_hand_description/meshes/fingertip.stl in 7 msec
+Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/softhand_description/meshes/fingertip.stl in 7 msec
 All files opened in 1241 msec
 Mesh Bounding Box Size 32.299561 14.000006 19.228573
 Mesh Bounding Box Diag 40.112339 
@@ -144,7 +144,7 @@ axis momenta are :
 | 132640.250000 308096.281250 289089.906250 |
 -->
   <!-- MESHLAB RESULT 
-Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/soft_hand_description/meshes/palm_right.stl in 13 msec
+Opened mesh /home/crosales/Code/catkin_ws/src/pisa-iit-soft-hand/soft_hand/softhand_description/meshes/palm_right.stl in 13 msec
 All files opened in 1178 msec
 Mesh Bounding Box Size 36.539444 91.129791 84.829025
 Mesh Bounding Box Diag 129.752579 
@@ -283,7 +283,7 @@ axis momenta are :
       </geometry>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0.01 0 0"/>
+      <origin rpy="0 0 0" xyz="0.01 0 0.12"/>
       <geometry>
         <cylinder length="0.24" radius="0.23"/>
       </geometry>
@@ -807,7 +807,7 @@ axis momenta are :
     <visual>
       <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/wrist.stl"/>
+        <mesh filename="package://softhand_description/meshes/wrist.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -816,7 +816,7 @@ axis momenta are :
     <collision>
       <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/wrist.stl"/>
+        <mesh filename="package://softhand_description/meshes/wrist.stl"/>
       </geometry>
     </collision>
   </link>
@@ -835,7 +835,7 @@ axis momenta are :
     <visual>
       <origin rpy="3.14 0.7854 3.14" xyz="-0.02 -0.145 0.07"/>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/robotino_softhand_adapter_scaled.stl"/>
+        <mesh filename="package://softhand_description/meshes/robotino_softhand_adapter_scaled.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -844,7 +844,7 @@ axis momenta are :
     <collision>
       <origin rpy="3.14 0.7854 3.14" xyz="-0.02 -0.145 0.07"/>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/robotino_softhand_adapter_scaled.stl"/>
+        <mesh filename="package://softhand_description/meshes/robotino_softhand_adapter_scaled.stl"/>
       </geometry>
     </collision>
   </link>
@@ -858,7 +858,7 @@ axis momenta are :
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/accesories/clamp.stl"/>
+        <mesh filename="package://softhand_description/meshes/accesories/clamp.stl"/>
       </geometry>
       <material name="SoftHand/Blue"/>
     </visual>
@@ -879,7 +879,7 @@ axis momenta are :
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/accesories/softhand_base_right.stl"/>
+        <mesh filename="package://softhand_description/meshes/accesories/softhand_base_right.stl"/>
       </geometry>
       <material name="SoftHand/Blue"/>
     </visual>
@@ -904,13 +904,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/palm_right.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/palm_right.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/palm_right_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/palm_right_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -948,13 +948,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/thumb_knuckle_right.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/thumb_knuckle_right.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/thumb_knuckle_right_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/thumb_knuckle_right_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -991,13 +991,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1033,13 +1033,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1060,13 +1060,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1102,13 +1102,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1144,13 +1144,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1186,13 +1186,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1213,13 +1213,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1255,13 +1255,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1297,13 +1297,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1339,13 +1339,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1366,13 +1366,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1408,13 +1408,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1450,13 +1450,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1492,13 +1492,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1519,13 +1519,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/knuckle_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1561,13 +1561,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1603,13 +1603,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/phalanx_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
@@ -1645,13 +1645,13 @@ axis momenta are :
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip.stl" scale=" .001 .001 .001"/>
       </geometry>
       <material name="SoftHand/DarkGrey"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://soft_hand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
+        <mesh filename="package://softhand_description/meshes/fingertip_collision.stl" scale=" .001 .001 .001"/>
       </geometry>
     </collision>
   </link>
