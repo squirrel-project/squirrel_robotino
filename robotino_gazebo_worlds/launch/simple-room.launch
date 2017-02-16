@@ -7,7 +7,7 @@
 	<arg name="gui" default="true"/>
 	<arg name="throttled" default="false"/>
 	<arg name="marker"/>
-	<arg name="robot_env" default="simple_room"/>
+	<arg name="robot_env" default="simple-room"/>
 
   <!-- upload default configuration parameters -->
   <include file="$(find robotino_gazebo_worlds)/launch/upload_object_locations.launch">
