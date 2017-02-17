@@ -1,14 +1,62 @@
 ---
-##Innsbruck hand config parameters 
+# Innsbruck hand config parameters 
+#
+# node_id: The EPOS node id for that motor on the CAN bus, is 2*num + 1
+# name: name of the joint in the robot description
+# sensor_calibration: zero offset of the sensor, in raw sensor value as read from A/D converter
+# sensor_direction: ensures that inwards = positive
+# motor_direction: ensures that inwards = positive
+# max_velocity: maximum motor velocity in rpm
+# max_current: maximum allowed sustained current in mA
+# max_peak_current: maximum allowed peak current in mA
 
-##motor direction 
-motor_direction: [1, -1, -1, -1, 1]
+joint_0:
+  node_id: 1  
+  name: "hand_right_crank_base_joint"
+  sensor_calibration: 761.0
+  sensor_direction:   -1
+  motor_direction:    -1
+  max_velocity:       300
+  max_current:        300
+  max_peak_current:   500
 
-joint_sensor_calibration:
-  palm_sensor1: 761.0
-  palm_sensor2: 789.0
-  finger_sensor3: 486.0
-  finger_sensor4: 530.0
-  finger_sensor5: 508.0
+joint_1:
+  node_id: 3  
+  name: "hand_left_crank_base_joint"
+  sensor_calibration: 789.0
+  sensor_direction:    1
+  motor_direction:     1
+  max_velocity:       300
+  max_current:        300
+  max_peak_current:   500
 
-left_finger_sensor_direction: 1
+joint_2:
+  node_id: 5  
+  name: "hand_right_finger_lower_joint"
+  sensor_calibration: 486.0
+  sensor_direction:    1
+  motor_direction:    -1
+  max_velocity:       1000
+  max_current:        300
+  max_peak_current:   500
+
+joint_3:
+  node_id: 7  
+  name: "hand_middle_finger_lower_joint"
+  sensor_calibration: 530.0
+  sensor_direction:   -1
+  motor_direction:    -1
+  max_velocity:       1000
+  max_current:        300
+  max_peak_current:   500
+
+joint_4:
+  node_id: 9  
+  name: "hand_left_finger_lower_joint:"
+  sensor_calibration: 508.0
+  sensor_direction:   -1
+  motor_direction:     1
+  max_velocity:       1000
+  max_current:        300
+  max_peak_current:   500
+
