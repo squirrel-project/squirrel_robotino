@@ -187,7 +187,7 @@ class HardwareTest:
 	def move_arm(self):
 		try:
 			mode_pub = rospy.Publisher('/real/robotino/settings/switch_mode', Int32, queue_size=10, latch=True)
-			pub = rospy.Publisher('/real/robotino/joint_control/move', Float64MultiArray, queue_size=10)
+			pub = rospy.Publisher('/real/robotino/joint_control/ptp', Float64MultiArray, queue_size=10)
 			rospy.sleep(2)
 
 			mode_pub.publish(data=10)
