@@ -1,13 +1,13 @@
 - git:
-    uri: 'git@github.com:squirrel-project/squirrel_driver.git'
+    uri: 'https://github.com/squirrel-project/squirrel_driver.git'
     local-name: squirrel_driver
     version: indigo_dev
 - git:
-    uri: 'git@github.com:squirrel-project/squirrel_common.git'
+    uri: 'https://github.com/squirrel-project/squirrel_common.git'
     local-name: squirrel_common
     version: indigo_dev
 - git:
-    uri: 'git@github.com:squirrel-project/dynamixel_motors.git'
+    uri: 'https://github.com/squirrel-project/dynamixel_motors.git'
     local-name: dynamixel_motors
     version: indigo_dev
 
