@@ -2,9 +2,17 @@ Start the Robotino Simulation
 =============================
 
 ```
-  roslaunch robotino_bringup_sim robot.launch robot:=_ROBOT_NAME_
+  roslaunch robotino_bringup_sim robot.launch robot:=_ROBOT_NAME_ robot_env:=_ROBOT_ENV_
 ```
 where _ROBOT_NAME_=ipa-robotino,tuw-robotino...
+where _ROBOT_ENV_=empty, simple-room, ipa-apartment, calibration-room
+
+for the calibration-room environment it is also posible set the type of the markers:
+```
+  roslaunch robotino_bringup_sim robot.launch robot:=_ROBOT_NAME_ robot_env:=calibration-room marker:=_TYPE_OF_MARKERS_
+```
+where _TYPE_OF_MARKERS_=empty, pitag, checkerboard
+
 Start Rviz 
 ===========
 ```
