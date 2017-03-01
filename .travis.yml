@@ -15,5 +15,5 @@ env:
 install:
   - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
 script: .ci_config/travis.sh
-#  - source ./travis.sh  # Enable this when you have a package-local script 
+  - source ./travis.sh  # Enable this when you have a package-local script 
 
