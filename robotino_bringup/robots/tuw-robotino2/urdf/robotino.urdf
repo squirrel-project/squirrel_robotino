@@ -334,7 +334,7 @@
   </gazebo>
   <joint name="hokuyo_joint" type="fixed">
     <origin rpy="0.0 0.0 -0.015" xyz="0.184 0.004 0.16"/>
-    <parent link="base_link"/>
+    <parent link="base_linkz"/>
     <child link="hokuyo_link"/>
   </joint>
   <link name="hokuyo_link">
@@ -391,7 +391,7 @@
     <material>Gazebo/White</material>
   </gazebo>
   <joint name="arm_base_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_linkz"/>
     <child link="arm_base_link"/>
     <axis xyz="0 0 1"/>
     <origin rpy="0.0 0.0 -1" xyz="0.0 -0.01591 0.32"/>
@@ -1137,7 +1137,7 @@
   </gazebo>
   <joint name="profile_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="base_link"/>
+    <parent link="base_linkz"/>
     <child link="profile_link"/>
   </joint>
   <link name="profile_link">
