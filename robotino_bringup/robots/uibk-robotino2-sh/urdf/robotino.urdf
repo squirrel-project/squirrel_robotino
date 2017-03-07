@@ -9,21 +9,21 @@
   <!-- ****************** -->
   <!-- hokuyo mount positions | relative to base_link -->
   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
-  <!--property name="pan_tilt_x" value="0.310911"/>
-  <property name="pan_tilt_y" value="0.0177173"/>
-  <property name="pan_tilt_z" value="0.683637"/>
-  <property name="pan_tilt_roll" value="3.0864"/>
-  <property name="pan_tilt_pitch" value="3.08658"/>
-  <property name="pan_tilt_yaw" value="3.13856"/-->
   <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
-  <!--property name="kinect_x" value="0.0162762"/>
-  <property name="kinect_y" value="0.0736591"/>
-  <property name="kinect_z" value="-0.0649505"/>
-  <property name="kinect_roll" value="-1.53"/>
-  <property name="kinect_pitch" value="-0.0315698"/>
-  <property name="kinect_yaw" value="0.0239961"/-->
   <!-- pan_tilt mount positions | handeye calibration | relative to base_link -->
+  <!--property name="pan_tilt_x" value="0.316119"/>
+  <property name="pan_tilt_y" value="0.00148515"/>
+  <property name="pan_tilt_z" value="0.693471"/>
+  <property name="pan_tilt_roll" value="-3.14019"/>
+  <property name="pan_tilt_pitch" value="3.06888"/>
+  <property name="pan_tilt_yaw" value="3.121"/-->
   <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
+  <!--property name="kinect_x" value="-0.0198375"/>
+  <property name="kinect_y" value="0.0584679"/>
+  <property name="kinect_z" value="-0.065069"/>
+  <property name="kinect_roll" value="-1.57688"/>
+  <property name="kinect_pitch" value="0.0102826"/>
+  <property name="kinect_yaw" value="0.0812996"/-->
   <!-- arm mount positions | handeye calibration | relative to base_link -->
   <!-- arm calibration-->
   <!-- WHEEL -->
@@ -173,6 +173,13 @@ axis momenta are :
   <!-- It has one joint less than rest of fingers -->
   <!-- SOFT HAND MODEL -->
   <!--###### IF 8 DOF the joints can be moved ######-->
+  <link name="origin">
+    <inertial>
+      <mass value="10"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="75.0" ixy="0.0" ixz="0.0" iyy="75.0" iyz="0.0" izz="75.0"/>
+    </inertial>
+  </link>
   <joint name="origin_joint" type="prismatic">
     <parent link="origin"/>
     <child link="base_link"/>
@@ -337,7 +344,7 @@ axis momenta are :
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
       <odometryRate>20.0</odometryRate>
-      <robotBaseFrame>base_linkz</robotBaseFrame>
+      <robotBaseFrame>origin</robotBaseFrame>
     </plugin>
   </gazebo>
   <joint name="wheel0_joint" type="continuous">
@@ -476,21 +483,46 @@ axis momenta are :
       <maxContacts>1</maxContacts>
     </gazebo-->
   <!--###### ELSE the joints are fixed ######-->
-  <link name="origin">
-    <inertial>
-      <mass value="10"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="75.0" ixy="0.0" ixz="0.0" iyy="75.0" iyz="0.0" izz="75.0"/>
-    </inertial>
-  </link>
   <gazebo>
     <plugin filename="libhwi_switch_gazebo_ros_control.so" name="ros_control">
       <robotNamespace>base_controller</robotNamespace>
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
+  <joint name="base_shell_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_shell_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="base_shell_link">
+    <inertial>
+      <mass value="4"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="75.0" ixy="0.0" ixz="0.0" iyy="75.0" iyz="0.0" izz="75.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.04"/>
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/squirrel_assembly.stl"/>
+      </geometry>
+      <material name="lightGrey">
+        <color rgba="0.9 0.9 0.9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 -0.7" xyz="0 0 0.05"/>
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/base_shell_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_shell_link">
+    <gravity>true</gravity>
+    <self_collide>false</self_collide>
+    <material>Gazebo/LightGrey</material>
+  </gazebo>
   <joint name="hokuyo_joint" type="fixed">
-    <origin rpy="0.0 0.0 0.0" xyz="0.208610627 0.0 0.095"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.208610627 0.0 0.14"/>
     <parent link="base_linkz"/>
     <child link="hokuyo_link"/>
   </joint>
@@ -2978,7 +3010,7 @@ axis momenta are :
     <material>Gazebo/Black</material>
   </gazebo>
   <joint name="base_pan_joint" type="fixed">
-    <origin rpy="0.012045 -0.0565489 0.0113182" xyz="0.257201 0.0587815 0.637117"/>
+    <origin rpy="0.037253 0.0665136 0.0628319" xyz="0.319612 -0.0356507 0.687939"/>
     <parent link="profile_link"/>
     <child link="base_pan_link"/>
   </joint>
@@ -3068,7 +3100,7 @@ axis momenta are :
     <self_collide>false</self_collide>
   </gazebo>
   <joint name="kinect_joint" type="fixed">
-    <origin rpy="1.57297 -3.11833 3.10173" xyz="0.0772857 0.117459 -0.0273189"/>
+    <origin rpy="-1.57413 -0.00632857 0.0520659" xyz="-0.0221115 0.0645073 -0.065954"/>
     <parent link="tilt_link"/>
     <child link="kinect_link"/>
   </joint>

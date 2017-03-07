@@ -6,6 +6,7 @@
   <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/base_shell.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/pan_tilt_axis.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/arm.urdf.xacro" />
   <xacro:include filename="$(find softhand_description)/model/softhand_withCableCanal.urdf.xacro" />
@@ -18,6 +19,10 @@
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
+
+  <xacro:shell name="base_shell" parent="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:shell>
 
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
