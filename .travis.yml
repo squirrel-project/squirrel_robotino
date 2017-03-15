@@ -12,9 +12,9 @@ env:
     - ROSINSTALL_FILENAME=.travis.rosinstall
   matrix:
     - ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
+before_install:
+  - bash .travis.install.sh
 install:
   - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
-before_script:
-  - sudo echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list
 script: .ci_config/travis.sh
 #  - source ./travis.sh  # Enable this when you have a package-local script 
