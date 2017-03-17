@@ -1,3 +1,5 @@
+Travis-CI: [![Build Status](https://travis-ci.org/squirrel-project/squirrel_robotino.svg?branch=indigo_dev)](https://travis-ci.org/squirrel-project/squirrel_robotino)
+
 <a id="top"/> 
 #squirrel_robotino
 
