@@ -25,7 +25,7 @@ echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/so
 sudo apt-get update 
 sudo apt-get install robotino-api2
 ```
-####S quirrel packages
+#### Squirrel packages
 This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private one *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
 
 #### ROS packages
