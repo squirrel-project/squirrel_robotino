@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-	<arg name="robot_env" default="simple_room"/>
+	<arg name="robot_env" default="simple-room"/>
 
 	<!-- send objects locations to parameter server -->
 	<rosparam command="delete" param="/objects"/>

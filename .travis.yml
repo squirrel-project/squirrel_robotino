@@ -4,40 +4,19 @@ dist: trusty
 language: generic
 compiler:
   - gcc
+
 env:
   global:
     - CATKIN_WS=~/catkin_ws
     - CATKIN_WS_SRC=${CATKIN_WS}/src
+    - CATKIN_WS_UNDERLAY=~/catkin_ws_underlay
+    - CATKIN_WS_UNDERLAY_SRC=${CATKIN_WS_UNDERLAY}/src
     - CI_ROS_DISTRO="indigo"
-#  matrix:
-#    - CI_ROS_DISTRO="indigo"
-#    - CI_ROS_DISTRO="jade"
+    - DEFAULT_ROSINSTALL="./.travis.rosinstall"
+
 install:
-  - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
-  - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-  - sudo sh -c 'echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list'
-  - sudo apt-get update -qq
-  - sudo apt-key update
-  - sudo apt-get install -qq -y python-rosdep python-catkin-tools
-  - sudo rosdep init
-  - rosdep update
-  - sudo apt-get install ros-indigo-desktop
-  - sudo apt-get -q -y --force-yes install robotino-api2
-  # Use rosdep to install all dependencies (including ROS itself)
+  - bash .travis.install.sh
+
 script:
-  - source /opt/ros/$CI_ROS_DISTRO/setup.bash
-  - mkdir -p $CATKIN_WS_SRC
-  - ln -s $TRAVIS_BUILD_DIR $CATKIN_WS_SRC
-  - cd $CATKIN_WS
-  - git clone https://github.com/squirrel-project/squirrel_common.git ~/catkin_ws/src/squirrel_common
-  - git clone https://github.com/squirrel-project/squirrel_substitute.git ~/catkin_ws/src/squirrel_substitute
-  - catkin init
-  - rosdep install --from-paths src/ -i -y --rosdistro $CI_ROS_DISTRO
-  # Enable install space
-  #- catkin config --install
-  # Build [and Install] packages
-  - catkin build --limit-status-rate 0.1 --no-notify -DCMAKE_BUILD_TYPE=Release
-  # Build tests
-  - catkin build --limit-status-rate 0.1 --no-notify --make-args tests
-  # Run tests
-  #- catkin run_tests
+  - wget https://raw.githubusercontent.com/ipa320/care-o-bot/${CI_ROS_DISTRO}_dev/.travis.script.sh
+  - bash .travis.script.sh

@@ -6,7 +6,13 @@
 	<arg name="paused" default="false"/>
 	<arg name="use_sim_time" default="true"/>
 	<arg name="gui" default="true"/>
+	<arg name="marker"/>
 	<arg name="throttled" default="false"/>
+
+  <!-- upload default configuration parameters -->
+  <include file="$(find robotino_gazebo_worlds)/launch/upload_object_locations.launch">
+    <arg name="robot_env" value="$(arg robot_env)" />
+  </include>
 
 	<env name="GAZEBO_MODEL_PATH" value="$(find robotino_gazebo_worlds)/Media/models:$(optenv GAZEBO_MODEL_PATH)"/>	
 

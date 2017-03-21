@@ -2,18 +2,13 @@
 <launch>
 
   <!-- define arguments -->
-  <arg name="robot_env" default="ipa-apartment"/>
+  <arg name="robot_env" default="simple-room"/>
   <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
   <arg name="throttled" default="false"/>
-
-
-  <!-- upload default configuration parameters -->
-  <include file="$(find robotino_gazebo_worlds)/launch/upload_object_locations.launch">
-    <arg name="robot_env" value="$(arg robot_env)" />
-  </include>
+	<arg name="marker" default="empty"/>
 
   <!-- startup simulated world -->
   <include file="$(find robotino_gazebo_worlds)/launch/$(arg robot_env).launch">
@@ -21,6 +16,7 @@
     <arg name="use_sim_time" value="$(arg use_sim_time)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="throttled" value="$(arg throttled)" />
+    <arg name="marker" value="$(arg marker)" />
   </include>
 
   <!-- startup simulated robot -->
