@@ -18,6 +18,6 @@
 </node>
 
 <node name="kclhand_controller"  pkg="kclhand_control" type="kclhand_controller" output="screen"/>
-
+<node name="kclhand_state_publisher" pkg="kclhand_control" type="kclhand_state_publisher.py" output="screen"/>
 </launch>
 
