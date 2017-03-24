@@ -1,5 +1,6 @@
+Travis-CI: [![Build Status](https://travis-ci.org/squirrel-project/squirrel_robotino.svg?branch=indigo_dev)](https://travis-ci.org/squirrel-project/squirrel_robotino)
+# squirrel_robotino
 <a id="top"/> 
-#squirrel_robotino
 
 This repository holds packages for hardware launch files and configuration, as well as the simulation model for starting up the basic layer for operating Robotino
 
@@ -7,7 +8,7 @@ Technical Maintainer: [ipa-nhg](https://github.com/ipa-nhg/) (Nadia Hammoudeh Ga
 
 Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-project/squirrel_robotino)
 
-##Contents
+## Contents
 
 1. <a href="#1--installation-requirements">Installation Requirements</a>
 2. <a href="#2--execution">Execution</a>
@@ -17,27 +18,27 @@ Build status: [Travis Build Status] (https://magnum.travis-ci.com/squirrel-proje
 
 ## 1. Installation Requirements: <a id="1--installation-requirements"/> 
 
-####Debian packages
+#### Debian packages
 The robotino-api2 has to be installed to compile the robotino_driver package: 
 ```
 echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" >> /etc/apt/sources.list
 sudo apt-get update 
 sudo apt-get install robotino-api2
 ```
-####Squirrel packages
+#### Squirrel packages
 This repository requires the repositories [squirrel_common](https://github.com/squirrel-project/squirrel_common), and the private one *squirrel_driver*, in case you don't have access to our private repostitories you can clone [squirrel_substitute](https://github.com/squirrel-project/squirrel_substitute)
 
-####ROS packages
+#### ROS packages
 The ROS packages dependencies can be installed with the command:
 ```
 rosdep install --from-path squirrel_robotino -i -y
 ```
 ## 2. Execution: <a id="2--execution"/> 
-###Real robot:
+### Real robot:
 ```
 roslaunch robotino_bringup robot.launch robot:='robot_name'
 ```
-###Simulation:
+### Simulation:
 ```
 roslaunch robotino_bringup_sim robot.launch robot:='robot_name'
 ```
