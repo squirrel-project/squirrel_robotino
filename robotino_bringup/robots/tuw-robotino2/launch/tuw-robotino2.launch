@@ -75,6 +75,12 @@
     <param name="startup_angle" value="0.7" />
   </node>
 
+  <node name="robotino_pan_controller" pkg="robotino_driver" type="robotino_pan_controller" output="screen">
+    <param name="pan_command_topic" value="/pan_controller/command" />
+    <param name="pan_status_topic" value="/pan_controller/state" />
+    <param name="startup_angle" value="0.0" />
+  </node>
+
   <group ns="real/robotino">
 	  <node name="robot_controller_node" pkg="uibk_robot_driver" type="robot_controller_node" output="screen">
 	  	  <remap from="cmd_rotatory" to="/cmd_rotatory"/>
@@ -90,6 +96,12 @@
     </include>
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
   </group>
+
+  <node name="sensing" pkg="squirrel_sensing_node" type="sensing" args="/dev/ttyFingertips em1" output="screen"/>
+
+  <!--node name="wrist_safety" pkg="wrist_safety" type="wrist_safety" output="screen" /-->
+
+  <!--node name="squirrel_view_controller" pkg="robotino_driver" type="squirrel_view_controller" output="screen"/-->
 
   <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
     <arg name="robot" value="$(arg robot)" />
