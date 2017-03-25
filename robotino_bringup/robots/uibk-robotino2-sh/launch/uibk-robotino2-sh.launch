@@ -64,7 +64,7 @@
   <node name="robotino_tilt_controller" pkg="robotino_driver" type="robotino_tilt_controller" output="screen">
     <param name="tilt_command_topic" value="/tilt_controller/command" />
     <param name="tilt_status_topic" value="/tilt_controller/state" />
-    <param name="startup_angle" value="0.0" />
+    <param name="startup_angle" value="0.6" />
   </node>
   <node name="robotino_pan_controller" pkg="robotino_driver" type="robotino_pan_controller" output="screen">
     <param name="pan_command_topic" value="/pan_controller/command" />
