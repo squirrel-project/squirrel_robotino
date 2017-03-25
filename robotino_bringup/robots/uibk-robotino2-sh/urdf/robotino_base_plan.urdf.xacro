@@ -20,10 +20,6 @@
     </plugin>
   </gazebo>
 
-  <xacro:shell name="base_shell" parent="base_link">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </xacro:shell>
-
   <hokuyo name="hokuyo" parent="base_linkz">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>

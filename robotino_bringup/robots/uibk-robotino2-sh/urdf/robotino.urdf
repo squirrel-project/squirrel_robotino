@@ -489,38 +489,6 @@ axis momenta are :
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
-  <joint name="base_shell_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="base_shell_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-  </joint>
-  <link name="base_shell_link">
-    <inertial>
-      <mass value="4"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="75.0" ixy="0.0" ixz="0.0" iyy="75.0" iyz="0.0" izz="75.0"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 -0.04"/>
-      <geometry>
-        <mesh filename="package://robotino_description/meshes/squirrel_assembly.stl"/>
-      </geometry>
-      <material name="lightGrey">
-        <color rgba="0.9 0.9 0.9 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 -0.7" xyz="0 0 0.05"/>
-      <geometry>
-        <mesh filename="package://robotino_description/meshes/base_shell_collision.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="base_shell_link">
-    <gravity>true</gravity>
-    <self_collide>false</self_collide>
-    <material>Gazebo/LightGrey</material>
-  </gazebo>
   <joint name="hokuyo_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.208610627 0.0 0.14"/>
     <parent link="base_linkz"/>
