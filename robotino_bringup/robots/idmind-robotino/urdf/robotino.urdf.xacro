@@ -6,6 +6,7 @@
   <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/shell.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
 
   <xacro:base name="base"/>
 
@@ -23,5 +24,9 @@
   <hokuyo name="hokuyo" parent="base_link">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
+
+  <kinect name="kinect" parent="neck_tilt_link">
+    <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
+  </kinect>
 
 </robot>
