@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="robot" default="tuw-robotino2"/>
+  <arg name="robot" default="idmind-robotino"/>
   <arg name="use_robotino_safety" value="true" />
   <arg name="hostname" default="127.0.1.1" />
   <param name="use_sim_time" value="false" />
@@ -35,15 +35,9 @@
     <arg name="scan_topic" value="/scan" />
   </include>
 
-  <include file="$(find airskin)/launch/startup.launch">
-    <arg name="device" value="/dev/ttyAirskin" />
-  </include>
-
   <node name="robotino_odometry_node" pkg="robotino_driver" type="robotino_odometry_node" output="screen">
     <param name="hostname" value="$(arg hostname)" />
   </node>
-
-  <include file="$(find robotino_bringup)/launch/origin_odom.launch" />
 
   <!-- Hokuyo driver -->
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
@@ -59,49 +53,6 @@
     <arg name="publish_tf" value="true" />
     <arg name="depth_registration" value="true"/>
   </include>
-
-  <!-- Dynamixel servo based (pan)/tilt unit -->
-  <include file="$(find robotino_bringup)/launch/dynamixel_controller_manager.launch" >
-  </include>
-  <include file="$(find robotino_bringup)/launch/start_pan_tilt_controller.launch" >
-    <arg name="robot" value="$(arg robot)" />
-  </include>
-
-  <!-- Simple node to move the kinect in the default position on robot's startup
-       It also exposes a service /tilt_controller/resetPosition -->
-  <node name="robotino_tilt_controller" pkg="robotino_driver" type="robotino_tilt_controller" output="screen">
-    <param name="tilt_command_topic" value="/tilt_controller/command" />
-    <param name="tilt_status_topic" value="/tilt_controller/state" />
-    <param name="startup_angle" value="0.7" />
-  </node>
-
-  <node name="robotino_pan_controller" pkg="robotino_driver" type="robotino_pan_controller" output="screen">
-    <param name="pan_command_topic" value="/pan_controller/command" />
-    <param name="pan_status_topic" value="/pan_controller/state" />
-    <param name="startup_angle" value="0.0" />
-  </node>
-
-  <group ns="real/robotino">
-	  <node name="robot_controller_node" pkg="uibk_robot_driver" type="robot_controller_node" output="screen">
-	  	  <remap from="cmd_rotatory" to="/cmd_rotatory"/>
-	  </node>
-    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>  
-  </group>
-
-  <group ns="hand_controller">
-    <remap from="robot_description" to="/robot_description" />
-    <include file="$(find robotino_bringup)/launch/kclhand.launch" >
-      <arg name="robot" value="$(arg robot)" />
-      <arg name="port" value="/dev/ttyHand"/>
-    </include>
-    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
-  </group>
-
-  <node name="sensing" pkg="squirrel_sensing_node" type="sensing" args="/dev/ttyFingertips em1" output="screen"/>
-
-  <!--node name="wrist_safety" pkg="wrist_safety" type="wrist_safety" output="screen" /-->
-
-  <!--node name="squirrel_view_controller" pkg="robotino_driver" type="squirrel_view_controller" output="screen"/-->
 
   <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
     <arg name="robot" value="$(arg robot)" />
