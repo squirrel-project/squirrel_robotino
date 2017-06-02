@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export MY_CATKIN_WORKSPACE=~/catkin_ws
-source /etc/cob.bash.bashrc
 
 . /opt/ros/indigo/setup.sh
 
@@ -16,4 +15,3 @@ fi
 export ROS_IP=`hostname -I | awk '{print $1}'`
 
 exec "$@"
-
