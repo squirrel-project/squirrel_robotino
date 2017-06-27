@@ -12,9 +12,11 @@ sudo rosdep init
 rosdep update
 
 ## SQUIRREL SPECIFIC ##
-sudo sh -c 'echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" > /etc/apt/sources.list.d/openrobotino.list'
+#sudo sh -c 'echo "deb http://doc.openrobotino.org/download/packages/amd64 ./" > /etc/apt/sources.list.d/openrobotino.list'
 sudo apt-get update
-sudo apt-get install -qq -y --force-yes robotino-api2
+#sudo apt-get -qq -y --force-yes install robotino-api2
+wget http://doc.openrobotino.org/download/packages/amd64/robotino-api2_0.9.16_amd64.deb
+sudo dpkg -i robotino-api2_0.9.16_amd64.deb
 
 # create empty underlay workspace
 mkdir -p $CATKIN_WS_UNDERLAY_SRC
