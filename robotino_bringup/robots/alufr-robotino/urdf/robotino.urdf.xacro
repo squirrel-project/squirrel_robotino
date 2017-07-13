@@ -3,7 +3,7 @@
   name="robot">
   
   <xacro:include filename="$(find robotino_bringup)/robots/alufr-robotino/urdf/properties.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/base_old.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/tilt_axis.urdf.xacro" />
