@@ -11,7 +11,7 @@ sudo apt-get install -qq -y python-rosdep python-wstool > /dev/null 2>&1
 sudo apt-get install -qq -y ros-${CI_ROS_DISTRO}-ros > /dev/null 2>&1
 sudo rosdep init
 rosdep update
-
+python -m pip install empy
 ## SQUIRREL SPECIFIC ##
 wget http://doc.openrobotino.org/download/packages/amd64/robotino-api2_0.9.16_amd64.deb
 sudo dpkg -i robotino-api2_0.9.16_amd64.deb
