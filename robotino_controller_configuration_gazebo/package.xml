@@ -28,7 +28,7 @@
   <build_depend>nav_msgs</build_depend>
   <build_depend>boost</build_depend>
   <build_depend>kclhand_control</build_depend>
-  <build_depend>uibk_robot_driver</build_depend>
+  <build_depend>squirrel_control</build_depend>
   <run_depend>roslaunch</run_depend>
   <run_depend>rostopic</run_depend>
   <run_depend>gazebo_ros_control</run_depend>
@@ -47,7 +47,7 @@
   <run_depend>nav_msgs</run_depend>
   <run_depend>boost</run_depend>
   <run_depend>kclhand_control</run_depend>
-  <run_depend>uibk_robot_driver</run_depend>
+  <run_depend>squirrel_control</run_depend>
   <export>
 
   </export>
