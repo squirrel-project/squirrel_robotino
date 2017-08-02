@@ -1,13 +1,29 @@
 ## joint_names
 joint_names: [base_jointx, base_jointy, base_jointz, arm_joint1, arm_joint2, arm_joint3, arm_joint4, arm_joint5]
+
 ## control_mode_adapter
 max_command_silence: 0.5
+
+squirrel_hw_control_loop:
+  loop_hz: 100
+  cycle_time_error_threshold: 0.1
+
+squirrel_hw_interface:
+   joints:
+      - base_jointx
+      - base_jointy
+      - base_jointz
+      - arm_joint1
+      - arm_joint2
+      - arm_joint3
+      - arm_joint4
+      - arm_joint5
+   motor_port: /dev/ttyArm
 
 ## joint_state_controller
 joint_state_controller:
    type: joint_state_controller/JointStateController
    publish_rate: 50
-
 
 joint_trajectory_controller:
    type: position_controllers/JointTrajectoryController
