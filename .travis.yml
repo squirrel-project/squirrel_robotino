@@ -2,21 +2,14 @@ sudo: required
 dist: trusty
 # Force travis to use its minimal image with default Python settings
 language: generic
-compiler:
-  - gcc
 
 env:
   global:
-    - CATKIN_WS=~/catkin_ws
-    - CATKIN_WS_SRC=${CATKIN_WS}/src
-    - CATKIN_WS_UNDERLAY=~/catkin_ws_underlay
-    - CATKIN_WS_UNDERLAY_SRC=${CATKIN_WS_UNDERLAY}/src
-    - CI_ROS_DISTRO="indigo"
-    - DEFAULT_ROSINSTALL="./.travis.rosinstall"
+    - ROS_DISTRO="indigo"
+    - UPSTREAM_WORKSPACE=file
+    - BEFORE_SCRIPT=./.robotino-api2.install.sh
 
 install:
-  - bash .travis.install.sh
-
+  - git clone --depth=1 https://github.com/ros-industrial/industrial_ci.git .ci_config
 script:
-  - wget https://raw.githubusercontent.com/ipa320/care-o-bot/${CI_ROS_DISTRO}_dev/.travis.script.sh
-  - bash .travis.script.sh
+  - .ci_config/travis.sh 

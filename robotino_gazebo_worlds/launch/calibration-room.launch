@@ -7,9 +7,11 @@
 	<arg name="gui" default="true"/>
 	<arg name="throttled" default="false"/>
 	<arg name="marker" default="empty"/>
-  <arg name="gazebo_env" default="$(optenv GAZEBO_RESOURCE_PATH)"/>
-	
-  <env name="GAZEBO_RESOURCE_PATH" value="$(arg gazebo_env):(find robotino_gazebo_worlds)/worlds/prefabs" />
+	<arg name="gazebo_env" default="$(optenv GAZEBO_RESOURCE_PATH)"/>
+	<arg name="gazebo_models" default="$(optenv GAZEBO_MODEL_PATH)"/>
+   
+	<env name="GAZEBO_RESOURCE_PATH" value="$(arg gazebo_env):$(find robotino_gazebo_worlds)/worlds" />
+	<env name="GAZEBO_MODEL_PATH" value="$(arg gazebo_models):$(find robotino_gazebo_worlds)/worlds" />
 
 	<!-- start gazebo with empty world -->
 	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
