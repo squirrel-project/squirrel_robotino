@@ -15,7 +15,7 @@
     <arg name="robot_env" value="$(arg robot_env)" />
   </include>
 
-	<include file="$(find cob_gazebo_worlds)/launch/ipa-apartment.launch">
+	<include file="$(find cob_gazebo_worlds)/launch/ipa-apartment.xml">
 		<!--arg name="publish_world_state" value="false"/-->
 	</include>	
 	
