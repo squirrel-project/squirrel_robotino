@@ -10,13 +10,13 @@
 	<arg name="marker"/>
 	<arg name="throttled" default="false"/>
 
-  <!-- upload default configuration parameters -->
-  <include file="$(find robotino_gazebo_worlds)/launch/upload_object_locations.launch">
-    <arg name="robot_env" value="$(arg robot_env)" />
-  </include>
+	<!-- upload default configuration parameters -->
+	<include file="$(find robotino_gazebo_worlds)/launch/upload_object_locations.launch">
+		<arg name="robot_env" value="$(arg robot_env)" />
+	</include>
 
-	<include file="$(find cob_gazebo_worlds)/launch/ipa-apartment.launch">
-		<!--arg name="publish_world_state" value="false"/-->
+	<include file="$(find cob_gazebo_worlds)/launch/world.launch">
+		<arg name="robot_env" value="$(arg robot_env)" />
 	</include>	
 	
 </launch>
