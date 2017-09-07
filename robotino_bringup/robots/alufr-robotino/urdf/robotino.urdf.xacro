@@ -18,11 +18,11 @@
     </plugin>
   </gazebo>
 
-  <hokuyo name="hokuyo" parent="base_link">
+  <hokuyo name="hokuyo" parent="base_linkz">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
-  <xacro:arm name="arm_" parent="base_link">
+  <xacro:arm name="arm_" parent="base_linkz">
     <origin xyz="${arm_x} ${arm_y} ${arm_z}" rpy="${arm_roll} ${arm_pitch} ${arm_yaw}"/>
   </xacro:arm>
 
@@ -32,20 +32,5 @@
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
-
-  <!--tilt_axis name="tilt" parent="base_link">
-    <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/>
-  </tilt_axis>
-  
-  <kinect name="kinect" parent="tilt_link">
-    <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
-  </kinect>
-  
-  <gazebo>
-    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
-      <robotNamespace>tilt_controller</robotNamespace>
-      <filterJointsParam>joint_names</filterJointsParam>
-    </plugin>
-  </gazebo-->
   
 </robot>
