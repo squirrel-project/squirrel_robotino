@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+    <rosparam file="$(find robotino_bringup)/config/arm_controller.yaml" command="load"/>
+
+    <node name="squirrel_control_node" pkg="squirrel_control" type="squirrel_hw_main" output="screen" respawn="true">
+      <!--remap from="/cmd_rotatory" to="/cmd_vel"/-->
+   </node>
+
+    <!-- Load controller manager -->
+    <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+      output="screen" args="spawn joint_state_controller joint_trajectory_controller" />
+
+</launch>

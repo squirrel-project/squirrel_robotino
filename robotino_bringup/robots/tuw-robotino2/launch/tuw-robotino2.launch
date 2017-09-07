@@ -81,11 +81,9 @@
     <param name="startup_angle" value="0.0" />
   </node>
 
-  <group ns="real/robotino">
-	  <node name="robot_controller_node" pkg="uibk_robot_driver" type="robot_controller_node" output="screen">
-	  	  <remap from="cmd_rotatory" to="/cmd_rotatory"/>
-	  </node>
-    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>  
+  <group ns="arm_controller">
+    <include file="$(find robotino_bringup)/launch/arm.launch" />
+    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>
   </group>
 
   <group ns="hand_controller">
