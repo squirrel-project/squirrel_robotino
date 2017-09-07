@@ -20,8 +20,8 @@
     </plugin>
   </gazebo>
 
-  <xacro:shell name="base_shell" parent="base_linkz">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+  <xacro:shell name="base_shell" parent="base_link">
+    <origin xyz="0 0 ${hokuyo_z-0.13}" rpy="0 0 0"/>
   </xacro:shell>
 
   <hokuyo name="hokuyo" parent="base_linkz">
