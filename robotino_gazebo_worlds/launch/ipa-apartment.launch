@@ -17,6 +17,7 @@
 
 	<include file="$(find cob_gazebo_worlds)/launch/world.launch">
 		<arg name="robot_env" value="$(arg robot_env)" />
+		<arg name="gui" value="$(arg gui)" />
 	</include>	
 	
 </launch>
