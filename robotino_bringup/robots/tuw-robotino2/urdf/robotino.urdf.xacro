@@ -24,11 +24,11 @@
     <origin xyz="0 0 ${hokuyo_z-0.13}" rpy="0 0 0"/>
   </xacro:shell>
 
-  <hokuyo name="hokuyo" parent="base_link">
+  <hokuyo name="hokuyo" parent="base_linkz">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
 
-  <xacro:arm name="arm_" parent="base_link">
+  <xacro:arm name="arm_" parent="base_linkz">
     <origin xyz="${arm_x} ${arm_y} ${arm_z}" rpy="${arm_roll} ${arm_pitch} ${arm_yaw}"/>
   </xacro:arm>
 
@@ -50,7 +50,7 @@
     </plugin>
   </gazebo>
 
-  <pan_tilt_axis parent="base_link">
+  <pan_tilt_axis parent="base_linkz">
     <origin xyz="${pan_tilt_x} ${pan_tilt_y} ${pan_tilt_z}" rpy="${pan_tilt_roll} ${pan_tilt_pitch} ${pan_tilt_yaw}"/>
   </pan_tilt_axis>
 
