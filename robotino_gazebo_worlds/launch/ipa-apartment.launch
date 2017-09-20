@@ -1,22 +1,35 @@
 <?xml version="1.0"?>
 <launch>
 
+	<!-- define arguments -->
 	<arg name="robot_env" default="ipa-apartment"/>
-	<arg name="debug" default="false"/>
-	<arg name="headless" default="false"/>
+	<arg name="world_name" default="worlds/empty.world"/>
+	<arg name="debug" default="false" />
+	<arg name="headless" default="false" />
 	<arg name="paused" default="false"/>
 	<arg name="use_sim_time" default="true"/>
 	<arg name="gui" default="true"/>
 	<arg name="marker"/>
 	<arg name="throttled" default="false"/>
 
+	<env name="GAZEBO_MODEL_PATH" value="$(find cob_gazebo_worlds)/Media/models:$(optenv GAZEBO_MODEL_PATH)"/>
+
 	<!-- upload default configuration parameters -->
 	<include file="$(find robotino_gazebo_worlds)/launch/upload_object_locations.launch">
 		<arg name="robot_env" value="$(arg robot_env)" />
 	</include>
 
-	<include file="$(find cob_gazebo_worlds)/launch/world.launch">
-		<arg name="robot_env" value="$(arg robot_env)" />
-	</include>	
-	
+	<!-- start gazebo with empty world -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(arg world_name)"/>
+		<arg name="debug" value="$(arg debug)" />
+		<arg name="headless" value="$(arg headless)"/>
+		<arg name="paused" value="$(arg paused)" />
+		<arg name="use_sim_time" value="$(arg use_sim_time)" />
+		<arg name="gui" value="$(arg gui)" />
+	</include>
+
+	<!-- spawn environment and start environment-specific nodes -->
+	<include file="$(find cob_gazebo_worlds)/launch/$(arg robot_env).xml"/>
+
 </launch>
