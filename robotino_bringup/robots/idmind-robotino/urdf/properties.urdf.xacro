@@ -6,9 +6,6 @@
   <!-- ****************** -->
   <property name="M_PI" value="3.14159"/>
   <property name="M_SCALE" value="0.01"/>
-  <property name="BASE_RADIUS" value="0.18"/>
-  <property name="BASE_HEIGHT" value="0.05"/>
-  <property name="BASE_MASS" value="20"/>
   <property name="HOKUYO_RADIUS" value="0.02"/>
   <property name="HOKUYO_LENGTH" value="0.07"/>
   <property name="KINECT_LENGTH" value="0.18"/>
@@ -31,19 +28,4 @@
   <property name="kinect_pitch" value="0"/>
   <property name="kinect_yaw" value="0"/>
 
-  <!-- arm mount positions | handeye calibration | relative to base_link -->
-  <property name="arm_x" value="0.0"/>
-  <property name="arm_y" value="-0.01591"/>
-  <property name="arm_z" value="0.32"/>
-  <property name="arm_roll" value="0.0"/>
-  <property name="arm_pitch" value="0.0"/>
-  <property name="arm_yaw" value="-1"/>
-	
-   <!-- arm calibration-->
-  <property name="arm_1_ref" value="0.0"/>
-  <property name="arm_2_ref" value="0.0"/>
-  <property name="arm_3_ref" value="0.0"/>
-  <property name="arm_4_ref" value="0.0"/>
-  <property name="arm_5_ref" value="0.0"/>
-  <property name="arm_6_ref" value="0.0"/>
 </robot>
