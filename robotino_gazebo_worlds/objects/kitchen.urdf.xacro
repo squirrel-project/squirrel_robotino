@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<robot name="kitchen" static="true"
+       xmlns:xacro="http://www.ros.org/wiki/xacro"
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+       xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+       xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+       xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+       xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics">
+
+  <xacro:property name="dist_axis_x" value="1.969" />
+  <xacro:property name="dist_axis_y" value="4.070" />
+  <xacro:property name="size_total_x" value="8.0" />
+  <xacro:property name="size_total_y" value="11.2" />
+  <xacro:property name="wall_depth" value="0.1" />
+
+
+  <link name="kitchen_link">
+  </link>
+
+
+  <!-- kitchen_left -->
+  <link name="kitchen_left">
+    <inertial>
+      <mass value="50.0" />
+      <origin xyz="0.0 0.0 0.0" />
+       <inertia  ixx="20.0" ixy="5.0"  ixz="5.0"  iyy="20.0"  iyz="5.0"  izz="100.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://cob_gazebo_worlds/Media/materials/textures/kitchen_right.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.66 0.62 1.44" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_kitchen_left" type="fixed">
+    <origin xyz="${-size_total_x/2+dist_axis_x+wall_depth+0.28} ${size_total_y/4-0.455-dist_axis_y} 0.720" rpy="0 0 0" />
+    <parent link="kitchen_link" />
+    <child link="kitchen_left" />
+  </joint>
+
+  <!-- kitchen_middle -->
+  <link name="kitchen_middle">
+    <inertial>
+      <mass value="50.0" />
+      <origin xyz="0.0 0.0 0.0" />
+       <inertia  ixx="20.0" ixy="5.0"  ixz="5.0"  iyy="20.0"  iyz="5.0"  izz="100.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://cob_gazebo_worlds/Media/materials/textures/kitchen_middle.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.66 1.80 0.90" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_kitchen_middle" type="fixed">
+    <origin xyz="${-size_total_x/2+dist_axis_x+wall_depth+0.28} ${size_total_y/4+0.755-dist_axis_y} 0.450" rpy="0 0 0" />
+    <parent link="kitchen_link" />
+    <child link="kitchen_middle" />
+  </joint>
+
+  <!-- kitchen_right -->
+  <link name="kitchen_right">
+    <inertial>
+      <mass value="50.0" />
+      <origin xyz="0.0 0.0 0.0" />
+       <inertia  ixx="20.0" ixy="5.0"  ixz="5.0"  iyy="20.0"  iyz="5.0"  izz="100.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://cob_gazebo_worlds/Media/materials/textures/kitchen_left.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.66 0.62 1.44" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_kitchen_right" type="fixed">
+    <origin xyz="${-size_total_x/2+dist_axis_x+wall_depth+0.28} ${size_total_y/4+1.965-dist_axis_y} 0.720" rpy="0 0 0" />
+    <parent link="kitchen_link" />
+    <child link="kitchen_right" />
+  </joint>
+
+  <link name="planck_link">
+    <inertial>
+      <mass value="50.0" />
+      <origin xyz="0.0 0.0 0.0" />
+       <inertia  ixx="20.0" ixy="5.0"  ixz="5.0"  iyy="20.0"  iyz="5.0"  izz="100.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://cob_gazebo_worlds/Media/models/kitchen_plank.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.118 0.02" />
+      <geometry>
+        <box size="0.31 1.79 0.04" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_planck_link" type="fixed">
+    <origin xyz="-1.8 -0.64 1.40" rpy="0 0 0" />
+    <parent link="kitchen_link" />
+    <child link="planck_link" />
+  </joint>
+
+  <gazebo reference="kitchen_link">
+    <static>true</static>
+  </gazebo>
+  <gazebo reference="kitchen_left">
+    <static>true</static>
+  </gazebo>
+  <gazebo reference="kitchen_middle">
+    <static>true</static>
+  </gazebo>
+  <gazebo reference="kitchen_right">
+    <static>true</static>
+  </gazebo>
+  <gazebo reference="planck_link">
+    <static>true</static>
+  </gazebo>
+</robot>
