@@ -18,7 +18,7 @@
   </gazebo>
 
   <xacro:shell name="shell" parent="base_linkz">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="${shell_x} ${shell_y} ${shell_z}" rpy="${shell_roll} ${shell_pitch} ${shell_yaw}"/>
   </xacro:shell>
 
   <hokuyo name="hokuyo" parent="base_linkz">

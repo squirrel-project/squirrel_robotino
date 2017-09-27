@@ -20,12 +20,20 @@
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="-0.015"/>
 
-  <!-- kinect mount positions | handeye calibration | relative to pan_tilt_link -->
+  <!-- kinect mount positions | camera base calibration | relative to neck_tilt_link -->
   <property name="kinect_x" value="0.0"/>
   <property name="kinect_y" value="0.0"/>
   <property name="kinect_z" value="0.0"/>
   <property name="kinect_roll" value="-1.57"/>
   <property name="kinect_pitch" value="0"/>
   <property name="kinect_yaw" value="0"/>
+
+  <!-- base_neck_link mount positions | camera base calibration | relative to base_link -->
+  <property name="shell_x" value="0.0"/>
+  <property name="shell_y" value="0.0"/>
+  <property name="shell_z" value="0.0"/>
+  <property name="shell_roll" value="0.0"/>
+  <property name="shell_pitch" value="0.0"/>
+  <property name="shell_yaw" value="0.0"/>
 
 </robot>
