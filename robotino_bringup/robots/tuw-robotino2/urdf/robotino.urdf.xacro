@@ -4,10 +4,9 @@
   
   <xacro:include filename="$(find robotino_bringup)/robots/tuw-robotino2/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/base_shell.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/shell.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/pan_tilt_tuw_axis.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/arm.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
 
@@ -20,8 +19,8 @@
     </plugin>
   </gazebo>
 
-  <xacro:shell name="base_shell" parent="base_link">
-    <origin xyz="0 0 ${hokuyo_z-0.13}" rpy="0 0 0"/>
+  <xacro:shell name="shell" parent="base_linkz">
+    <origin xyz="${shell_x} ${shell_y} ${shell_z}" rpy="${shell_roll} ${shell_pitch} ${shell_yaw}"/>
   </xacro:shell>
 
   <hokuyo name="hokuyo" parent="base_linkz">
@@ -50,19 +49,8 @@
     </plugin>
   </gazebo>
 
-  <pan_tilt_axis parent="base_linkz">
-    <origin xyz="${pan_tilt_x} ${pan_tilt_y} ${pan_tilt_z}" rpy="${pan_tilt_roll} ${pan_tilt_pitch} ${pan_tilt_yaw}"/>
-  </pan_tilt_axis>
-
-  <kinect name="kinect" parent="tilt_link">
+  <kinect name="kinect" parent="neck_tilt_link">
     <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
   </kinect>
-
-  <gazebo>
-    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
-      <robotNamespace>pan_tilt_controller</robotNamespace>
-      <filterJointsParam>joint_names</filterJointsParam>
-    </plugin>
-  </gazebo>
 
 </robot>
