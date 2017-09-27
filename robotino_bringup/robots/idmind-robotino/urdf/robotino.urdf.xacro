@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="robot">
+  
+  <xacro:include filename="$(find robotino_bringup)/robots/idmind-robotino/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/shell.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
+  <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
+
+  <xacro:base name="base"/>
+
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>base_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
+  <xacro:shell name="shell" parent="base_linkz">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:shell>
+
+  <hokuyo name="hokuyo" parent="base_linkz">
+    <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
+  </hokuyo>
+
+  <kinect name="kinect" parent="neck_tilt_link">
+    <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
+  </kinect>
+
+</robot>
