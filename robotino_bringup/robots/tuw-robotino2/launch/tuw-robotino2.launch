@@ -8,7 +8,9 @@
   <arg name="use_velocity_controller" value="false" />
   <arg name="hostname_scrat" default="scrat"/>
   <arg name="hostname_robotino" default="robotino"/>
+  <arg name="hostname_raspberrypi" default="raspberrypi"/>
   <arg name="env-script" default="$(find robotino_bringup)/env.sh"/>
+  <arg name="env-script-rasp" default="$(find robotino_bringup)/env_rasp.sh"/>
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
@@ -97,6 +99,18 @@
     <node name="board" pkg="squirrel_interaction" type="board.py" />
 
   </group>
+
+  <group>
+    <machine name="raspberrypi" address="$(arg hostname_raspberrypi)" env-loader="$(arg env-script-rasp)" default="true" timeout="30"/>
+
+    <!-- SCREEN -->
+    <node name="screen" pkg="squirrel_interaction" type="raspberry_screen_server.py" />
+
+    <!-- SOUND -->
+    <node name="speakers" pkg="squirrel_interaction" type="playsound.py" />
+
+  </group>
+
 
   <machine name="robotino" address="$(arg hostname_robotino)" env-loader="$(arg env-script)" default="true" timeout="30"/>
 
