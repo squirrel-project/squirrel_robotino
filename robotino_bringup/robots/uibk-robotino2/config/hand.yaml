@@ -10,11 +10,23 @@
 # max_current: maximum allowed sustained current in mA
 # max_peak_current: maximum allowed peak current in mA
 
+# This is for UIBK hand 27 sep 2017, Jie Sun
+
+hand_controller_device_name: "EPOS2"
+hand_controller_protocol_stack_name: "MAXON SERIAL V2"
+hand_controller_interface_name: "USB"
+hand_controller_port_name:  "USB0"
+hand_controller_baudrate: 1000000
+
+# Hand configurations 
+
 joint_0:
   node_id: 1  
   name: "hand_right_crank_base_joint"
-  sensor_calibration: 761.0
-  sensor_direction:   -1
+  sensor_calibration: 787.0
+  sensor_direction:    -1
+  sensor_range_min:    -75
+  sensor_range_max:    90
   motor_direction:    -1
   max_velocity:       300
   max_current:        300
@@ -23,8 +35,10 @@ joint_0:
 joint_1:
   node_id: 3  
   name: "hand_left_crank_base_joint"
-  sensor_calibration: 789.0
+  sensor_calibration: 768.0
   sensor_direction:    1
+  sensor_range_min:    -75
+  sensor_range_max:    90
   motor_direction:     1
   max_velocity:       300
   max_current:        300
@@ -33,7 +47,9 @@ joint_1:
 joint_2:
   node_id: 5  
   name: "hand_right_finger_lower_joint"
-  sensor_calibration: 486.0
+  sensor_calibration: 523.0
+  sensor_range_min:    -90
+  sensor_range_max:    90
   sensor_direction:    1
   motor_direction:    -1
   max_velocity:       1000
@@ -43,18 +59,22 @@ joint_2:
 joint_3:
   node_id: 7  
   name: "hand_middle_finger_lower_joint"
-  sensor_calibration: 530.0
-  sensor_direction:   -1
-  motor_direction:    -1
+  sensor_calibration: 511.0
+  sensor_direction:    1
+  sensor_range_min:    -90
+  sensor_range_max:    90
+  motor_direction:     1
   max_velocity:       1000
   max_current:        300
   max_peak_current:   500
 
 joint_4:
   node_id: 9  
-  name: "hand_left_finger_lower_joint:"
-  sensor_calibration: 508.0
-  sensor_direction:   -1
+  name: "hand_left_finger_lower_joint"
+  sensor_calibration: 491.0
+  sensor_direction:    -1
+  sensor_range_min:    -90
+  sensor_range_max:    90
   motor_direction:     1
   max_velocity:       1000
   max_current:        300
