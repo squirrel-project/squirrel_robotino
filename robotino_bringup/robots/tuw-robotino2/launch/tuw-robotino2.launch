@@ -10,7 +10,7 @@
   <arg name="hostname_robotino" default="robotino"/>
   <arg name="hostname_raspberrypi" default="raspberrypi"/>
   <arg name="env-script" default="$(find robotino_bringup)/env.sh"/>
-  <arg name="env-script-rasp" default="$(find robotino_bringup)/env_rasp.sh"/>
+  <arg name="env-script-rasp" default="/home/pi/catkin_ws/src/squirrel_interaction/env_rasp.sh"/>
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
@@ -63,8 +63,9 @@
 
     <!-- ARM -->
     <group ns="arm_controller">
+      <remap from="robot_description" to="/robot_description" />
       <include file="$(find robotino_bringup)/launch/arm.launch" />
-      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
     </group>
 
     <!-- HAND -->
@@ -101,13 +102,11 @@
   </group>
 
   <group>
-    <machine name="raspberrypi" address="$(arg hostname_raspberrypi)" env-loader="$(arg env-script-rasp)" default="true" timeout="30"/>
+    <machine name="raspberrypi" address="$(arg hostname_raspberrypi)" env-loader="$(arg env-script-rasp)" default="true" user="pi" timeout="30"/>
 
-    <!-- SCREEN -->
-    <node name="screen" pkg="squirrel_interaction" type="raspberry_screen_server.py" />
-
-    <!-- SOUND -->
-    <node name="speakers" pkg="squirrel_interaction" type="playsound.py" />
+    <node name="screen" pkg="squirrel_interaction" type="raspberry_screen_server.py" output="screen" />
+    <node name="speakers" pkg="squirrel_interaction" type="play_sound.py" output="screen" />
+    <node name="mouth" pkg="squirrel_interaction" type="mouth_speak.py" output="screen" />
 
   </group>
 
