@@ -38,6 +38,7 @@
   <run_depend>rosserial_python</run_depend>
   <run_depend>kclhand_control</run_depend>
   <run_depend>squirrel_control</run_depend>
+  <run_depend>squirrel_safety</run_depend>
   <run_depend>softhand_description</run_depend>
 
   <export>
