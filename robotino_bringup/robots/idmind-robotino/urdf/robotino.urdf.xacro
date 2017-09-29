@@ -2,13 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="robot">
   
-  <xacro:include filename="$(find robotino_bringup)/robots/tuw-robotino2/urdf/properties.urdf.xacro" />
+  <xacro:include filename="$(find robotino_bringup)/robots/idmind-robotino/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/shell.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/kinect.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/arm.urdf.xacro" />
-  <xacro:include filename="$(find robotino_description)/urdf/kclhand_withCableCanal.urdf.xacro" />
 
   <xacro:base name="base"/>
 
@@ -26,28 +24,6 @@
   <hokuyo name="hokuyo" parent="base_linkz">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>
-
-  <xacro:arm name="arm_" parent="base_linkz">
-    <origin xyz="${arm_x} ${arm_y} ${arm_z}" rpy="${arm_roll} ${arm_pitch} ${arm_yaw}"/>
-  </xacro:arm>
-
-  <gazebo>
-    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
-      <robotNamespace>arm_controller</robotNamespace>
-      <filterJointsParam>joint_names</filterJointsParam>
-    </plugin>
-  </gazebo>
-
-  <xacro:kclhand name="hand" parent="arm_link5">
-    <origin xyz="0 0 0" rpy="1.5707963 0 0" />
-  </xacro:kclhand>
-
-  <gazebo>
-    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
-      <robotNamespace>hand_controller</robotNamespace>
-      <filterJointsParam>joint_names</filterJointsParam>
-    </plugin>
-  </gazebo>
 
   <kinect name="kinect" parent="neck_tilt_link">
     <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
