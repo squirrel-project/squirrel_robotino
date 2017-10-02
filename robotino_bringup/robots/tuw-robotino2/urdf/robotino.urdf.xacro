@@ -23,6 +23,13 @@
     <origin xyz="${shell_x} ${shell_y} ${shell_z}" rpy="${shell_roll} ${shell_pitch} ${shell_yaw}"/>
   </xacro:shell>
 
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>shell_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+
   <hokuyo name="hokuyo" parent="base_linkz">
     <origin xyz="${hokuyo_x} ${hokuyo_y} ${hokuyo_z}" rpy="${hokuyo_roll} ${hokuyo_pitch} ${hokuyo_yaw}"/>
   </hokuyo>

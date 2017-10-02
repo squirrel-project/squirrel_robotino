@@ -2,7 +2,7 @@
 <launch>
 
   <arg name="paused" default="false"/>
-  <arg name="robot" default="tuw-robotino2"/>
+  <arg name="robot" default="idmind-robotino"/>
 
   <!-- send cob urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
@@ -18,10 +18,6 @@
   <include file="$(find robotino_controller_configuration_gazebo)/launch/joint_state_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" />
-
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/arm_controller.launch" />
-
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/hand_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/shell_controller.launch" />
 

@@ -1,0 +1,27 @@
+#all
+joint_names: [neck_pan_joint, neck_tilt_joint, head_joint, door_joint]
+
+## control_mode_adapter
+max_command_silence: 0.5
+
+## joint_state_controller
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+neck_pan_controller:
+  type: position_controllers/JointPositionController
+  joint: neck_pan_joint
+  required_drive_mode: 1
+neck_tilt_controller:
+  type: position_controllers/JointPositionController
+  joint: neck_tilt_joint
+  required_drive_mode: 1
+door_controller:
+  type: position_controllers/JointPositionController
+  joint: door_joint
+  required_drive_mode: 1
+head_controller:
+  type: position_controllers/JointPositionController
+  joint: head_joint
+  required_drive_mode: 1
