@@ -106,8 +106,8 @@ install(DIRECTORY include/${PROJECT_NAME}
   PATTERN ".git" EXCLUDE
 )
 
-install(PROGRAMS scripts/door_controller.py scripts/hand_controller.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts
+install(PROGRAMS src/door_controller.py src/hand_controller.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/src
 )
 
 install(TARGETS 
