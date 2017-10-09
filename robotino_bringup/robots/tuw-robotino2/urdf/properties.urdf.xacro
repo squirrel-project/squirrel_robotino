@@ -18,12 +18,12 @@
   <!-- hokuyo mount positions | relative to base_link -->
   <property name="hokuyo_x" value="0.184"/>
   <property name="hokuyo_y" value="0.004"/>
-  <property name="hokuyo_z" value="0.16"/>
+  <property name="hokuyo_z" value="0.1"/>
   <property name="hokuyo_roll" value="0.0"/>
   <property name="hokuyo_pitch" value="0.0"/>
   <property name="hokuyo_yaw" value="-0.015"/>
 
-  <!-- base_neck_link mount positions | camera base calibration | relative to base_link -->
+  <!-- shell mount positions | relative to base_link -->
   <property name="shell_x" value="0.0"/>
   <property name="shell_y" value="0.0"/>
   <property name="shell_z" value="0.0"/>
@@ -31,13 +31,21 @@
   <property name="shell_pitch" value="0.0"/>
   <property name="shell_yaw" value="0.0"/>
 
+  <!-- base_neck_link mount positions | camera base calibration | relative to base_link -->
+  <property name="base_neck_x" value="0.0"/>
+  <property name="base_neck_y" value="0.0"/>
+  <property name="base_neck_z" value="0.676"/>
+  <property name="base_neck_roll" value="0.0"/>
+  <property name="base_neck_pitch" value="0.0"/>
+  <property name="base_neck_yaw" value="0.0"/>
+
   <!-- kinect mount positions | camera base calibration | relative to neck_tilt_link -->
   <property name="kinect_x" value="0.0"/>
   <property name="kinect_y" value="0.0"/>
   <property name="kinect_z" value="0.0"/>
   <property name="kinect_roll" value="-1.57"/>
-  <property name="kinect_pitch" value="0"/>
-  <property name="kinect_yaw" value="0"/>
+  <property name="kinect_pitch" value="0.0"/>
+  <property name="kinect_yaw" value="0.0"/>
 
   <!-- arm mount positions | handeye calibration | relative to base_link -->
   <property name="arm_x" value="0.0"/>

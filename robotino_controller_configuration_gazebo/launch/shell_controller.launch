@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>	
+
+    <group ns="shell_controller">
+      <!-- Shell Control -->
+      <rosparam file="$(find robotino_controller_configuration_gazebo)/controller/shell_controller.yaml" command="load"/>
+
+      <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" respawn="true"/>
+
+      <node name="shell_controller_spawner" pkg="controller_manager" type="spawner" respawn="true" output="screen"  args="neck_pan_controller neck_tilt_controller head_controller door_controller"/>
+
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>   
+
+      <node name="door_controller" pkg="robotino_controller_configuration_gazebo" type="door_controller.py" cwd="node" respawn="true" output="screen"/>  
+      <!--node name="command_mux_neck_tilt" pkg="topic_tools" type="mux" args="neck_tilt_joint_position_controller/command /neck_tilt_controller/joint_group_position_controller/command" cwd="node" respawn="true" output="screen"/>
+      <node name="command_mux_neck_pan" pkg="topic_tools" type="mux" args="neck_pan_joint_position_controller/command /neck_pan_controller/joint_group_position_controller/command" cwd="node" respawn="true" output="screen"/>
+      <node name="command_mux_door" pkg="topic_tools" type="mux" args="door_joint_position_controller/command /door_controller/joint_position_controller/command" cwd="node" respawn="true" output="screen"/>
+      <node name="command_mux_head" pkg="topic_tools" type="mux" args="head_joint_position_controller/command /head_controller/joint_position_controller/command" cwd="node" respawn="true" output="screen"/-->
+    </group>
+
+</launch>

@@ -97,8 +97,9 @@
     </include>
 
     <!-- BOARD: NECK, HEAD, DOOR -->
-    <node name="board" pkg="squirrel_interaction" type="board.py" />
-
+    <group ns="shell_controller">
+      <node name="board" pkg="squirrel_interaction" type="board.py" />
+    </group>
   </group>
 
   <group>
