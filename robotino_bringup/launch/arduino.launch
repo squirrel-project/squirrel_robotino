@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-<arg name="port" default="/dev/ttyACM2"/>
+<arg name="port" default="/dev/ttyACM0"/>
 
 
 <!-- reads joint sensor vales from the Arduino board -->
