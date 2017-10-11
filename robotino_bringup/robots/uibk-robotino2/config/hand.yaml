@@ -22,7 +22,7 @@ hand_grasping_current: 200
 
 lower_workspace_open_conf:    [-45.0, -45.0,   0.0, -20.0,   0.0]
 lower_workspace_close_conf:   [-45.0, -45.0,  50.0,   0.0,  50.0]  
-upper_workspace_open_conf:    [ 40.0,  40.0, -50.0, -20.0, -50.0]
+upper_workspace_open_conf:    [ 30.0,  30.0, -60.0, -20.0, -60.0]
 upper_workspace_close_conf:   [ 40.0,  40.0,   0.0,  30.0,   0.0]
 
 lower_to_upper_workspace_seq: [-60.0, -60.0, -50.0, -20.0, -50.0,
