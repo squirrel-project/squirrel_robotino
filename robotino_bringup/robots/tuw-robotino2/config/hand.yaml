@@ -19,9 +19,11 @@ hand_controller_interface_name: "USB"
 hand_controller_port_name:  "USB0"
 hand_controller_baudrate: 1000000
 
+hand_grasping_current: 200
+
 lower_workspace_open_conf:    [-45.0, -45.0,   0.0, -20.0,   0.0]
 lower_workspace_close_conf:   [-45.0, -45.0,  50.0,   0.0,  50.0]  
-upper_workspace_open_conf:    [ 40.0,  40,0, -50.0, -20.0, -50.0]
+upper_workspace_open_conf:    [ 40.0,  40.0, -50.0, -20.0, -50.0]
 upper_workspace_close_conf:   [ 40.0,  40.0,   0.0,  30.0,   0.0]
 
 lower_to_upper_workspace_seq: [-60.0, -60.0, -50.0, -20.0, -50.0,
@@ -42,6 +44,7 @@ joint_0:
   sensor_range_min:    -75
   sensor_range_max:    90
   motor_direction:    -1
+  moving_velocity:    300
   max_velocity:       300
   max_current:        300
   max_peak_current:   500
@@ -54,6 +57,7 @@ joint_1:
   sensor_range_min:    -75
   sensor_range_max:    90
   motor_direction:     1
+  moving_velocity:    300
   max_velocity:       300
   max_current:        300
   max_peak_current:   500
@@ -66,6 +70,7 @@ joint_2:
   sensor_range_max:    90
   sensor_direction:    1
   motor_direction:    -1
+  moving_velocity:    300
   max_velocity:       1000
   max_current:        300
   max_peak_current:   500
@@ -78,6 +83,7 @@ joint_3:
   sensor_range_min:    -90
   sensor_range_max:    90
   motor_direction:     1
+  moving_velocity:    300
   max_velocity:       1000
   max_current:        300
   max_peak_current:   500
@@ -90,6 +96,7 @@ joint_4:
   sensor_range_min:    -90
   sensor_range_max:    90
   motor_direction:     1
+  moving_velocity:    300
   max_velocity:       1000
   max_current:        300
   max_peak_current:   500

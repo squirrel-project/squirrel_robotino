@@ -2,7 +2,7 @@
 <launch>
 
 <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
-<arg name="port" default="/dev/ttyACM0"/>
+<arg name="port" default="/dev/ttyHand"/>
 
 <rosparam command= "load" file="$(find robotino_bringup)/robots/$(arg robot)/config/hand.yaml" />
 <!--rosparam command= "load" file="$(find robotino_bringup)/config/hand_config_param.yaml" /-->
