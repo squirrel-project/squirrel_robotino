@@ -2,11 +2,11 @@
 <launch>
 
   <arg name="paused" default="false"/>
-  <arg name="robot" default="tuw-robotino"/>
+  <arg name="robot" default="idmind-robotino"/>
 
   <!-- send cob urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
-  
+
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
 
@@ -19,7 +19,7 @@
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" />
 
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/pan_tilt_controller.launch" />
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/shell_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/kinect_controller.launch" />
 

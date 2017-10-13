@@ -1,3 +1,9 @@
+kitchen:
+  model: kitchen
+  model_type: urdf
+  position: [ 0, 0, 0.1]
+  orientation: [0, 0, 0]
+
 ##################################
 #Food
 ##################################

@@ -1,5 +1,5 @@
 #all
-joint_names: [wheel0_joint, wheel1_joint, wheel2_joint, base_jointx, base_jointy, base_jointz]
+joint_names: [wheel0_joint, wheel1_joint, wheel2_joint, origin_joint, base_jointx, base_jointy, base_jointz]
 
 ## control_mode_adapter
 max_command_silence: 0.5

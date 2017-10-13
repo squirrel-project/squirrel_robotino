@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+    <rosparam file="$(find robotino_bringup)/config/arm_controller.yaml" command="load"/>
+
+    <node name="squirrel_control_node" pkg="squirrel_control" type="squirrel_hw_main" output="screen" respawn="true">
+      <!--remap from="/cmd_rotatory" to="/cmd_vel"/-->
+    </node>
+
+    <!-- Load controller manager -->
+    <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+      output="screen" args="spawn joint_state_controller joint_trajectory_controller" />
+
+    <node name="squirrel_safety_node" pkg="squirrel_safety" type="squirrel_safety_node.py" output="screen" respawn="true">
+      <param name="airskin_topic" value="/airskin/arm_bumper" type="string"/>
+      <param name="bumper_topic" value="/bumper" type="string"/>
+      <param name="wrist_topic" value="/wrist/wrist_bumper" type="string"/>
+    </node>
+
+</launch>

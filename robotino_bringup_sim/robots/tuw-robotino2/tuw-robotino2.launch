@@ -17,15 +17,13 @@
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/joint_state_controller.launch" />
 
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" >
-    <arg name="has_8dof" value="false" />
-  </include>
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/base_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/arm_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/hand_controller.launch" />
 
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/pan_tilt_controller.launch" />
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/shell_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/kinect_controller.launch" />
 

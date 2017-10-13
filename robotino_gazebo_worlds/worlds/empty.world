@@ -43,12 +43,12 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>5 5</size>
+              <size>30 30</size>
             </plane>
           </geometry>
           <material>
             <script>
-              <name>Gazebo/FlatBlack</name>
+              <name>Gazebo/White</name>
             </script>
           </material>
         </visual>
@@ -56,7 +56,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>16 16</size>
+              <size>30 30</size>
             </plane>
           </geometry>
           <surface>
