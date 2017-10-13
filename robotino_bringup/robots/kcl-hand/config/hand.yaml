@@ -1,5 +1,5 @@
 ---
-# Innsbruck hand config parameters 
+# KCL-hand config parameters 
 #
 # node_id: The EPOS node id for that motor on the CAN bus, is 2*num + 1
 # name: name of the joint in the robot description
