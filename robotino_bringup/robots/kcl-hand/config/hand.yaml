@@ -1,5 +1,5 @@
 ---
-# KCL/Freiburg hand config parameters 
+# Innsbruck hand config parameters 
 #
 # node_id: The EPOS node id for that motor on the CAN bus, is 2*num + 1
 # name: name of the joint in the robot description
@@ -10,8 +10,7 @@
 # max_current: maximum allowed sustained current in mA
 # max_peak_current: maximum allowed peak current in mA
 
-# Hand controller (Maxon epos 2) configuration
-# This hans is changed to vienna hand 27 sep 2017, Jie Sun
+# This is for KCL hand 27 sep 2017, Jie Sun
 
 hand_controller_device_name: "EPOS2"
 hand_controller_protocol_stack_name: "MAXON SERIAL V2"
@@ -19,6 +18,22 @@ hand_controller_interface_name: "USB"
 hand_controller_port_name:  "USB0"
 hand_controller_baudrate: 1000000
 
+hand_grasping_current: 250
+
+lower_workspace_open_conf:    [-45.0, -45.0,   0.0, -20.0,   0.0]
+lower_workspace_close_conf:   [-45.0, -45.0,  50.0,   0.0,  50.0]  
+
+upper_workspace_open_conf:    [ 40.0,  40.0, -60.0, -20.0, -60.0]
+upper_workspace_close_conf:   [ 30.0,  30.0, -25.0,  20.0, -25.0]
+
+lower_to_upper_workspace_seq: [-60.0, -60.0, -50.0, -20.0, -50.0,
+                               -60.0,  -15.0, -50.0, -20.0, -50.0,
+                                68.0,  -15.0, -50.0, -20.0, -50.0,
+                                40.0,  40.0, -50.0, -20.0, -50.0]
+
+upper_to_lower_workspace_seq: [ 22.0,   8.0, -50.0, -20.0, -50.0,
+                                35.0, -66.0, -50.0, -20.0, -50.0,
+                               -60.0, -60.0,   0.0, -20.0,   0.0]
 # Hand configurations 
 
 joint_0:
@@ -29,6 +44,7 @@ joint_0:
   sensor_range_min:    -75
   sensor_range_max:    90
   motor_direction:    -1
+  moving_velocity:    300
   max_velocity:       300
   max_current:        300
   max_peak_current:   500
@@ -41,6 +57,7 @@ joint_1:
   sensor_range_min:    -75
   sensor_range_max:    90
   motor_direction:     1
+  moving_velocity:    300
   max_velocity:       300
   max_current:        300
   max_peak_current:   500
@@ -48,11 +65,12 @@ joint_1:
 joint_2:
   node_id: 5  
   name: "hand_right_finger_lower_joint"
-  sensor_calibration: 513.0
+  sensor_calibration: 523.0
   sensor_range_min:    -90
   sensor_range_max:    90
   sensor_direction:    1
   motor_direction:    -1
+  moving_velocity:    500
   max_velocity:       1000
   max_current:        300
   max_peak_current:   500
@@ -60,11 +78,12 @@ joint_2:
 joint_3:
   node_id: 7  
   name: "hand_middle_finger_lower_joint"
-  sensor_calibration: 508.0
-  sensor_direction:    -1
+  sensor_calibration: 511.0
+  sensor_direction:    1
   sensor_range_min:    -90
   sensor_range_max:    90
   motor_direction:     1
+  moving_velocity:    500
   max_velocity:       1000
   max_current:        300
   max_peak_current:   500
@@ -72,11 +91,12 @@ joint_3:
 joint_4:
   node_id: 9  
   name: "hand_left_finger_lower_joint"
-  sensor_calibration: 499.0
+  sensor_calibration: 491.0
   sensor_direction:    -1
   sensor_range_min:    -90
   sensor_range_max:    90
   motor_direction:     1
+  moving_velocity:    500
   max_velocity:       1000
   max_current:        300
   max_peak_current:   500

@@ -18,19 +18,21 @@ hand_controller_interface_name: "USB"
 hand_controller_port_name:  "USB0"
 hand_controller_baudrate: 1000000
 
-hand_grasping_current: 200
+hand_grasping_current: 250
 
 lower_workspace_open_conf:    [-45.0, -45.0,   0.0, -20.0,   0.0]
 lower_workspace_close_conf:   [-45.0, -45.0,  50.0,   0.0,  50.0]  
-upper_workspace_open_conf:    [ 30.0,  30.0, -60.0, -20.0, -60.0]
-upper_workspace_close_conf:   [ 40.0,  40.0,   0.0,  30.0,   0.0]
+
+upper_workspace_open_conf:    [ 40.0,  40.0, -60.0, -20.0, -60.0]
+upper_workspace_close_conf:   [ 30.0,  30.0, -25.0,  20.0, -25.0]
 
 lower_to_upper_workspace_seq: [-60.0, -60.0, -50.0, -20.0, -50.0,
-                               -30.0,  16.0, -50.0, -20.0, -50.0,
+                               -60.0,  -15.0, -50.0, -20.0, -50.0,
+                                68.0,  -15.0, -50.0, -20.0, -50.0,
                                 40.0,  40.0, -50.0, -20.0, -50.0]
 
 upper_to_lower_workspace_seq: [ 22.0,   8.0, -50.0, -20.0, -50.0,
-                                18.0, -66.0, -50.0, -20.0, -50.0,
+                                35.0, -66.0, -50.0, -20.0, -50.0,
                                -60.0, -60.0,   0.0, -20.0,   0.0]
 # Hand configurations 
 
