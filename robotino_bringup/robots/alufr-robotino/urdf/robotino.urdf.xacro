@@ -32,5 +32,16 @@
       <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
+
+  <xacro:tilt_axis name="tilt" parent="base_linkz">
+    <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/>
+  </xacro:tilt_axis>
+
+  <gazebo>
+    <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>tilt_controller</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
   
 </robot>
