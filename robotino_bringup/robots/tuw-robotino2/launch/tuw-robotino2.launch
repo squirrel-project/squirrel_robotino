@@ -4,8 +4,6 @@
   <arg name="robot" default="tuw-robotino2"/>
   <arg name="use_robotino_safety" value="true" />
   <arg name="hostname" default="127.0.1.1" />
-  <param name="use_sim_time" value="false" />
-  <arg name="use_velocity_controller" value="false" />
   <arg name="hostname_scrat" default="scrat"/>
   <arg name="hostname_robotino" default="robotino"/>
   <arg name="hostname_raspberrypi" default="raspberrypi"/>
@@ -20,7 +18,6 @@
   </node>
 
   <group>
-
     <machine name="robotino" address="$(arg hostname_robotino)" env-loader="$(arg env-script)" default="true" timeout="30"/>
 
       <!-- BASE -->
@@ -49,7 +46,7 @@
         <arg name="robot" value="$(arg robot)" />
     </include>
 
-      <!-- SKIN -->
+    <!-- SKIN -->
     <include file="$(find airskin)/launch/startup.launch">
       <arg name="device" value="/dev/ttyAirskin" />
     </include>
@@ -100,6 +97,7 @@
     <group ns="shell_controller">
       <node name="board" pkg="squirrel_interaction" type="board.py" />
     </group>
+
   </group>
 
   <group>
@@ -110,7 +108,6 @@
     <node name="mouth" pkg="squirrel_interaction" type="mouth_speak.py" output="screen" />
 
   </group>
-
 
   <machine name="robotino" address="$(arg hostname_robotino)" env-loader="$(arg env-script)" default="true" timeout="30"/>
 

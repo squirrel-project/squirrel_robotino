@@ -5,10 +5,28 @@
   <arg name="use_robotino_safety" value="true" />
   <arg name="hostname" default="127.0.1.1" />
   <param name="use_sim_time" value="false" />
+  <param name="sh_hand" value="true" />
 
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
+  <group if="$(arg sh_hand)">
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino-sh.urdf.xacro'" />
+    <!-- SoftHand controller -->
+    <include file="$(find squirrel_softhand)/launch/squirrel_softhand.launch" />
+  </group>
+
+  <group unless="$(arg sh_hand)">
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
+    <group ns="hand_controller">
+      <remap from="robot_description" to="/robot_description" />
+      <include file="$(find robotino_bringup)/launch/kclhand.launch" >
+        <arg name="robot" value="$(arg robot)" />
+        <arg name="port" value="/dev/ttyHand"/>
+      </include>
+      <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
+    </group>
+  </group>
+
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
     <param name="publish_frequency" type="double" value="50.0" />
   </node>
@@ -72,15 +90,6 @@
   <group ns="arm_controller">
     <include file="$(find robotino_bringup)/launch/arm.launch" />
     <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_control/get_state /joint_states" cwd="node" respawn="true" output="screen"/>
-  </group>
-
-  <group ns="hand_controller">
-    <remap from="robot_description" to="/robot_description" />
-    <include file="$(find robotino_bringup)/launch/kclhand.launch" >
-      <arg name="robot" value="$(arg robot)" />
-      <arg name="port" value="/dev/ttyHand"/>
-    </include>
-    <node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>  
   </group>
 
   <include file="$(find robotino_bringup)/launch/twist_mux.launch" >
