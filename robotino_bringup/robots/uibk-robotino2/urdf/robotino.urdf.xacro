@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
   name="robot">
-  
+
   <xacro:include filename="$(find robotino_bringup)/robots/uibk-robotino2/urdf/properties.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/base.urdf.xacro" />
   <xacro:include filename="$(find robotino_description)/urdf/hokuyo.urdf.xacro" />
