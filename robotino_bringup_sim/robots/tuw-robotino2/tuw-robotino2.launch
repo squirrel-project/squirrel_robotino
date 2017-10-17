@@ -8,7 +8,8 @@
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino.urdf.xacro'" />
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1 -J arm_joint1 2" respawn="false" output="screen" />
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1 -J arm_joint1 0.2 -J
+arm_joint2 2.6 -J arm_joint3 -0.06 -J arm_joint4 2.4 -J arm_joint5 -1.18" respawn="false" output="screen" />
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
     <param name="publish_frequency" type="double" value="50.0" />
