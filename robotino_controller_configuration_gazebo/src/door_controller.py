@@ -1,22 +1,23 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import Float64
-from squirrel_interaction.srv import DoorController
+from squirrel_interaction.srv import *
 
-def move_door(req):
-  pub = rospy.Publisher('door_controller/command', Float64, queue_size=10)
-  if req.message == 'open':
-    pub.publish(1.7)
-    return True
-  elif req.message == 'close':
-    pub.publish(0)
-    return True
-  return False
+class door_controller():
 
-def door_contoller():
-    rospy.init_node('door_contoller_server')
-    s = rospy.Service('door_controller/command', DoorController, move_door)
-    rospy.spin()
+  def __init__(self):
+      rospy.init_node('door_contoller_server')
+      s = rospy.Service('door_controller/command', DoorController, self.move_door)
+      self.pub = rospy.Publisher('door_controller/command', Float64, queue_size=10)
+      rospy.spin()
+
+  def move_door(self,req):
+    if req.message == 'open':
+      self.pub.publish(1.7)
+      return True
+    elif req.message == 'close':
+      self.pub.publish(0)
+      return True
 
 if __name__ == "__main__":
-    door_contoller()
+    door_controller()
