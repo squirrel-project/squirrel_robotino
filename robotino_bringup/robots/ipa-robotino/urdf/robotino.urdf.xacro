@@ -25,7 +25,7 @@
     <origin xyz="${tilt_x} ${tilt_y} ${tilt_z}" rpy="${tilt_roll} ${tilt_pitch} ${tilt_yaw}"/>
   </tilt_axis>
 
-  <kinect name="kinect" parent="tilt_linkz">
+  <kinect name="kinect" parent="tilt_link">
     <origin xyz="${kinect_x} ${kinect_y} ${kinect_z}" rpy="${kinect_roll} ${kinect_pitch} ${kinect_yaw}"/>
   </kinect>
 
