@@ -1,5 +1,5 @@
 ## joint_names
-joint_names: [base_jointx, base_jointy, base_jointz, arm_joint1, arm_joint2, arm_joint3, arm_joint4, arm_joint5]
+joint_names: [arm_joint1, arm_joint2, arm_joint3, arm_joint4, arm_joint5]
 
 ## control_mode_adapter
 max_command_silence: 0.5
@@ -10,9 +10,6 @@ squirrel_hw_control_loop:
 
 squirrel_hw_interface:
    joints:
-      - base_jointx
-      - base_jointy
-      - base_jointz
       - arm_joint1
       - arm_joint2
       - arm_joint3
@@ -30,9 +27,6 @@ joint_trajectory_controller:
    type: position_controllers/JointTrajectoryController
    # These joints can likely just be copied from the hardware_interface list above
    joints:
-      - base_jointx
-      - base_jointy
-      - base_jointz
       - arm_joint1
       - arm_joint2
       - arm_joint3

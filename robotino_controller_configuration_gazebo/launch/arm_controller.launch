@@ -12,9 +12,11 @@
 		</node>
 
 		<node name="joint_states_relay" pkg="topic_tools" type="relay" args="joint_states /joint_states" cwd="node" respawn="true" output="screen"/>
+		<node name="joint_states_base_relay" pkg="topic_tools" type="relay" args="/base_extra/joint_states joint_states" cwd="node" respawn="true" output="screen"/>
 
 		<node name="arm_to_folded" pkg="rostopic" type="rostopic" args="pub /arm_controller/joint_trajectory_controller/command trajectory_msgs/JointTrajectory '{ header: { seq: 0, stamp: {secs: 0, nsecs: 0}}, joint_names: [base_jointx, base_jointy, base_jointz, arm_joint1, arm_joint2, arm_joint3, arm_joint4, arm_joint5], points: [{positions: [0, 0, 0, 0.2, 2.6, -0.06, 2.4, -2], time_from_start: {secs: 1, nsecs: 0}}]}'" respawn="true" output="screen">
 		</node>
+
 	</group>
 
 </launch>
