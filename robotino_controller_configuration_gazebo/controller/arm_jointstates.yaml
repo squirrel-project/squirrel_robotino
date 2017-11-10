@@ -1,5 +1,5 @@
 ## joint_names
-joint_names: [base_jointx, base_jointy, base_jointz, arm_joint1, arm_joint2, arm_joint3, arm_joint4, arm_joint5]
+joint_names: [arm_joint1, arm_joint2, arm_joint3, arm_joint4, arm_joint5]
 
 ## control_mode_adapter
 max_command_silence: 0.5
