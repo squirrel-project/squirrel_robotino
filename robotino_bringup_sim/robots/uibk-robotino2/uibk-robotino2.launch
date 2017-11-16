@@ -24,7 +24,7 @@ arm_joint2 2.6 -J arm_joint3 -0.06 -J arm_joint4 2.4 -J arm_joint5 -1.18" respaw
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/hand_controller.launch" />
 
-  <include file="$(find robotino_controller_configuration_gazebo)/launch/pan_tilt_controller.launch" />
+  <include file="$(find robotino_controller_configuration_gazebo)/launch/shell_controller.launch" />
 
   <include file="$(find robotino_controller_configuration_gazebo)/launch/kinect_controller.launch" />
 
