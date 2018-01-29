@@ -14,7 +14,7 @@
   <!-- COMMON -->
   <!-- send robot urdf to param server -->
   <group if="$(arg sh_hand)">
-    <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino-sh.urdf.xacro'" />
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find robotino_bringup)/robots/$(arg robot)/urdf/robotino-sh.urdf.xacro' real:=true" />
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
       <param name="publish_frequency" type="double" value="50.0" />
     </node>

@@ -12,6 +12,8 @@
 
   <xacro:base name="base"/>
 
+  <xacro:arg name="real" default="true"/>
+
   <gazebo>
     <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
       <robotNamespace>base_controller</robotNamespace>
@@ -19,7 +21,7 @@
     </plugin>
   </gazebo>
 
-  <xacro:shell name="shell" parent="base_linkz" base_neck_x="${base_neck_x}" base_neck_y="${base_neck_y}" base_neck_z="${base_neck_z}" base_neck_roll="${base_neck_roll}" base_neck_pitch="${base_neck_pitch}" base_neck_yaw="${base_neck_yaw}">
+  <xacro:shell name="shell" parent="base_linkz" base_neck_x="${base_neck_x}" base_neck_y="${base_neck_y}" base_neck_z="${base_neck_z}" base_neck_roll="${base_neck_roll}" base_neck_pitch="${base_neck_pitch}" base_neck_yaw="${base_neck_yaw}" real="$(arg real)">
     <origin xyz="${shell_x} ${shell_y} ${shell_z}" rpy="${shell_roll} ${shell_pitch} ${shell_yaw}"/>
   </xacro:shell>
 
