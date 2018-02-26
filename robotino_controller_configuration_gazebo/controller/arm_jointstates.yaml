@@ -1,0 +1,9 @@
+## joint_names
+joint_names: [arm_joint1, arm_joint2, arm_joint3, arm_joint4, arm_joint5]
+
+## control_mode_adapter
+max_command_silence: 0.5
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50

@@ -21,11 +21,6 @@ squirrel_hw_interface:
    motor_port: /dev/ttyArm
    ignore_base: false
 
-## joint_state_controller
-joint_state_controller:
-   type: joint_state_controller/JointStateController
-   publish_rate: 50
-
 joint_trajectory_controller:
    type: position_controllers/JointTrajectoryController
    # These joints can likely just be copied from the hardware_interface list above
@@ -38,3 +33,4 @@ joint_trajectory_controller:
       - arm_joint3
       - arm_joint4
       - arm_joint5
+
